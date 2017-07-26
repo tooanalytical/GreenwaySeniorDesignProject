@@ -1,7 +1,15 @@
 <<<<<<< HEAD
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
-## How to use this template
+## Welcome to IPFW Senior Design Project - Fort Wayne Trails App 'Year 3'
+
+## Required Technologies
+
+[node.js][node] (MUST INSTALL FIRST)
+
+[Ionic Command-Line Tools - Includes Cordova] npm install -g cordova ionic
+
+[Git][git]
 
 *This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
 

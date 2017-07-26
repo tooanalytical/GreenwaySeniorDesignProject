@@ -1,3 +1,4 @@
+<img src= "https://www.ipfw.edu/dotAsset/cba1dad3-2364-4197-802a-f6eee88e3a9c.png" width="475" height="200"/>
 <img src= "https://connect001.rectrac.com/wbimages/inftwayne/inftwayne/CitySeal-Blue&GoldCMYK.png" width="200" height="200"/>
 
 ## Welcome to IPFW Senior Design Project - Fort Wayne Trails App 'Year 3'

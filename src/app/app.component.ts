@@ -4,7 +4,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ReportPage } from '../pages/Report Problem/report';
+import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
+import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
+import { AchievementsPage } from '../pages/Achievements/achievements';
+import { TrailMapPage } from '../pages/Trail Map/trailMap';
+import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
+import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
+import { AboutPage } from '../pages/About/about';
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +29,14 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Report Problem', component: ReportPage },
+      { title: 'Record Activity', component: RecordActivityPage },
+      { title: 'Activity History', component: ActivityHistoryPage },
+      { title: 'Achievements', component: AchievementsPage },
+      { title: 'Trail Map', component: TrailMapPage },
+      { title: 'Account Statistics', component: AccountStatisticsPage },
+      { title: 'Account Details', component: AccountDetailsPage },
+      { title: 'About', component: AboutPage }
     ];
 
   }

@@ -4,7 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ReportPage } from '../pages/Report Problem/report';
+import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
+import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
+import { AchievementsPage } from '../pages/Achievements/achievements';
+import { TrailMapPage } from '../pages/Trail Map/trailMap';
+import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
+import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
+import { AboutPage } from '../pages/About/about';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,7 +20,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ReportPage,
+    RecordActivityPage,
+    ActivityHistoryPage,
+    AchievementsPage,
+    TrailMapPage,
+    AccountStatisticsPage,
+    AccountDetailsPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -23,7 +37,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ReportPage,
+    RecordActivityPage,
+    ActivityHistoryPage,
+    AchievementsPage,
+    TrailMapPage,
+    AccountStatisticsPage,
+    AccountDetailsPage,
+    AboutPage
   ],
   providers: [
     StatusBar,

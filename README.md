@@ -1,4 +1,4 @@
-![alt text](https://connect001.rectrac.com/wbimages/inftwayne/inftwayne/CitySeal-Blue&GoldCMYK.png)
+![](https://connect001.rectrac.com/wbimages/inftwayne/inftwayne/CitySeal-Blue&GoldCMYK.png = 250x250)
 
 ## Welcome to IPFW Senior Design Project - Fort Wayne Trails App 'Year 3'
 

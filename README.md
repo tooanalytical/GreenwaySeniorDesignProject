@@ -1,6 +1,7 @@
 <img src= "https://www.ipfw.edu/dotAsset/cba1dad3-2364-4197-802a-f6eee88e3a9c.png" width="475" height="200" align="left">
 <img src= "https://connect001.rectrac.com/wbimages/inftwayne/inftwayne/CitySeal-Blue&GoldCMYK.png" width="200" height="200" align="middle"/>
 
+
 ## Welcome to IPFW Senior Design Project - Fort Wayne Trails App 'Year 3'
 
 ### Required Technologies
@@ -35,6 +36,9 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+=======
+
+>>>>>>> 246017f1de6097f1f27ba3710d146b94ce9b8d9e
 =======
 # GreenwaySeniorDesignProject
 >>>>>>> 5c2821675624eba310ea4f26e06ec04930934653

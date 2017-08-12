@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+
 import { MyApp } from './app.component';
+import { LoginPage } from '../pages/Login/login';
+import { CreateAccountPage } from '../pages/Create Account/createAccount';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
@@ -19,6 +22,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
+    CreateAccountPage,
     HomePage,
     ReportPage,
     RecordActivityPage,
@@ -36,6 +41,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
+    CreateAccountPage,
     HomePage,
     ReportPage,
     RecordActivityPage,

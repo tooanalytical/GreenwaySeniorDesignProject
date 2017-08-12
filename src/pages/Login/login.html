@@ -1,0 +1,39 @@
+<ion-header>
+
+</ion-header>
+
+<!-- <p class=top-margin style="text-align:center;"><img src="assets/cityLogo.png" alt="CityLogo" width=200px height=200px></p> -->
+
+<ion-content scroll="false">
+
+
+  <ion-list inset>
+
+    <p class=top-margin style="text-align:center;"><img src="assets/cityLogo.png" alt="CityLogo" width=200px height=200px/>
+
+      <ion-item>
+        <ion-label stacked>Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+  </ion-list>
+
+  <p class="login-margin" style="text-align:center;"><button ion-button round large (click)=loginBypass();>Login</button>
+
+
+
+    <table style="width:100%">
+      <tr>
+        <th>
+          <p class="margin-bottom" style="text-align:left;"><button ion-button clear (click)=createNewAccount();>New User? Sign up!</button></th>
+        <th>
+          <p style="text-align:right;"><button ion-button clear>Forgot Password?</button></th>
+      </tr>
+    </table>
+
+</ion-content>

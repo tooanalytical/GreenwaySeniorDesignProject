@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-list',
+  selector: 'page-recordActivity',
   templateUrl: 'recordActivity.html'
 })
 export class RecordActivityPage {

@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <p style="text-align:right;">
+      <ion-title>Create Account</ion-title>
+      <button ion-button clear>Create</button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-title>Credentials</ion-title>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text" maxlength="20"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Confirm Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+  </div>
+
+  <ion-title>Physical Data</ion-title>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-input type="number" placeholder="height (inches)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="number" placeholder="weight"></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <div>
+      <ion-segment [(ngModel)]="sex">
+        <ion-segment-button value="unknown">
+          <ion-icon name="ios-close-circle-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="male">
+          Male
+        </ion-segment-button>
+        <ion-segment-button value="female">
+          Female
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </div>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Birth Year" maxlength="20"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+
+
+</ion-content>

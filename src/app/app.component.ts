@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/Login/login';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
 import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
@@ -19,24 +20,25 @@ import { AboutPage } from '../pages/About/about';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Report Problem', component: ReportPage },
-      { title: 'Record Activity', component: RecordActivityPage },
-      { title: 'Activity History', component: ActivityHistoryPage },
-      { title: 'Achievements', component: AchievementsPage },
-      { title: 'Trail Map', component: TrailMapPage },
-      { title: 'Account Statistics', component: AccountStatisticsPage },
-      { title: 'Account Details', component: AccountDetailsPage },
-      { title: 'About', component: AboutPage }
+      { title: 'Dashboard', component: HomePage, icon: "ios-apps-outline" },
+      { title: 'Report Problem', component: ReportPage, icon: "ios-warning-outline" },
+      { title: 'Record Activity', component: RecordActivityPage, icon: "ios-walk-outline" },
+      { title: 'Activity History', component: ActivityHistoryPage, icon: "ios-list-box-outline" },
+      { title: 'Achievements', component: AchievementsPage, icon: "ios-star-outline" },
+      { title: 'Trail Map', component: TrailMapPage, icon: "ios-map-outline" },
+      { title: 'Account Statistics', component: AccountStatisticsPage, icon: "ios-stats-outline" },
+      { title: 'Account Details', component: AccountDetailsPage, icon: "ios-contact" },
+      { title: 'About', component: AboutPage, icon: "ios-information-circle-outline" },
+      { title: 'Logout', component: LoginPage, icon: "ios-exit-outline" }
     ];
 
   }

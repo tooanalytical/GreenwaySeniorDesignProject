@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-list',
+  selector: 'page-achievements',
   templateUrl: 'achievements.html'
 })
 export class AchievementsPage {

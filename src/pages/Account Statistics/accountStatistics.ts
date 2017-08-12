@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'page-list',
+  selector: 'page-accountStatistics',
   templateUrl: 'accountStatistics.html'
 })
 export class AccountStatisticsPage {

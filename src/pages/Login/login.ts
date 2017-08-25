@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CreateAccountPage } from '../Create Account/createAccount';
+import { PasswordResetPage } from '../Password Reset/passwordReset';
 
 @Component({
   selector: 'page-login',
@@ -21,6 +22,10 @@ export class LoginPage {
 
     createNewAccount(){
       this.navCtrl.push(CreateAccountPage);
+    }
+
+    resetPassword(){
+      this.navCtrl.push(PasswordResetPage);
     }
 
 }

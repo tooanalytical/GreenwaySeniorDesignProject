@@ -6,6 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
 import { CreateAccountPage } from '../pages/Create Account/createAccount';
+import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
@@ -24,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     LoginPage,
     CreateAccountPage,
+    PasswordResetPage,
     HomePage,
     ReportPage,
     RecordActivityPage,
@@ -43,6 +45,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     LoginPage,
     CreateAccountPage,
+    PasswordResetPage,
     HomePage,
     ReportPage,
     RecordActivityPage,

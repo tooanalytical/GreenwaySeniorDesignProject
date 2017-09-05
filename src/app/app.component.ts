@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { SplashPage } from '../pages/Splash/splash';
 import { LoginPage } from '../pages/Login/login';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
@@ -20,7 +21,7 @@ import { AboutPage } from '../pages/About/about';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = SplashPage;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -38,7 +39,7 @@ export class MyApp {
       { title: 'Account Statistics', component: AccountStatisticsPage, icon: "ios-stats-outline" },
       { title: 'Account Details', component: AccountDetailsPage, icon: "ios-contact" },
       { title: 'About', component: AboutPage, icon: "ios-information-circle-outline" },
-      { title: 'Logout', component: LoginPage, icon: "ios-exit-outline" }
+      { title: 'Logout', component: SplashPage, icon: "ios-exit-outline" }
     ];
 
   }

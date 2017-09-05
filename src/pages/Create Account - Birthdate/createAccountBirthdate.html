@@ -1,0 +1,37 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <button ion-button clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
+
+  <div padding>
+    <p class="title">When is your birthday?
+      <p> You must be at least 13 years old to use the CoFW Trail Network app. Others won't see your birthday.
+  </div>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked class="item-input">BIRTHDATE</ion-label>
+        <ion-datetime class="item-input" displayFormat="MM/DD/YYYY" min="1900-01-01" max="2020-10-31" [(ngModel)]="myDate"></ion-datetime>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div>
+    <button ion-button class="forward-button" clear (click)=createAccountNext();>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
+
+
+
+</ion-content>

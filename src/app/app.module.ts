@@ -4,8 +4,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 
 import { MyApp } from './app.component';
+import { SplashPage } from '../pages/Splash/splash';
 import { LoginPage } from '../pages/Login/login';
-import { CreateAccountPage } from '../pages/Create Account/createAccount';
+import { CreateAccountNamePage } from '../pages/Create Account - Name/createAccountName';
+import { CreateAccountEmailPage } from '../pages/Create Account - Email/createAccountEmail';
+import { CreateAccountPasswordPage } from '../pages/Create Account - Password/createAccountPassword';
+import { CreateAccountBirthdatePage } from '../pages/Create Account - Birthdate/createAccountBirthdate';
+import { CreateAccountPhysicalPage } from '../pages/Create Account - Physical Data/createAccountPhysical';
 import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
@@ -23,8 +28,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
+    SplashPage,
     LoginPage,
-    CreateAccountPage,
+    CreateAccountNamePage,
+    CreateAccountEmailPage,
+    CreateAccountPasswordPage,
+    CreateAccountBirthdatePage,
+    CreateAccountPhysicalPage,
     PasswordResetPage,
     HomePage,
     ReportPage,
@@ -43,8 +53,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    SplashPage,
     LoginPage,
-    CreateAccountPage,
+    CreateAccountNamePage,
+    CreateAccountEmailPage,
+    CreateAccountPasswordPage,
+    CreateAccountBirthdatePage,
+    CreateAccountPhysicalPage,
     PasswordResetPage,
     HomePage,
     ReportPage,

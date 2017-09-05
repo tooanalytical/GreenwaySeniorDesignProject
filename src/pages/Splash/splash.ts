@@ -3,12 +3,13 @@ import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CreateAccountNamePage } from '../Create Account - Name/createAccountName';
 import { PasswordResetPage } from '../Password Reset/passwordReset';
+import { LoginPage } from '../Login/login';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: 'page-splash',
+  templateUrl: 'splash.html'
 })
-export class LoginPage {
+export class SplashPage {
 
   constructor(public navCtrl: NavController) {
 
@@ -17,7 +18,7 @@ export class LoginPage {
     }
 
     loginBypass(){
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(LoginPage);
     }
 
     createNewAccount(){
@@ -27,5 +28,4 @@ export class LoginPage {
     resetPassword(){
       this.navCtrl.push(PasswordResetPage);
     }
-
 }

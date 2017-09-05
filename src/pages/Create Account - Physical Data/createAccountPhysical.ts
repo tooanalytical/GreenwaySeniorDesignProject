@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-createAccount',
-  templateUrl: 'createAccount.html'
+  selector: 'page-createAccountPhysical',
+  templateUrl: 'createAccountPhysical.html'
 })
-export class CreateAccountPage {
+export class CreateAccountPhysicalPage {
 
   constructor(public navCtrl: NavController) {
 

@@ -11,6 +11,8 @@ import { CreateAccountPhysicalPage } from '../Create Account - Physical Data/cre
 })
 export class CreateAccountBirthdatePage {
 
+birthDate: String = new Date().toISOString();
+
   constructor(public navCtrl: NavController) {
 
   }

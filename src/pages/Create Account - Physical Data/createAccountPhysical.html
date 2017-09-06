@@ -32,6 +32,19 @@
   </div>
 
   <div>
+    <ion-list>
+      <ion-item>
+        <ion-label>Sex</ion-label>
+        <ion-select [(ngModel)]="sex" interface="popover">
+          <ion-option value="male">Male</ion-option>
+          <ion-option value="female">Female</ion-option>
+          <ion-option value="none">Prefer not to say</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div>
     <button ion-button class="forward-button" clear (click)=createAccountNext();>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>

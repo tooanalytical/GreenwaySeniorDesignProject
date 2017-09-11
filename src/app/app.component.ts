@@ -4,6 +4,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+<<<<<<< HEAD
+=======
+import { SplashPage } from '../pages/Splash/splash';
+>>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
 import { LoginPage } from '../pages/Login/login';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
@@ -20,7 +24,11 @@ import { AboutPage } from '../pages/About/about';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+<<<<<<< HEAD
   rootPage: any = LoginPage;
+=======
+  rootPage: any = SplashPage;
+>>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -38,7 +46,11 @@ export class MyApp {
       { title: 'Account Statistics', component: AccountStatisticsPage, icon: "ios-stats-outline" },
       { title: 'Account Details', component: AccountDetailsPage, icon: "ios-contact" },
       { title: 'About', component: AboutPage, icon: "ios-information-circle-outline" },
+<<<<<<< HEAD
       { title: 'Logout', component: LoginPage, icon: "ios-exit-outline" }
+=======
+      { title: 'Logout', component: SplashPage, icon: "ios-exit-outline" }
+>>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
     ];
 
   }

@@ -6,6 +6,7 @@
 
 <ion-content scroll="false">
 
+<<<<<<< HEAD
 
   <ion-list inset>
 
@@ -13,10 +14,32 @@
 
       <ion-item>
         <ion-label stacked>Username</ion-label>
+=======
+  <div>
+    <button ion-button clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+    <button ion-button clear class="forgot-button" (click)=resetPassword();>
+    Forgot Password
+  </button>
+  </div>
+
+  <div padding>
+    <p style="text-align:left;">
+      <font size="5">Log in</font>
+  </div>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>EMAIL ADDRESS</ion-label>
+>>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
         <ion-input type="text"></ion-input>
       </ion-item>
 
       <ion-item>
+<<<<<<< HEAD
         <ion-label stacked>Password</ion-label>
         <ion-input type="password"></ion-input>
       </ion-item>
@@ -35,5 +58,19 @@
           <p style="text-align:right;"><button ion-button clear (click)=resetPassword();>Forgot Password?</button></th>
       </tr>
     </table>
+=======
+        <ion-label stacked>PASSWORD</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div>
+    <button ion-button class="forward-button" clear (click)=loginBypass();>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
+>>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
 
 </ion-content>

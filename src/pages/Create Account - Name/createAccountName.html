@@ -1,0 +1,41 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <button ion-button clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
+
+  <div padding>
+    <p class="title">What's your name?
+  </div>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked class="item-input">FIRST NAME</ion-label>
+        <ion-input type="text" [(ngModel)]="firstName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>LAST NAME</ion-label>
+        <ion-input type="text" [(ngModel)]="lastName"></ion-input>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+  <div>
+    <button ion-button class="forward-button" clear (click)=createAccountNext();>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
+
+
+
+</ion-content>

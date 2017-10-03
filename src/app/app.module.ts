@@ -4,18 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 
 import { MyApp } from './app.component';
-<<<<<<< HEAD
 import { LoginPage } from '../pages/Login/login';
 import { CreateAccountPage } from '../pages/Create Account/createAccount';
-=======
 import { SplashPage } from '../pages/Splash/splash';
-import { LoginPage } from '../pages/Login/login';
 import { CreateAccountNamePage } from '../pages/Create Account - Name/createAccountName';
 import { CreateAccountEmailPage } from '../pages/Create Account - Email/createAccountEmail';
 import { CreateAccountPasswordPage } from '../pages/Create Account - Password/createAccountPassword';
 import { CreateAccountBirthdatePage } from '../pages/Create Account - Birthdate/createAccountBirthdate';
 import { CreateAccountPhysicalPage } from '../pages/Create Account - Physical Data/createAccountPhysical';
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
 import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
@@ -33,10 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @NgModule({
   declarations: [
     MyApp,
-<<<<<<< HEAD
     LoginPage,
     CreateAccountPage,
-=======
     SplashPage,
     LoginPage,
     CreateAccountNamePage,
@@ -44,7 +38,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateAccountPasswordPage,
     CreateAccountBirthdatePage,
     CreateAccountPhysicalPage,
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
     PasswordResetPage,
     HomePage,
     ReportPage,
@@ -63,10 +56,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-<<<<<<< HEAD
     LoginPage,
     CreateAccountPage,
-=======
     SplashPage,
     LoginPage,
     CreateAccountNamePage,
@@ -74,7 +65,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateAccountPasswordPage,
     CreateAccountBirthdatePage,
     CreateAccountPhysicalPage,
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
     PasswordResetPage,
     HomePage,
     ReportPage,

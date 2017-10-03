@@ -2,13 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GooglePlus } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
-<<<<<<< HEAD
-=======
 import { SplashPage } from '../pages/Splash/splash';
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
-import { LoginPage } from '../pages/Login/login';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
 import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
@@ -24,11 +21,7 @@ import { AboutPage } from '../pages/About/about';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-<<<<<<< HEAD
-  rootPage: any = LoginPage;
-=======
   rootPage: any = SplashPage;
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -46,11 +39,7 @@ export class MyApp {
       { title: 'Account Statistics', component: AccountStatisticsPage, icon: "ios-stats-outline" },
       { title: 'Account Details', component: AccountDetailsPage, icon: "ios-contact" },
       { title: 'About', component: AboutPage, icon: "ios-information-circle-outline" },
-<<<<<<< HEAD
-      { title: 'Logout', component: LoginPage, icon: "ios-exit-outline" }
-=======
-      { title: 'Logout', component: SplashPage, icon: "ios-exit-outline" }
->>>>>>> 42888908b03d272efdc2bf76bd948bdfa073f0a3
+      { title: 'Logout', component: null, icon: "ios-exit-outline" }
     ];
 
   }
@@ -64,9 +53,26 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  logout(){
+
+      GooglePlus.logout().then(() => {
+          console.log("logged out");
+      });
+
   }
+
+  openPage(page) {
+    if(page.component) {
+        this.nav.setRoot(page.component);
+    } else {
+        // Since the component is null, this is the logout option
+        // logout logic
+        this.logout();
+
+        // redirect to home
+        this.nav.setRoot(SplashPage);
+        }
+    }
+
+
 }

@@ -37,8 +37,3 @@ $ ionic cordova run ios
 Substitute ios for android if not on a Mac.
 
 =======
-
->>>>>>> 246017f1de6097f1f27ba3710d146b94ce9b8d9e
-=======
-# GreenwaySeniorDesignProject
->>>>>>> 5c2821675624eba310ea4f26e06ec04930934653

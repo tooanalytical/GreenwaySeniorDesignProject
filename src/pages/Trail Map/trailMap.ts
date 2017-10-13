@@ -34,8 +34,12 @@ export class TrailMapPage {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      var kmzLayer = new google.maps.KmlLayer('../src/assets/TrailNetwork.kmz');
-      kmzLayer.setMap(this.map);
+
+      var ctaLayer = new google.maps.KmlLayer({
+          url: 'http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml',
+          map: this.map
+        });
+
 
     }, (err) => {
       console.log(err);

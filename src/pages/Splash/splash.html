@@ -13,16 +13,24 @@
   </div>
 
   <div padding>
-    <button ion-button color="light" (click)=login(); block round icon-left>
-  <ion-icon name="logo-google"></ion-icon>
-  Continue with Google
-  </button>
 
-    <p style="login-margin"><button ion-button outline block round (click)=createNewAccount();>
+    <button ion-button color="light" (click)=googleLogin(); block round icon-left>
+      <ion-icon name="logo-google"></ion-icon>
+      Continue with Google
+    </button>
+
+    <p style="login-margin"><button ion-button color="light" (click)=facebookLogin(); block round icon-left>
+      <ion-icon name="logo-facebook"></ion-icon>
+      Continue with Facebook
+    </button>
+
+
+
+      <p style="login-margin"><button ion-button outline block round (click)=createNewAccount();>
       Create Account
       </button>
 
-      <p style="text-alightn:left;"><button ion-button clear>More options</button>
+
   </div>
 
 </ion-content>

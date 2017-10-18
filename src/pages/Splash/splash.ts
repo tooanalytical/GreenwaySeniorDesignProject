@@ -31,7 +31,7 @@ export class SplashPage {
     }
 
     // Login credentials for Google authentication and redirect to dashboard.
-    login(){
+    googleLogin(){
         GooglePlus.login({
           'webClientId': '407412318918-e4mig3cqfrsb1j80goqnltu7jigitako.apps.googleusercontent.com'
         }).then((res) => {
@@ -40,5 +40,9 @@ export class SplashPage {
         }, (err) => {
             console.log(err);
         });
+    }
+
+    facebookLogin(){
+      
     }
 }

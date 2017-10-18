@@ -36,7 +36,7 @@ export class TrailMapPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
       var trailLayer = new google.maps.KmlLayer({
-          url: 'http://www.github.com/tooanalytical/GreenwaySeniorDesignProject/src/assets/TrailMap.kml',
+          url: 'https://raw.githubusercontent.com/tooanalytical/GreenwaySeniorDesignProject/master/src/assets/cta.kml',
           map: this.map
         });
 

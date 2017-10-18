@@ -30,16 +30,16 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Dashboard', component: HomePage, icon: "ios-apps-outline" },
-      { title: 'Report Problem', component: ReportPage, icon: "ios-warning-outline" },
-      { title: 'Record Activity', component: RecordActivityPage, icon: "ios-walk-outline" },
-      { title: 'Activity History', component: ActivityHistoryPage, icon: "ios-list-box-outline" },
-      { title: 'Achievements', component: AchievementsPage, icon: "ios-star-outline" },
-      { title: 'Trail Map', component: TrailMapPage, icon: "ios-map-outline" },
-      { title: 'Account Statistics', component: AccountStatisticsPage, icon: "ios-stats-outline" },
-      { title: 'Account Details', component: AccountDetailsPage, icon: "ios-contact" },
-      { title: 'About', component: AboutPage, icon: "ios-information-circle-outline" },
-      { title: 'Logout', component: null, icon: "ios-exit-outline" }
+      { title: 'DASHBOARD', component: HomePage, icon: "ios-apps-outline" },
+      { title: 'REPORT PROBLEM', component: ReportPage, icon: "ios-warning-outline" },
+      { title: 'RECORD ACTIVITY', component: RecordActivityPage, icon: "ios-walk-outline" },
+      { title: 'ACTIVITY HISTORY', component: ActivityHistoryPage, icon: "ios-list-box-outline" },
+      { title: 'ACHIEVEMENTS', component: AchievementsPage, icon: "ios-star-outline" },
+      { title: 'TRAIL MAP', component: TrailMapPage, icon: "ios-map-outline" },
+      { title: 'ACCOUNT STATISTICS', component: AccountStatisticsPage, icon: "ios-stats-outline" },
+      { title: 'ACCOUNT DETAILS', component: AccountDetailsPage, icon: "ios-contact" },
+      { title: 'ABOUT', component: AboutPage, icon: "ios-information-circle-outline" },
+      { title: 'LOGOUT', component: null, icon: "ios-exit-outline" }
     ];
 
   }

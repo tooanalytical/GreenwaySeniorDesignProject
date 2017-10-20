@@ -6,6 +6,10 @@ import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Facebook } from '@ionic-native/facebook';
+
+
 
 
 import { MyApp } from './app.component';
@@ -89,6 +93,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Transfer,
     Camera,
     FilePath,
+    NativeStorage,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

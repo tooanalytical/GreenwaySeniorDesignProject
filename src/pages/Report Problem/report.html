@@ -9,14 +9,45 @@
 
 <ion-content padding>
   <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-  <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+  <h4 [hidden]="lastImage !== null" align="center">Take a picture of the problem</h4>
 
-  <ion-buttons>
+  <ion-buttons align="center">
     <button ion-button icon-left (click)="presentActionSheet()">
       <ion-icon name="camera"></ion-icon>Select Image
     </button>
+  </ion-buttons>
+
+  <ion-item>
+    <ion-label stacked>Problem Type</ion-label>
+    <ion-select [(ngModel)]="type">
+      <ion-option value="t">Tree/Branch</ion-option>
+      <ion-option value="g">Broken Glass</ion-option>
+      <ion-option value="w">High Water</ion-option>
+      <ion-option value="v">Vandalism</ion-option>
+      <ion-option value="l">Litter</ion-option>
+      <ion-option value="o">Overgrown Brush</ion-option>
+      <ion-option value="o">Trash Full</ion-option>
+      <ion-option value="o">Other</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Summary of problem</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Additional details</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-buttons align="center">
     <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-      <ion-icon name="cloud-upload"></ion-icon>Upload
+      <ion-icon name="cloud-upload"></ion-icon>Submit
     </button>
   </ion-buttons>
+
+
+
+
 </ion-content>

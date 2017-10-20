@@ -3,6 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus } from 'ionic-native';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Facebook } from '@ionic-native/facebook';
 
 import { HomePage } from '../pages/home/home';
 import { SplashPage } from '../pages/Splash/splash';
@@ -25,7 +27,10 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  user: any;
+	userReady: boolean = false;
+
+  constructor(public platform: Platform, public nativeStorage: NativeStorage, public statusBar: StatusBar, public splashScreen: SplashScreen, public fb: Facebook) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -42,6 +47,27 @@ export class MyApp {
       { title: 'LOGOUT', component: null, icon: "ios-exit-outline" }
     ];
 
+    platform.ready().then(() => {
+        // Here we will check if the user is already logged into Facebook
+        // because we don't want to ask users to log in each time they open the app
+        let env = this;
+        this.nativeStorage.getItem('user')
+        .then( function (data) {
+          // user is previously logged and we have his data
+          // we will let him access the app
+          env.nav.push(HomePage);
+          env.splashScreen.hide();
+        }, function (error) {
+          //we don't have the user data so we will ask him to log in
+
+          //Disabled this portion of FB login. May need to uncomment later.
+          //env.nav.push(SplashPage);
+          env.splashScreen.hide();
+        });
+
+        this.statusBar.styleDefault();
+      });
+
   }
 
   initializeApp() {
@@ -53,7 +79,22 @@ export class MyApp {
     });
   }
 
-  logout(){
+  ionViewCanEnter(){
+		let env = this;
+		this.nativeStorage.getItem('user')
+		.then(function (data){
+			env.user = {
+				name: data.name,
+				gender: data.gender,
+				picture: data.picture
+			};
+				env.userReady = true;
+		}, function(error){
+			console.log(error);
+		});
+	}
+
+  googleLogout(){
 
       GooglePlus.logout().then(() => {
           console.log("logged out");
@@ -61,13 +102,25 @@ export class MyApp {
 
   }
 
+  facebookLogout(){
+		let env = this;
+		this.fb.logout()
+		.then(function(response) {
+			//user logged out so we will remove him from the NativeStorage
+			env.nativeStorage.remove('user');
+		}, function(error){
+			console.log(error);
+		});
+	}
+
   openPage(page) {
     if(page.component) {
         this.nav.setRoot(page.component);
     } else {
         // Since the component is null, this is the logout option
         // logout logic
-        this.logout();
+        this.googleLogout();
+        this.facebookLogout();
 
         // redirect to home
         this.nav.setRoot(SplashPage);

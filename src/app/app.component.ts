@@ -16,6 +16,7 @@ import { TrailMapPage } from '../pages/Trail Map/trailMap';
 import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
 import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
+import { CreditsPage} from '../pages/Credits/credits';
 
 @Component({
   templateUrl: 'app.html'

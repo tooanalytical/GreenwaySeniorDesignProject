@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import {CreditsPage} from '../Credits/credits';
+
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
@@ -33,5 +35,9 @@ export class AboutPage {
     this.navCtrl.push(AboutPage, {
       item: item
     });
+  }
+
+  creditsPage(){
+    this.navCtrl.push(CreditsPage);
   }
 }

@@ -31,6 +31,7 @@ import { TrailMapPage } from '../pages/Trail Map/trailMap';
 import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
 import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
+import { CreditsPage } from '../pages/Credits/credits';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -56,7 +57,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TrailMapPage,
     AccountStatisticsPage,
     AccountDetailsPage,
-    AboutPage
+    AboutPage,
+    CreditsPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TrailMapPage,
     AccountStatisticsPage,
     AccountDetailsPage,
-    AboutPage
+    AboutPage,
+    CreditsPage
   ],
   providers: [
     StatusBar,

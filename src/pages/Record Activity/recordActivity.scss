@@ -1,1 +1,13 @@
-page-recordActivity {}
+.ios,
+.md {
+  page-recordActivity {
+    .scroll {
+      height: 100%;
+    }
+
+    #map {
+      width: 100%;
+      height: 60%;
+    }
+  }
+}

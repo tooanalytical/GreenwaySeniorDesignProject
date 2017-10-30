@@ -40,10 +40,8 @@ export class TrailMapPage {
           map: this.map
         });
 
-
     }, (err) => {
       console.log(err);
     });
-
   }
 }

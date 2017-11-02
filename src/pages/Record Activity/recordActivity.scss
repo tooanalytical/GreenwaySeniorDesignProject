@@ -1,13 +1,28 @@
 .ios,
 .md {
-  page-recordActivity {
+  page-recordactivity {
     .scroll {
       height: 100%;
     }
 
     #map {
       width: 100%;
-      height: 60%;
+      height: 55%;
+    }
+    .contentMarginLeft {
+      margin-top: 20px;
+      margin-left: 40px;
+    }
+
+    .contentMarginCenter {
+    }
+
+    .contentMarginRight {
+      margin-top: 20px;
+      margin-right: 40px;
+    }
+    .contentStartButton {
+      margin-bottom: 0px;
     }
   }
 }

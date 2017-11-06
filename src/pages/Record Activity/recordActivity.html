@@ -15,38 +15,33 @@
         <ion-col>
           <p> Duration </p>
           <h1> {{timer}} </h1>
+
+          <p> Speed </p>
+          <h1> 0 mph </h1>
         </ion-col>
         <ion-col>
           <p> Distance </p>
           <h1> 0.00 mi </h1>
-        </ion-col>
-        <ion-col>
-          <p> Speed </p>
-          <h1> 0 mph </h1>
-        </ion-col>
-      </ion-row>
-    </div>
 
-    <div>
-      <ion-row>
-        <ion-col>
           <p> Calories </p>
           <h1> 0 </h1>
         </ion-col>
         <ion-col>
-          <p> Elevation </p>
-          <h1> 0 feet </h1>
-        </ion-col>
-        <ion-col>
-          <p> Speed </p>
+          <ion-item>
+            <ion-label>Type</ion-label>
+            <ion-select [(ngModel)]="activityType" interface="popover">
+              <ion-option value="walk">Walk</ion-option>
+              <ion-option value="run">Run</ion-option>
+              <ion-option value="bicycle">Bicycle</ion-option>
+            </ion-select>
+          </ion-item>
         </ion-col>
       </ion-row>
     </div>
   </div>
-
   <div class="contentStartButton">
     <ion-buttons align="center">
-      <button ion-button (click)="startStop()">
+      <button ion-button (click)="startStop()" [ngStyle]="{'background-color': buttonColor}">
         <ion-icon name="walk"></ion-icon> {{startButton}}
       </button>
     </ion-buttons>

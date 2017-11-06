@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { NavController } from "ionic-angular";
 
 @Component({
-  templateUrl: 'credits.html'
+  templateUrl: "credits.html"
 })
 export class CreditsPage {
-
-  constructor(public navCtrl: NavController) {
-    }
-
+  constructor(public navCtrl: NavController) {}
 }

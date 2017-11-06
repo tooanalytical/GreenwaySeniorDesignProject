@@ -21,6 +21,8 @@ export class RecordActivityPage {
   public default;
   public timer_id;
 
+  public buttonColor: string = "#558bed"; //Default blue
+
   public addZero = function(value) {
     if (value < 10) {
       value = "0" + value;
@@ -80,11 +82,13 @@ export class RecordActivityPage {
       }, 10);
 
       this.startButton = "End";
+      this.buttonColor = "#ff0000"; //color red
       this.default = "danger";
     } else {
       clearInterval(this.timer_id);
 
       this.startButton = "Start";
+      this.buttonColor = "#558bed"; //default blue
       this.default = "default";
     }
   }

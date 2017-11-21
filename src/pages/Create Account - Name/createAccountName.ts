@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
 import { CreateAccountEmailPage } from '../Create Account - Email/createAccountEmail';
 
@@ -8,14 +9,14 @@ import { CreateAccountEmailPage } from '../Create Account - Email/createAccountE
   templateUrl: 'createAccountName.html'
 })
 export class CreateAccountNamePage {
-firstName;
-lastName;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
+  data = {
+    firstName: '',
+    lastName: ''
+  };
+
+  createAccountNext(data) {
+    this.navCtrl.push(CreateAccountEmailPage, data);
   }
-
-  createAccountNext(firstName, lastName){
-    this.navCtrl.push(CreateAccountEmailPage, firstName, lastName);
-  }
-
 }

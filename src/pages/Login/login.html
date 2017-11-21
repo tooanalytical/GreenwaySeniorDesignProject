@@ -11,8 +11,8 @@
       <ion-icon name="arrow-back"></ion-icon>
     </button>
     <button ion-button clear class="forgot-button" (click)=resetPassword();>
-    Forgot Password
-  </button>
+      Forgot Password
+    </button>
   </div>
 
   <div padding>
@@ -25,12 +25,12 @@
 
       <ion-item>
         <ion-label stacked>EMAIL ADDRESS</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.emailAddress"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked>PASSWORD</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="data.userPassword"></ion-input>
       </ion-item>
 
     </ion-list>

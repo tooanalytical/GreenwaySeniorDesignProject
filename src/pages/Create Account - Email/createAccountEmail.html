@@ -19,7 +19,7 @@
 
       <ion-item>
         <ion-label stacked class="item-input">EMAIL ADDRESS</ion-label>
-        <ion-input type="email" ng-model="string" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.emailAddress"></ion-input>
       </ion-item>
 
 
@@ -27,7 +27,7 @@
   </div>
 
   <div>
-    <button ion-button class="forward-button" clear (click)=createAccountNext();>
+    <button ion-button class="forward-button" clear (click)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

@@ -9,9 +9,6 @@ import { Camera } from '@ionic-native/camera';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
 
-
-
-
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
 import { CreateAccountPage } from '../pages/Create Account/createAccount';
@@ -21,6 +18,7 @@ import { CreateAccountEmailPage } from '../pages/Create Account - Email/createAc
 import { CreateAccountPasswordPage } from '../pages/Create Account - Password/createAccountPassword';
 import { CreateAccountBirthdatePage } from '../pages/Create Account - Birthdate/createAccountBirthdate';
 import { CreateAccountPhysicalPage } from '../pages/Create Account - Physical Data/createAccountPhysical';
+import { CreateAccountFinishPage } from '../pages/Create Account - Finish/createAccountFinish';
 import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
@@ -48,6 +46,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateAccountPasswordPage,
     CreateAccountBirthdatePage,
     CreateAccountPhysicalPage,
+    CreateAccountFinishPage,
     PasswordResetPage,
     HomePage,
     ReportPage,
@@ -60,10 +59,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     CreditsPage
   ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-  ],
+  imports: [BrowserModule, IonicModule.forRoot(MyApp)],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -76,6 +72,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     CreateAccountPasswordPage,
     CreateAccountBirthdatePage,
     CreateAccountPhysicalPage,
+    CreateAccountFinishPage,
     PasswordResetPage,
     HomePage,
     ReportPage,
@@ -98,7 +95,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     FilePath,
     NativeStorage,
     Facebook,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule {}

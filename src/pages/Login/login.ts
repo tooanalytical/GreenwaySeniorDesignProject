@@ -8,19 +8,20 @@ import { PasswordResetPage } from '../Password Reset/passwordReset';
   templateUrl: 'login.html'
 })
 export class LoginPage {
+  constructor(public navCtrl: NavController) {}
 
-  constructor(public navCtrl: NavController) {
+  data = {
+    emailAddress: '',
+    userPassword: ''
+  };
 
+  login(data) {}
 
+  loginBypass() {
+    this.navCtrl.setRoot(HomePage);
+  }
 
-    }
-
-    loginBypass(){
-      this.navCtrl.setRoot(HomePage);
-    }
-
-    resetPassword(){
-      this.navCtrl.push(PasswordResetPage);
-    }
-
+  resetPassword() {
+    this.navCtrl.push(PasswordResetPage);
+  }
 }

@@ -1,0 +1,48 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <button ion-button clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
+
+  <div padding>
+    <p class="title">Please review your responses.</p>
+  </div>
+
+  <div padding>
+    <p>
+      Name: {{data.firstName}} {{data.lastName}}
+      <br> Email: {{data.emailAddress}}
+      <br> Password: {{data.userPassword}}
+      <br> Birthdata: {{data.userBirthdate}}
+      <br> Height: {{data.userHeight}}
+      <br> Weight: {{data.userWeight}}
+      <br> Sex: {{data.userSex}}
+      <br> Lat: {{data.userLat}}
+      <br> Lng: {{data.userLng}}
+    </p>
+  </div>
+
+
+  <ion-row class="restart-submit-buttons">
+    <ion-col width-50>
+      <button ion-button clear="true" (click)=startOver(); icon-left>
+        <ion-icon name="refresh"></ion-icon>
+        START OVER
+      </button>
+    </ion-col>
+    <ion-col width-50>
+      <button ion-button (click)=submit(data); block round icon-left>
+        <ion-icon name="checkmark"></ion-icon>
+        SUBMIT
+      </button>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

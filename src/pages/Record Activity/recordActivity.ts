@@ -21,7 +21,7 @@ export class RecordActivityPage {
   public default;
   public timer_id;
 
-  public buttonColor: string = "#558bed"; //Default blue
+  public buttonColor: string = '#37721b'; //Default blue
 
   public addZero = function(value) {
     if (value < 10) {

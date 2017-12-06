@@ -9,15 +9,21 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
+    <ion-item>TOTAL DISTANCE TRAVELED </ion-item>
+    <p style="text-align:center;"> WALKING<br>
+    RUNNING<br>
+    AVERAGE PER TRIP<br></p>
+    <ion-item>AVERAGE SPEED</ion-item>
+    <p style="text-align:center;">WALKING<br>
+    RUNNING<br>
+    AVERAGE PER TRIP<br></p>
+    <ion-item>TOTAL CALORIES BURNED</ion-item>
+    <p style="text-align:center;">WALKING<br>
+    RUNNING<br>
+    AVERAGE PER TRIP<br><br></p>
+    <ion-item>HAZARDS REPORTED</ion-item>
+    <ion-item>HAZARDS SUCCESSFULLY REMOVED</ion-item>
+
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+
 </ion-content>

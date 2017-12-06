@@ -7,11 +7,12 @@ $font-path: "../assets/fonts";
 
 @font-face {
 font-family: Global;
-src: url("../assets/fonts/OdinRoundedBold.ttf");
 
+src: url("../assets/fonts/OdinRoundedBold.ttf");
 }
 
 body, span, button, h1, h2, h3, h4, h5, h6, p, ion-item, ion-title {
+
 text-transform: uppercase;
 font-family: 'Global' !important;
 }
@@ -50,8 +51,9 @@ $colors: (
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222,
-  GBlue:    #4285f4,
-  FBBlue:     #4267b2
+  lightGr:      #37721b,
+  darkGr:     #194400,
+  white:      #dfdfdf
 );
 
 

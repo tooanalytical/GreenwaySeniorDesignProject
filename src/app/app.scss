@@ -17,9 +17,10 @@
 ion-content {
     background-image: url(../assets/background.jpg);
     background-size: contain;
-
 }
-
-p, a, h1{
+.transparent{
+  background-color: transparent;
+}
+p, a, h1, h4{
   color:white;
 }

@@ -88,7 +88,7 @@ export class RecordActivityPage {
       clearInterval(this.timer_id);
 
       this.startButton = "Start";
-      this.buttonColor = "#558bed"; //default blue
+      this.buttonColor = "#37721b"; //default blue
       this.default = "default";
     }
   }

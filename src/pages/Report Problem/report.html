@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-  <h4 [hidden]="lastImage !== null" align="center">Take a picture of the problem</h4>
+  <h4 [hidden]="lastImage !== null"  align="center">Take a picture of the problem</h4>
 
   <ion-buttons align="center">
     <button ion-button color = "white" icon-left (click)="presentActionSheet()">
@@ -17,8 +17,8 @@
     </button>
   </ion-buttons>
 
-  <ion-item>
-    <ion-label stacked>Problem Type</ion-label>
+  <ion-item class = "transparent">
+    <ion-label color = "white" stacked>Problem Type</ion-label>
     <ion-select [(ngModel)]="type">
       <ion-option value="t">Tree/Branch</ion-option>
       <ion-option value="g">Broken Glass</ion-option>
@@ -31,13 +31,13 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
-    <ion-label stacked>Summary of problem</ion-label>
+  <ion-item class = "transparent">
+    <ion-label color = "white" stacked>Summary of problem</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label stacked>Additional details</ion-label>
+  <ion-item class = "transparent">
+    <ion-label color = "white" stacked>Additional details</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 

@@ -19,12 +19,12 @@
 
       <ion-item>
         <ion-label stacked class="item-input">HEIGHT</ion-label>
-        <ion-input type="email" ng-model="string" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.userHeight"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked class="item-input">WEIGHT</ion-label>
-        <ion-input type="email" ng-model="string" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.userWeight"></ion-input>
       </ion-item>
 
 
@@ -35,7 +35,7 @@
     <ion-list>
       <ion-item>
         <ion-label>Sex</ion-label>
-        <ion-select [(ngModel)]="sex" interface="popover">
+        <ion-select [(ngModel)]="data.userSex" interface="popover">
           <ion-option value="male">Male</ion-option>
           <ion-option value="female">Female</ion-option>
           <ion-option value="none">Prefer not to say</ion-option>
@@ -45,7 +45,7 @@
   </div>
 
   <div>
-    <button ion-button class="forward-button" clear (click)=createAccountNext();>
+    <button ion-button class="forward-button" clear (click)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

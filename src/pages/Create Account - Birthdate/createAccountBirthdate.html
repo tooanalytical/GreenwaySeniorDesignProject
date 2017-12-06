@@ -20,7 +20,7 @@
 
       <ion-item>
         <ion-label stacked class="item-input">BIRTHDATE</ion-label>
-        <ion-datetime class="item-input" displayFormat="MMMM D, YYYY" [(ngModel)]="birthDate"></ion-datetime>
+        <ion-datetime class="item-input" displayFormat="MMMM D, YYYY" [(ngModel)]="data.userBirthdate"></ion-datetime>
       </ion-item>
 
     </ion-list>
@@ -35,7 +35,7 @@
   </div>
 
   <div>
-    <button ion-button class="forward-button" clear (click)=createAccountNext();>
+    <button ion-button class="forward-button" clear (click)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

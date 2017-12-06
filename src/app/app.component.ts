@@ -17,6 +17,7 @@ import { AccountStatisticsPage } from "../pages/Account Statistics/accountStatis
 import { AccountDetailsPage } from "../pages/Account Details/accountDetails";
 import { AboutPage } from "../pages/About/about";
 
+
 @Component({
   templateUrl: "app.html"
 })

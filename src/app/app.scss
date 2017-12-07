@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/v2/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,12 +14,16 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 ion-content {
-    background-image: url(../assets/background.jpg);
-    background-size: contain;
+  background-image: url(../assets/background.jpg);
+  background-size: contain;
 }
-.transparent{
+.transparent {
   background-color: transparent;
+  color: white;
 }
-p, a, h1, h4{
-  color:white;
+p,
+a,
+h1,
+h4 {
+  color: white;
 }

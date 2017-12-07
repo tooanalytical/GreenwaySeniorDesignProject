@@ -42,12 +42,14 @@
     "cordova-plugin-file-transfer": "^1.6.3",
     "cordova-plugin-filepath": "^1.1.0",
     "cordova-plugin-geolocation": "^2.4.3",
-    "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
+    "cordova-plugin-googleplus":
+      "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
     "cordova-plugin-nativestorage": "^2.2.2",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-statusbar": "^2.2.3",
     "cordova-plugin-whitelist": "^1.3.2",
     "cordova.plugins.diagnostic": "^3.7.1",
+    "geolocation-marker": "^2.0.5",
     "ionic-angular": "3.5.3",
     "ionic-native": "^2.9.0",
     "ionic-plugin-keyboard": "^2.2.1",
@@ -66,7 +68,8 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.407412318918-j9t6t2uhgdo2iv8u98mcemos9cecjpqi"
+        "REVERSED_CLIENT_ID":
+          "com.googleusercontent.apps.407412318918-j9t6t2uhgdo2iv8u98mcemos9cecjpqi"
       },
       "cordova-plugin-console": {},
       "cordova-plugin-device": {},
@@ -91,9 +94,6 @@
       },
       "cordova-plugin-nativestorage": {}
     },
-    "platforms": [
-      "android",
-      "ios"
-    ]
+    "platforms": ["android", "ios"]
   }
 }

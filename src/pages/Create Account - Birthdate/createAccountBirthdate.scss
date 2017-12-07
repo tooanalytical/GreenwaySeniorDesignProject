@@ -1,7 +1,8 @@
-page-createAccountBirthdate {
+page-createaccountbirthdate {
   .ion-icon {
     margin-top: 20px;
     font-size: 25px;
+    color: white;
   }
 
   .back-button {
@@ -11,6 +12,7 @@ page-createAccountBirthdate {
   .forward-button {
     font-size: 45px;
     position: absolute;
+    color: white;
     bottom: 0;
     right: 0;
   }
@@ -21,6 +23,6 @@ page-createAccountBirthdate {
   }
 
   .item-input {
-    border-top-color: transparent !important;
+    border-top: none;
   }
 }

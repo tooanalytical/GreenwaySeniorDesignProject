@@ -7,11 +7,11 @@
 <ion-content scroll="false">
 
   <div>
-    <button ion-button color = "white" clear class="ion-icon" navPop>
+    <button ion-button color="white" clear class="ion-icon" navPop>
       <ion-icon name="arrow-back"></ion-icon>
     </button>
 
-    <button ion-button clear color = "white" class="forgot-button" (click)=resetPassword();>
+    <button ion-button clear color="white" class="forgot-button" (click)=resetPassword();>
       Forgot Password
     </button>
 
@@ -25,13 +25,13 @@
   <div padding>
     <ion-list>
 
-      <ion-item class = "transparent">
-        <ion-label color = "white" stacked>EMAIL ADDRESS</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating>EMAIL ADDRESS</ion-label>
         <ion-input type="text" [(ngModel)]="data.emailAddress"></ion-input>
       </ion-item>
 
-      <ion-item class = "transparent">
-        <ion-label color = "white" stacked>PASSWORD</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating>PASSWORD</ion-label>
         <ion-input type="password" [(ngModel)]="data.userPassword"></ion-input>
       </ion-item>
 
@@ -39,7 +39,7 @@
   </div>
 
   <div>
-    <button ion-button color = "white" large class="forward-button" clear (click)=loginBypass();>
+    <button ion-button color="white" large class="forward-button" clear (click)=loginBypass();>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button color = "white" menuToggle>
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Report Problem</ion-title>
@@ -9,16 +9,16 @@
 
 <ion-content padding>
   <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-  <h4 [hidden]="lastImage !== null"  align="center">Take a picture of the problem</h4>
+  <h4 [hidden]="lastImage !== null" align="center">Take a picture of the problem</h4>
 
   <ion-buttons align="center">
-    <button ion-button color = "white" icon-left (click)="presentActionSheet()">
+    <button ion-button color="white" icon-left (click)="presentActionSheet()">
       <ion-icon name="camera"></ion-icon>Select Image
     </button>
   </ion-buttons>
 
-  <ion-item class = "transparent">
-    <ion-label color = "white" stacked>Problem Type</ion-label>
+  <ion-item class="transparent">
+    <ion-label color="white" stacked>Problem Type</ion-label>
     <ion-select [(ngModel)]="type">
       <ion-option value="t">Tree/Branch</ion-option>
       <ion-option value="g">Broken Glass</ion-option>
@@ -31,18 +31,18 @@
     </ion-select>
   </ion-item>
 
-  <ion-item class = "transparent">
-    <ion-label color = "white" stacked>Summary of problem</ion-label>
+  <ion-item class="transparent">
+    <ion-label color="white" stacked>Summary of problem</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
-  <ion-item class = "transparent">
-    <ion-label color = "white" stacked>Additional details</ion-label>
+  <ion-item class="transparent">
+    <ion-label color="white" stacked>Additional details</ion-label>
     <ion-input type="text"></ion-input>
   </ion-item>
 
   <ion-buttons align="center">
-    <button ion-button color = "white" icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+    <button ion-button color="white" icon-left (click)="uploadImage()" [disabled]="lastImage === null">
       <ion-icon name="cloud-upload"></ion-icon>Submit
     </button>
   </ion-buttons>

@@ -5,7 +5,7 @@
 <ion-content>
 
   <div>
-    <button ion-button clear color = "white" class="ion-icon" navPop>
+    <button ion-button color="white" clear class="ion-icon" navPop>
       <ion-icon name="arrow-back"></ion-icon>
     </button>
   </div>
@@ -17,13 +17,13 @@
   <div padding>
     <ion-list>
 
-      <ion-item class = "transparent">
-        <ion-label stacked color = "white" class="item-input">FIRST NAME</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating class="item-input">FIRST NAME</ion-label>
         <ion-input type="text" [(ngModel)]="data.firstName"></ion-input>
       </ion-item>
 
-      <ion-item class = "transparent">
-        <ion-label stacked color = "white">LAST NAME</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating>LAST NAME</ion-label>
         <ion-input type="text" [(ngModel)]="data.lastName"></ion-input>
       </ion-item>
 

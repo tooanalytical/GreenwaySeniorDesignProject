@@ -38,16 +38,35 @@
           <ion-item class = "transparent">
             <ion-label color = "white"><img src="assets/bike.png"></ion-label>
             <ion-radio value="walk"></ion-radio>
+
           </ion-item>
         </ion-col>
       </ion-row>
     </div>
   </div>
-  <div class="contentStartButton">
-    <ion-buttons color = "darkGr" align="center">
+  <div align="center">
+    <ion-buttons color="darkGr" align="center">
       <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
         <ion-icon name="walk"></ion-icon> {{startButton}}
       </button>
     </ion-buttons>
   </div>
+  <!-- <div ng-hide="flag" class="ng-hide" align="center">
+    <ion-row>
+      <ion-col>
+        <ion-buttons color="darkGr" align="center">
+          <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
+            <ion-icon name="walk"></ion-icon> {{startButton}}
+          </button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <ion-buttons color="darkGr" align="center">
+          <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
+            <ion-icon name="walk"></ion-icon> {{startButton}}
+          </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </div> -->
 </ion-content>

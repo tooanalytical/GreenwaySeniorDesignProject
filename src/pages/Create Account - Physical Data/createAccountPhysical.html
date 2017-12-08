@@ -17,13 +17,13 @@
   <div padding>
     <ion-list>
 
-      <ion-item class = "transparent">
-        <ion-label stacked color = "white" class="item-input">HEIGHT</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating class="item-input">HEIGHT</ion-label>
         <ion-input type="text" [(ngModel)]="data.userHeight"></ion-input>
       </ion-item>
 
-      <ion-item class = "transparent">
-        <ion-label stacked color = "white" class="item-input">WEIGHT</ion-label>
+      <ion-item class="transparent">
+        <ion-label floating class="item-input">WEIGHT</ion-label>
         <ion-input type="text" [(ngModel)]="data.userWeight"></ion-input>
       </ion-item>
 
@@ -33,8 +33,8 @@
 
   <div>
     <ion-list>
-      <ion-item class = "transparent">
-        <ion-label color = "white">Sex</ion-label>
+      <ion-item class="transparent">
+        <ion-label>Sex</ion-label>
         <ion-select [(ngModel)]="data.userSex" interface="popover">
           <ion-option value="male">Male</ion-option>
           <ion-option value="female">Female</ion-option>

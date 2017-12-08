@@ -38,7 +38,7 @@ export class RecordActivityPage {
   }
 
   loadMap() {
-    this.geolocation.watchPosition().subscribe(
+    this.geolocation.getCurrentPosition().then(
       position => {
         let latLng = new google.maps.LatLng(
           position.coords.latitude,

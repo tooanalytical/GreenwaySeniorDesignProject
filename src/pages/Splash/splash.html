@@ -2,12 +2,14 @@
 
 </ion-header>
 
-<ion-content scroll="false">
+<ion-content no-bounce>
 
   <div padding>
 
-    <p style="text-align:right;"><button ion-button color = "white" clear (click)=loginPage();>Log in</button>
-      <p style="text-align:left;"><img src="assets/ViridianLogo.png" alt="CityLogo" width=100px height=140px>
+    <p style="text-align:right;">
+      <button ion-button color="white" clear (click)=loginPage();>Log in</button>
+      <p style="text-align:left;">
+        <img src="assets/ViridianLogo.png" alt="CityLogo" width=100px height=140px>
         <p class="login-margin" style="text-align:left;">Welcome to Viridian.
 
   </div>
@@ -19,16 +21,18 @@
       Continue with Google
     </button>
 
-    <p style="login-margin"><button ion-button color="darkGr" (click)=facebookLogin(); block round icon-left>
-      <ion-icon name="logo-facebook"></ion-icon>
-      Continue with Facebook
-    </button>
-
-
-
-      <p style="login-margin"><button ion-button color = "white" outline block round (click)=createNewAccount();>
-      Create Account
+    <p style="login-margin">
+      <button ion-button color="darkGr" (click)=facebookLogin(); block round icon-left>
+        <ion-icon name="logo-facebook"></ion-icon>
+        Continue with Facebook
       </button>
+
+
+
+      <p style="login-margin">
+        <button ion-button color="white" outline block round (click)=createNewAccount();>
+          Create Account
+        </button>
 
 
   </div>

@@ -1,25 +1,24 @@
-import { Component, ViewChild } from "@angular/core";
-import { Nav, Platform } from "ionic-angular";
-import { StatusBar } from "@ionic-native/status-bar";
-import { SplashScreen } from "@ionic-native/splash-screen";
-import { GooglePlus } from "ionic-native";
-import { NativeStorage } from "@ionic-native/native-storage";
-import { Facebook } from "@ionic-native/facebook";
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { GooglePlus, Geolocation } from 'ionic-native';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Facebook } from '@ionic-native/facebook';
 
-import { HomePage } from "../pages/home/home";
-import { SplashPage } from "../pages/Splash/splash";
-import { ReportPage } from "../pages/Report Problem/report";
-import { RecordActivityPage } from "../pages/Record Activity/recordActivity";
-import { ActivityHistoryPage } from "../pages/Activity History/activityHistory";
-import { AchievementsPage } from "../pages/Achievements/achievements";
-import { TrailMapPage } from "../pages/Trail Map/trailMap";
-import { AccountStatisticsPage } from "../pages/Account Statistics/accountStatistics";
-import { AccountDetailsPage } from "../pages/Account Details/accountDetails";
-import { AboutPage } from "../pages/About/about";
-
+import { HomePage } from '../pages/home/home';
+import { SplashPage } from '../pages/Splash/splash';
+import { ReportPage } from '../pages/Report Problem/report';
+import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
+import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
+import { AchievementsPage } from '../pages/Achievements/achievements';
+import { TrailMapPage } from '../pages/Trail Map/trailMap';
+import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
+import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
+import { AboutPage } from '../pages/About/about';
 
 @Component({
-  templateUrl: "app.html"
+  templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -42,51 +41,51 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: "DASHBOARD", component: HomePage, icon: "ios-apps-outline" },
+      { title: 'DASHBOARD', component: HomePage, icon: 'ios-apps-outline' },
       {
-        title: "REPORT PROBLEM",
+        title: 'REPORT PROBLEM',
         component: ReportPage,
-        icon: "ios-warning-outline"
+        icon: 'ios-warning-outline'
       },
       {
-        title: "RECORD ACTIVITY",
+        title: 'RECORD ACTIVITY',
         component: RecordActivityPage,
-        icon: "ios-walk-outline"
+        icon: 'ios-walk-outline'
       },
       {
-        title: "ACTIVITY HISTORY",
+        title: 'ACTIVITY HISTORY',
         component: ActivityHistoryPage,
-        icon: "ios-list-box-outline"
+        icon: 'ios-list-box-outline'
       },
       {
-        title: "ACHIEVEMENTS",
+        title: 'ACHIEVEMENTS',
         component: AchievementsPage,
-        icon: "ios-star-outline"
+        icon: 'ios-star-outline'
       },
-      { title: "TRAIL MAP", component: TrailMapPage, icon: "ios-map-outline" },
+      { title: 'TRAIL MAP', component: TrailMapPage, icon: 'ios-map-outline' },
       {
-        title: "ACCOUNT STATISTICS",
+        title: 'ACCOUNT STATISTICS',
         component: AccountStatisticsPage,
-        icon: "ios-stats-outline"
+        icon: 'ios-stats-outline'
       },
       {
-        title: "ACCOUNT DETAILS",
+        title: 'ACCOUNT DETAILS',
         component: AccountDetailsPage,
-        icon: "ios-contact"
+        icon: 'ios-contact'
       },
       {
-        title: "ABOUT",
+        title: 'ABOUT',
         component: AboutPage,
-        icon: "ios-information-circle-outline"
+        icon: 'ios-information-circle-outline'
       },
-      { title: "LOGOUT", component: null, icon: "ios-exit-outline" }
+      { title: 'LOGOUT', component: null, icon: 'ios-exit-outline' }
     ];
 
     platform.ready().then(() => {
       // Here we will check if the user is already logged into Facebook
       // because we don't want to ask users to log in each time they open the app
       let env = this;
-      this.nativeStorage.getItem("user").then(
+      this.nativeStorage.getItem('user').then(
         function(data) {
           // user is previously logged and we have his data
           // we will let him access the app
@@ -117,7 +116,7 @@ export class MyApp {
 
   ionViewCanEnter() {
     let env = this;
-    this.nativeStorage.getItem("user").then(
+    this.nativeStorage.getItem('user').then(
       function(data) {
         env.user = {
           name: data.name,
@@ -134,7 +133,7 @@ export class MyApp {
 
   googleLogout() {
     GooglePlus.logout().then(() => {
-      console.log("logged out");
+      console.log('logged out');
     });
   }
 
@@ -143,7 +142,7 @@ export class MyApp {
     this.fb.logout().then(
       function(response) {
         //user logged out so we will remove him from the NativeStorage
-        env.nativeStorage.remove("user");
+        env.nativeStorage.remove('user');
       },
       function(error) {
         console.log(error);

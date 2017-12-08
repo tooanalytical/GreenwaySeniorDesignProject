@@ -28,12 +28,16 @@
         </ion-col>
         <ion-col>
           <ion-item class = "transparent">
-            <ion-label color = "white">Type</ion-label>
-            <ion-select [(ngModel)]="activityType" interface="popover">
-              <ion-option value="walk">Walk</ion-option>
-              <ion-option value="run">Run</ion-option>
-              <ion-option value="bicycle">Bicycle</ion-option>
-            </ion-select>
+            <ion-label color = "white"><img src="assets/walk.png"></ion-label>
+            <ion-radio value="walk"></ion-radio>
+          </ion-item>
+          <ion-item class = "transparent">
+            <ion-label color = "white"><img src="assets/run.png"></ion-label>
+            <ion-radio value="walk"></ion-radio>
+          </ion-item>
+          <ion-item class = "transparent">
+            <ion-label color = "white"><img src="assets/bike.png"></ion-label>
+            <ion-radio value="walk"></ion-radio>
           </ion-item>
         </ion-col>
       </ion-row>

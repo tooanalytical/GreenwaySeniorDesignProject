@@ -5,7 +5,7 @@
 <ion-content>
 
   <div>
-    <button ion-button clear class="ion-icon" navPop>
+    <button ion-button color = "white" clear class="ion-icon" navPop>
       <ion-icon name="arrow-back"></ion-icon>
     </button>
   </div>
@@ -32,12 +32,12 @@
   <ion-row class="restart-submit-buttons">
     <ion-col width-50>
       <button ion-button clear="true" (click)=startOver(); icon-left>
-        <ion-icon name="refresh"></ion-icon>
-        START OVER
+        <ion-icon color = "white" name="refresh"></ion-icon>
+        <p>START OVER</p>
       </button>
     </ion-col>
     <ion-col width-50>
-      <button ion-button (click)=submit(data); block round icon-left>
+      <button ion-button color = "lightGr" (click)=submit(data); block round icon-left>
         <ion-icon name="checkmark"></ion-icon>
         SUBMIT
       </button>

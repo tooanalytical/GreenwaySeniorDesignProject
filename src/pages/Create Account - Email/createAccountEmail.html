@@ -5,7 +5,7 @@
 <ion-content>
 
   <div>
-    <button ion-button clear class="ion-icon" navPop>
+    <button ion-button clear color = "white" class="ion-icon" navPop>
       <ion-icon name="arrow-back"></ion-icon>
     </button>
   </div>
@@ -17,8 +17,8 @@
   <div padding>
     <ion-list>
 
-      <ion-item>
-        <ion-label stacked class="item-input">EMAIL ADDRESS</ion-label>
+      <ion-item class = "transparent">
+        <ion-label stacked color = "white" class="item-input">EMAIL ADDRESS</ion-label>
         <ion-input type="text" [(ngModel)]="data.emailAddress"></ion-input>
       </ion-item>
 
@@ -27,7 +27,9 @@
   </div>
 
   <div>
-    <button ion-button class="forward-button" clear (click)=createAccountNext(data);>
+    <p style="text-align:center;">
+    <img src="assets/progTwo.png" width=200px></p>
+    <button ion-button large color = "white" class="forward-button" clear (click)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

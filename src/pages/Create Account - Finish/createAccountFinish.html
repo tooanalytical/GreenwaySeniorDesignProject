@@ -19,7 +19,7 @@
       Name: {{data.firstName}} {{data.lastName}}
       <br> Email: {{data.emailAddress}}
       <br> Password: {{data.userPassword}}
-      <br> Birthdata: {{data.userBirthdate}}
+      <br> Birthday: {{data.userBirthdate}}
       <br> Height: {{data.userHeight}}
       <br> Weight: {{data.userWeight}}
       <br> Sex: {{data.userSex}}
@@ -30,18 +30,24 @@
 
 
   <ion-row class="restart-submit-buttons">
-    <ion-col width-50>
-      <button ion-button color="white" clear="true" (click)=startOver(); icon-left>
-        <ion-icon name="refresh"></ion-icon>
-        START OVER
-      </button>
-    </ion-col>
-    <ion-col width-50>
+    <ion-col col-2></ion-col>
+    <ion-col col-8>
       <button ion-button color="white" (click)=submit(data); block round icon-left>
         <ion-icon name="checkmark"></ion-icon>
-        SUBMIT
+        CREATE ACCOUNT
       </button>
     </ion-col>
+    <ion-col col-2></ion-col>
+  </ion-row>
+  <ion-row class="restart-submit-buttons">
+    <ion-col col-4></ion-col>
+    <ion-col col-4>
+      <button ion-button color="white" clear="true" (click)=startOver(); icon-left>
+        <ion-icon name="refresh"></ion-icon>
+          START OVER
+        </button>
+      </ion-col>
+    <ion-col col-4></ion-col>
   </ion-row>
 
 

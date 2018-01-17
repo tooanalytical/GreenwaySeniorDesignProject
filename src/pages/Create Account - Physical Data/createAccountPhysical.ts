@@ -30,6 +30,8 @@ export class CreateAccountPhysicalPage {
     userSex: ''
   };
 
+  
+
   createAccountNext() {
     this.navCtrl.push(CreateAccountFinishPage, this.data);
   }

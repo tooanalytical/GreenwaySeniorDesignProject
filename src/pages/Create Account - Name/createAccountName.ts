@@ -41,7 +41,7 @@ export class CreateAccountNamePage {
     alert.present();
   }
 
-  //Pushes user to next step in account creation process if their name passes validation.
+  //Segues user to next step in process if they pass validation requirements.
   createAccountNext(data) {
     if(this.nameValidation()) {
       this.navCtrl.push(CreateAccountEmailPage, data);

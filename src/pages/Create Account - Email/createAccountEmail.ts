@@ -23,7 +23,7 @@ export class CreateAccountEmailPage {
 
   //Validates the user's email address fits acceptable parameters
   emailValidation() {
-    var flag;
+    var flag = true;
 
     //Validates the email is not empty and consists of a correct email format.
     if(this.data.emailAddress !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.data.emailAddress)){
@@ -45,6 +45,7 @@ export class CreateAccountEmailPage {
     alert.present();
   }
 
+  //Segues user to next step in process if they pass validation requirements.
   createAccountNext() {
     if(this.emailValidation()) {
       this.navCtrl.push(CreateAccountPasswordPage, this.data);

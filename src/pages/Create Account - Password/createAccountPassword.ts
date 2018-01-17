@@ -82,6 +82,7 @@ export class CreateAccountPasswordPage {
     alert.present();
   }
 
+  //Segues user to next step in process if they pass validation requirements.
   createAccountNext() {
     this.passwordValidation();
     if(this.lengthFlag) {

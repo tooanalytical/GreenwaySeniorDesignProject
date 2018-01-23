@@ -29,7 +29,6 @@ export class CreateAccountFinishPage {
   userBirthdate = this.navParams.get('userBirthdate');
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
-  userSex = this.navParams.get('userSex');
 
   data = {
     firstName: this.firstName,
@@ -40,7 +39,6 @@ export class CreateAccountFinishPage {
     userBirthdate: this.userBirthdate,
     userHeight: this.userHeight,
     userWeight: this.userWeight,
-    userSex: this.userSex,
     userLat: '',
     userLng: ''
   };

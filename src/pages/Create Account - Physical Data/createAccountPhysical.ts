@@ -26,11 +26,8 @@ export class CreateAccountPhysicalPage {
     userPasswordConfirm: this.userPasswordConfirm,
     userBirthdate: this.userBirthdate,
     userHeight: '',
-    userWeight: '',
-    userSex: ''
+    userWeight: ''
   };
-
-  
 
   createAccountNext() {
     this.navCtrl.push(CreateAccountFinishPage, this.data);

@@ -10,7 +10,11 @@ import { CreateAccountPasswordPage } from '../Create Account - Password/createAc
   templateUrl: 'createAccountEmail.html'
 })
 export class CreateAccountEmailPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController
+  ) {}
 
   firstName = this.navParams.get('firstName');
   lastName = this.navParams.get('lastName');
@@ -26,9 +30,14 @@ export class CreateAccountEmailPage {
     var flag = true;
 
     //Validates the email is not empty and consists of a correct email format.
-    if(this.data.emailAddress !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.data.emailAddress)){
+    if (
+      this.data.emailAddress !== '' &&
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        this.data.emailAddress
+      )
+    ) {
       flag = true;
-    //Sets flag to false if it fails the validation test.
+      //Sets flag to false if it fails the validation test.
     } else {
       flag = false;
     }
@@ -47,11 +56,10 @@ export class CreateAccountEmailPage {
 
   //Segues user to next step in process if they pass validation requirements.
   createAccountNext() {
-    if(this.emailValidation()) {
+    if (this.emailValidation()) {
       this.navCtrl.push(CreateAccountPasswordPage, this.data);
     } else {
       this.presentAlert();
     }
-    
   }
 }

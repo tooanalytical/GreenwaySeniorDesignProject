@@ -28,7 +28,10 @@ export class RecordActivityPage {
   public resumeFlag = false;
   public state = '0';
 
-  public buttonColor: string = '#37721b'; //Default blue
+  public startButtonColor: string = '#37721b'; //Light Green
+  public resumeButtonColor: string = '#37721b'; //Light Green
+  public pauseButtonColor: string = '#ff0000'; //Red
+  public endButtonColor: string = '#ff0000'; //Red
 
   public addZero = function(value) {
     if (value < 10) {

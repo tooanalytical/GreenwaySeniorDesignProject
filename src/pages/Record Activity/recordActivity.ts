@@ -13,14 +13,20 @@ export class RecordActivityPage {
   map: any;
 
   public timer = '00:00:00';
-  public startButton = 'Start';
+  public stateButton = 'Start';
+  public endButton = 'End';
   public seconds;
   public minutes;
   public hours;
+  public startTime;
+  public now;
   public start;
   public default;
   public timer_id;
-  public flag = true;
+  public startFlag = true;
+  public pauseFlag = false;
+  public resumeFlag = false;
+  public state = '0';
 
   public buttonColor: string = '#37721b'; //Default blue
 
@@ -73,35 +79,66 @@ export class RecordActivityPage {
     );
   }
 
-  startStop() {
-    if (this.startButton === 'Start') {
-      this.start = new Date();
-      this.timer_id = setInterval(() => {
-        this.seconds = Math.floor(
-          (new Date().getTime() - this.start.getTime()) / 1000
-        );
-        this.minutes = Math.floor(this.seconds / 60);
-        this.hours = Math.floor(this.minutes / 60);
-
-        this.seconds = this.seconds - this.minutes * 60;
-        this.minutes = this.minutes - this.hours * 60;
-
-        this.hours = this.addZero(this.hours);
-        this.minutes = this.addZero(this.minutes);
-        this.seconds = this.addZero(this.seconds);
-
-        this.timer = this.hours + ':' + this.minutes + ':' + this.seconds;
-      }, 10);
-
-      this.startButton = 'Pause';
-      this.buttonColor = '#ff0000'; //color red
-      this.default = 'danger';
-    } else {
-      clearInterval(this.timer_id);
-
-      this.startButton = 'Start';
-      this.buttonColor = '#37721b'; //default blue
-      this.default = 'default';
+  activityManager() {
+    if (this.stateButton === 'Start') {
+      this.startActivity();
+    } else if (this.stateButton === 'Pause') {
+      this.pauseActivity();
+    } else if (this.stateButton === 'Resume') {
+      this.resumeActivity();
     }
+  }
+  startTimer() {
+    this.start = new Date();
+    this.timer_id = setInterval(() => {
+      this.seconds = Math.floor(
+        (new Date().getTime() - this.start.getTime()) / 1000
+      );
+      this.minutes = Math.floor(this.seconds / 60);
+      this.hours = Math.floor(this.minutes / 60);
+
+      this.seconds = this.seconds - this.minutes * 60;
+      this.minutes = this.minutes - this.hours * 60;
+
+      this.hours = this.addZero(this.hours);
+      this.minutes = this.addZero(this.minutes);
+      this.seconds = this.addZero(this.seconds);
+
+      this.timer = this.hours + ':' + this.minutes + ':' + this.seconds;
+    }, 10);
+  }
+
+  pauseTimer() {}
+
+  resetTimer() {
+    clearInterval(this.timer_id);
+    this.timer = '00:00:00';
+  }
+  startActivity() {
+    this.startTimer();
+
+    this.startFlag = false;
+    this.stateButton = 'Pause';
+    this.pauseFlag = true;
+  }
+
+  resumeActivity() {
+    this.pauseFlag = true;
+    this.stateButton = 'Pause';
+    this.resumeFlag = false;
+  }
+
+  pauseActivity() {
+    this.pauseFlag = false;
+    this.stateButton = 'Resume';
+    this.resumeFlag = true;
+  }
+
+  endActivity() {
+    this.resetTimer();
+    this.resumeFlag = false;
+    this.pauseFlag = false;
+    this.stateButton = 'Start';
+    this.startFlag = true;
   }
 }

@@ -26,53 +26,39 @@
           <p> Calories </p>
           <h1> 0 </h1>
         </ion-col>
-        <ion-col>
-          <ion-item class="transparent">
-            <ion-label color="white">
-              <img src="assets/walk.png">
-            </ion-label>
-            <ion-radio value="walk"></ion-radio>
-          </ion-item>
-          <ion-item class="transparent">
-            <ion-label color="white">
-              <img src="assets/run.png">
-            </ion-label>
-            <ion-radio value="walk"></ion-radio>
-          </ion-item>
-          <ion-item class="transparent">
-            <ion-label color="white">
-              <img src="assets/bike.png">
-            </ion-label>
-            <ion-radio value="walk"></ion-radio>
-
-          </ion-item>
-        </ion-col>
       </ion-row>
     </div>
   </div>
-  <div align="center">
+  <div *ngIf="startFlag" align="center">
     <ion-buttons color="darkGr" align="center">
-      <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
-        <ion-icon name="walk"></ion-icon> {{startButton}}
+      <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':buttonColor }">
+        <ion-icon name="play"></ion-icon> {{stateButton}}
       </button>
     </ion-buttons>
   </div>
-  <!-- <div ng-hide="flag" class="ng-hide" align="center">
+  <div *ngIf="pauseFlag" align="center">
+    <ion-buttons color="darkGr" align="center">
+      <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':buttonColor }">
+        <ion-icon name="pause"></ion-icon> {{stateButton}}
+      </button>
+    </ion-buttons>
+  </div>
+  <div *ngIf="resumeFlag" align="center">
     <ion-row>
       <ion-col>
         <ion-buttons color="darkGr" align="center">
-          <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
-            <ion-icon name="walk"></ion-icon> {{startButton}}
+          <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':buttonColor }">
+            <ion-icon name="refresh"></ion-icon> {{stateButton}}
           </button>
         </ion-buttons>
       </ion-col>
       <ion-col>
         <ion-buttons color="darkGr" align="center">
-          <button ion-button (click)="startStop()" [ngStyle]="{'background-color':buttonColor }">
-            <ion-icon name="walk"></ion-icon> {{startButton}}
+          <button ion-button (click)="endActivity()" [ngStyle]="{'background-color':buttonColor }">
+            <ion-icon name="square"></ion-icon> {{endButton}}
           </button>
         </ion-buttons>
       </ion-col>
     </ion-row>
-  </div> -->
+  </div>
 </ion-content>

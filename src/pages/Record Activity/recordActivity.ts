@@ -12,17 +12,29 @@ export class RecordActivityPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  public timer = '00:00:00';
+  public activityTimer = '00:00:00';
+  public pausedTimer = '00:00:00';
   public stateButton = 'Start';
   public endButton = 'End';
-  public seconds;
-  public minutes;
-  public hours;
-  public startTime;
-  public now;
-  public start;
+
+  public activeSeconds;
+  public activeMinutes;
+  public activeHours;
+
+  public pausedSeconds;
+  public pausedMinutes;
+  public pausedHours;
+
+  public startedTime;
+  public pausedTime;
+  public resumedTime;
+
+  public timePaused;
+
+  public pause;
   public default;
-  public timer_id;
+  public timer_id_active;
+  public timer_id_paused;
   public startFlag = true;
   public pauseFlag = false;
   public resumeFlag = false;
@@ -92,53 +104,83 @@ export class RecordActivityPage {
     }
   }
   startTimer() {
-    this.start = new Date();
-    this.timer_id = setInterval(() => {
-      this.seconds = Math.floor(
-        (new Date().getTime() - this.start.getTime()) / 1000
+    this.startedTime = new Date();
+    console.log('Start Time' + this.startedTime);
+    this.timer_id_active = setInterval(() => {
+      this.activeSeconds = Math.floor(
+        (new Date().getTime() - this.startedTime.getTime()) / 1000
       );
-      this.minutes = Math.floor(this.seconds / 60);
-      this.hours = Math.floor(this.minutes / 60);
 
-      this.seconds = this.seconds - this.minutes * 60;
-      this.minutes = this.minutes - this.hours * 60;
+      this.activeMinutes = Math.floor(this.activeSeconds / 60);
+      this.activeHours = Math.floor(this.activeMinutes / 60);
 
-      this.hours = this.addZero(this.hours);
-      this.minutes = this.addZero(this.minutes);
-      this.seconds = this.addZero(this.seconds);
+      this.activeSeconds = this.activeSeconds - this.activeMinutes * 60;
+      this.activeMinutes = this.activeMinutes - this.activeHours * 60;
 
-      this.timer = this.hours + ':' + this.minutes + ':' + this.seconds;
+      this.activeHours = this.addZero(this.activeHours);
+      this.activeMinutes = this.addZero(this.activeMinutes);
+      this.activeSeconds = this.addZero(this.activeSeconds);
+
+      this.activityTimer =
+        this.activeHours + ':' + this.activeMinutes + ':' + this.activeSeconds;
     }, 10);
   }
 
-  pauseTimer() {}
+  pauseTimer() {
+    this.pausedTime = new Date();
+  }
 
-  resetTimer() {
-    clearInterval(this.timer_id);
-    this.timer = '00:00:00';
+  resetActivity() {
+    clearInterval(this.timer_id_active);
+    clearInterval(this.timer_id_paused);
+    this.activityTimer = '00:00:00';
   }
   startActivity() {
     this.startTimer();
-
     this.startFlag = false;
     this.stateButton = 'Pause';
     this.pauseFlag = true;
   }
 
+  pauseActivity() {
+    this.pauseTimer();
+    clearInterval(this.timer_id_active);
+    console.log('Paused Time: ' + this.pausedTime);
+    this.pauseFlag = false;
+    this.stateButton = 'Resume';
+    this.resumeFlag = true;
+  }
   resumeActivity() {
+    this.resumedTime = new Date();
+    this.timer_id_active = setInterval(() => {
+      this.activeSeconds = Math.floor(
+        (new Date().getTime() -
+          this.startedTime.getTime() -
+          (this.resumedTime - this.pausedTime.getTime())) /
+          1000
+      );
+
+      this.activeMinutes = Math.floor(this.activeSeconds / 60);
+      this.activeHours = Math.floor(this.activeMinutes / 60);
+
+      this.activeSeconds = this.activeSeconds - this.activeMinutes * 60;
+      this.activeMinutes = this.activeMinutes - this.activeHours * 60;
+
+      this.activeHours = this.addZero(this.activeHours);
+      this.activeMinutes = this.addZero(this.activeMinutes);
+      this.activeSeconds = this.addZero(this.activeSeconds);
+
+      this.activityTimer =
+        this.activeHours + ':' + this.activeMinutes + ':' + this.activeSeconds;
+    }, 10);
+
     this.pauseFlag = true;
     this.stateButton = 'Pause';
     this.resumeFlag = false;
   }
 
-  pauseActivity() {
-    this.pauseFlag = false;
-    this.stateButton = 'Resume';
-    this.resumeFlag = true;
-  }
-
   endActivity() {
-    this.resetTimer();
+    this.resetActivity();
     this.resumeFlag = false;
     this.pauseFlag = false;
     this.stateButton = 'Start';

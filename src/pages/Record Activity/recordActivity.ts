@@ -37,6 +37,7 @@ export class RecordActivityPage {
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
+  // Adds a zero to the tens place of the timer as placeholder
   public addZero = function(value) {
     if (value < 10) {
       value = '0' + value;
@@ -85,7 +86,7 @@ export class RecordActivityPage {
       }
     );
   }
-
+  // Selects the function to use based upon the value of the button.
   activityManager() {
     if (this.stateButton === 'Start') {
       this.startActivity();
@@ -95,6 +96,7 @@ export class RecordActivityPage {
       this.resumeActivity();
     }
   }
+  //Starts user activity and changes UI elements
   startTimer() {
     this.startedTime = new Date();
     this.totalTime = 0;
@@ -120,11 +122,7 @@ export class RecordActivityPage {
     }, 10);
   }
 
-  resetActivity() {
-    clearInterval(this.timer_id_active);
-    this.totalTime = 0;
-    this.activityTimer = '00:00:00';
-  }
+  //Starts user activity and changes UI elements
   startActivity() {
     this.startTimer();
 
@@ -133,6 +131,7 @@ export class RecordActivityPage {
     this.pauseFlag = true;
   }
 
+  //Pauses user activity and changes UI elements
   pauseActivity() {
     clearInterval(this.timer_id_active);
     this.totalTime += this.activeTime;
@@ -141,6 +140,8 @@ export class RecordActivityPage {
     this.stateButton = 'Resume';
     this.resumeFlag = true;
   }
+
+  //Resumes user activity and changes UI elements
   resumeActivity() {
     this.startedTime = new Date();
 
@@ -172,8 +173,10 @@ export class RecordActivityPage {
     this.resumeFlag = false;
   }
 
+  //Ends user activity and changes UI elements
   endActivity() {
-    this.resetActivity();
+    clearInterval(this.timer_id_active);
+    this.activityTimer = '00:00:00';
 
     this.resumeFlag = false;
     this.pauseFlag = false;

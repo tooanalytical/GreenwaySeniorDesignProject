@@ -13,28 +13,20 @@ export class RecordActivityPage {
   map: any;
 
   public activityTimer = '00:00:00';
-  public pausedTimer = '00:00:00';
   public stateButton = 'Start';
   public endButton = 'End';
+
+  public activeTime;
+  public totalTime;
 
   public activeSeconds;
   public activeMinutes;
   public activeHours;
 
-  public pausedSeconds;
-  public pausedMinutes;
-  public pausedHours;
-
   public startedTime;
-  public pausedTime;
-  public resumedTime;
-
-  public timePaused;
 
   public pause;
-  public default;
   public timer_id_active;
-  public timer_id_paused;
   public startFlag = true;
   public pauseFlag = false;
   public resumeFlag = false;
@@ -105,11 +97,13 @@ export class RecordActivityPage {
   }
   startTimer() {
     this.startedTime = new Date();
-    console.log('Start Time' + this.startedTime);
+    this.totalTime = 0;
     this.timer_id_active = setInterval(() => {
-      this.activeSeconds = Math.floor(
-        (new Date().getTime() - this.startedTime.getTime()) / 1000
+      this.activeTime = Math.floor(
+        new Date().getTime() - this.startedTime.getTime()
       );
+
+      this.activeSeconds = Math.floor(this.activeTime / 1000);
 
       this.activeMinutes = Math.floor(this.activeSeconds / 60);
       this.activeHours = Math.floor(this.activeMinutes / 60);
@@ -126,38 +120,37 @@ export class RecordActivityPage {
     }, 10);
   }
 
-  pauseTimer() {
-    this.pausedTime = new Date();
-  }
-
   resetActivity() {
     clearInterval(this.timer_id_active);
-    clearInterval(this.timer_id_paused);
+    this.totalTime = 0;
     this.activityTimer = '00:00:00';
   }
   startActivity() {
     this.startTimer();
+
     this.startFlag = false;
     this.stateButton = 'Pause';
     this.pauseFlag = true;
   }
 
   pauseActivity() {
-    this.pauseTimer();
     clearInterval(this.timer_id_active);
-    console.log('Paused Time: ' + this.pausedTime);
+    this.totalTime += this.activeTime;
+
     this.pauseFlag = false;
     this.stateButton = 'Resume';
     this.resumeFlag = true;
   }
   resumeActivity() {
-    this.resumedTime = new Date();
+    this.startedTime = new Date();
+
     this.timer_id_active = setInterval(() => {
+      this.activeTime = Math.floor(
+        new Date().getTime() - this.startedTime.getTime()
+      );
+
       this.activeSeconds = Math.floor(
-        (new Date().getTime() -
-          this.startedTime.getTime() -
-          (this.resumedTime - this.pausedTime.getTime())) /
-          1000
+        (this.totalTime + this.activeTime) / 1000
       );
 
       this.activeMinutes = Math.floor(this.activeSeconds / 60);
@@ -181,6 +174,7 @@ export class RecordActivityPage {
 
   endActivity() {
     this.resetActivity();
+
     this.resumeFlag = false;
     this.pauseFlag = false;
     this.stateButton = 'Start';

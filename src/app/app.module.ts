@@ -8,6 +8,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
+import { WheelSelector } from '@ionic-native/wheel-selector'
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
@@ -95,6 +96,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     FilePath,
     NativeStorage,
     Facebook,
+    WheelSelector,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

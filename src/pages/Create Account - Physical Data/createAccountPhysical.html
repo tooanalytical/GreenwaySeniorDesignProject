@@ -16,20 +16,8 @@
   </div>
 
   <div padding>
-    <ion-list>
 
-      <ion-item class="transparent">
-        <ion-label floating class="item-input">HEIGHT</ion-label>
-        <ion-input type="text" [(ngModel)]="data.userHeight" placeholder="inches"></ion-input>
-      </ion-item>
-
-      <ion-item class="transparent">
-        <ion-label floating class="item-input">WEIGHT</ion-label>
-        <ion-input type="text" [(ngModel)]="data.userWeight" placeholder="pounds"></ion-input>
-      </ion-item>
-
-
-    </ion-list>
+    <button ion-button large color="white" clear (click)=selectANumber();>Height</button>
   </div>
 
   <div>

@@ -15,7 +15,8 @@
 // automatically applied to the <body> element in the app.
 ion-content {
   background-image: url(../assets/background.jpg);
-  background-size: contain;
+  background-size: cover;
+  overflow-y: visible;
 }
 .transparent {
   background-color: transparent;
@@ -26,4 +27,7 @@ a,
 h1,
 h4 {
   color: white;
+}
+::-webkit-scrollbar {
+display: none;
 }

@@ -17,7 +17,32 @@
 
   <div padding>
 
-    <ion-item class="transparent">
+    <button ion-button color="lightGr" (click)=selectAHeight(); block round icon-left>
+      Height
+    </button>
+
+    <p style="text-align:center;">
+      Your Height: {{data.userHeight}}
+    </p>
+
+
+    <button ion-button color="lightGr" (click)=selectAWeight(); block round icon-left>
+      Weight
+    </button>
+
+    <p style="text-align:center;">
+      Your Weight: {{data.userWeight}}
+    </p>
+
+    <button ion-button color="lightGr" (click)=selectAGender(); block round icon-left>
+      Gender
+    </button>
+
+    <p style="text-align:center;">
+      Your Gender: {{data.userGender}}
+    </p>
+
+    <!-- <ion-item class="transparent">
       <ion-label floating class="item-input">FEET</ion-label>
       <ion-input type="text" [(ngModel)]="data.userHeightFeet"></ion-input>
     </ion-item>
@@ -28,7 +53,7 @@
     <ion-item class="transparent">
       <ion-label floating class="item-input">WEIGHT (lbs.)</ion-label>
       <ion-input type="text" [(ngModel)]="data.userWeight"></ion-input>
-    </ion-item>
+    </ion-item> -->
   </div>
 
   <div>

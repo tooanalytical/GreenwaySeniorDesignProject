@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Pedometer } from '@ionic-native/pedometer';
 
 declare var google;
 
@@ -45,7 +46,11 @@ export class RecordActivityPage {
     return value;
   };
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {}
+  constructor(
+    public navCtrl: NavController,
+    public geolocation: Geolocation,
+    public pedometer: Pedometer
+  ) {}
 
   ionViewDidLoad() {
     this.loadMap();

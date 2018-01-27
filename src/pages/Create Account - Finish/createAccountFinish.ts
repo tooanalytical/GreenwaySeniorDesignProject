@@ -27,9 +27,9 @@ export class CreateAccountFinishPage {
   userPassword = this.navParams.get('userPassword');
   userPasswordConfirm = this.navParams.get('userPasswordConfirm');
   userBirthdate = this.navParams.get('userBirthdate');
-  userHeightFeet = this.navParams.get('userHeightFeet');
-  userHeightInches = this.navParams.get('userHeightInches');
+  userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
+  userGender = this.navParams.get('userGender');
 
   data = {
     firstName: this.firstName,
@@ -38,9 +38,9 @@ export class CreateAccountFinishPage {
     userPassword: this.userPassword,
     userPasswordConfirm: this.userPasswordConfirm,
     userBirthdate: this.userBirthdate,
-    userHeightFeet: this.userHeightFeet,
-    userHeightInches: this.userHeightInches,
+    userHeight: this.userHeight,
     userWeight: this.userWeight,
+    userGender: this.userGender,
     userLat: '',
     userLng: ''
   };

@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus, Geolocation } from 'ionic-native';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
-import { WheelSelector } from '@ionic-native/wheel-selector'
 
 import { HomePage } from '../pages/home/home';
 import { SplashPage } from '../pages/Splash/splash';

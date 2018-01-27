@@ -32,14 +32,14 @@
   <div *ngIf="startFlag" align="center">
     <ion-buttons color="darkGr" align="center">
       <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':startButtonColor }">
-        <ion-icon align="left" name="play"></ion-icon> {{stateButton}}
+        <ion-icon class="button-icon-padding" align="left" name="play"></ion-icon> {{stateButton}}
       </button>
     </ion-buttons>
   </div>
   <div *ngIf="pauseFlag" align="center">
     <ion-buttons color="darkGr" align="center">
       <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':pauseButtonColor }">
-        <ion-icon name="pause"></ion-icon> {{stateButton}}
+        <ion-icon class="button-icon-padding" name="pause"></ion-icon> {{stateButton}}
       </button>
     </ion-buttons>
   </div>
@@ -48,14 +48,14 @@
       <ion-col>
         <ion-buttons align="center">
           <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':resumeButtonColor }">
-            <ion-icon name="refresh"></ion-icon> {{stateButton}}
+            <ion-icon class="button-icon-padding" name="refresh"></ion-icon> {{stateButton}}
           </button>
         </ion-buttons>
       </ion-col>
       <ion-col>
         <ion-buttons color="darkGr" align="center">
           <button ion-button (click)="endActivity()" [ngStyle]="{'background-color':endButtonColor }">
-            <ion-icon name="square"></ion-icon> {{endButton}}
+            <ion-icon class="button-icon-padding" name="square"></ion-icon> {{endButton}}
           </button>
         </ion-buttons>
       </ion-col>

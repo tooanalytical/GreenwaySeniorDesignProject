@@ -31,29 +31,54 @@ export class RecordActivityPage {
   public startFlag = true;
   public pauseFlag = false;
   public resumeFlag = false;
-  public state = '0';
 
   public startButtonColor: string = '#37721b'; //Light Green
   public resumeButtonColor: string = '#37721b'; //Light Green
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
-  // Adds a zero to the tens place of the timer as placeholder
-  public addZero = function(value) {
-    if (value < 10) {
-      value = '0' + value;
-    }
-    return value;
-  };
+  public segmentSteps;
+  public totalSteps;
+  public segmentDistance;
+  public totalDistance;
+  public segmentCalories;
+  public totalCalories;
+
+  public currentSpeed;
+
+  data = {};
+
+  steps: number = 0;
+  goal: number;
+  percentage: number;
 
   constructor(
     public navCtrl: NavController,
     public geolocation: Geolocation,
     public pedometer: Pedometer
-  ) {}
+  ) {
+    this.pedometer
+      .isDistanceAvailable()
+      .then((available: boolean) =>
+        console.log('Pedometer Available?' + available)
+      )
+      .catch((error: any) => console.log(error));
+
+    this.pedometer.startPedometerUpdates().subscribe(data => {
+      console.log(data);
+    });
+  }
 
   ionViewDidLoad() {
     this.loadMap();
+    this.pedometerStart();
+  }
+
+  pedometerStart() {
+    this.pedometer
+      .isDistanceAvailable()
+      .then((available: boolean) => console.log(available))
+      .catch((error: any) => console.log(error));
   }
 
   loadMap() {
@@ -101,6 +126,15 @@ export class RecordActivityPage {
       this.resumeActivity();
     }
   }
+
+  // Adds a zero to the tens place of the timer as placeholder
+  public addZero = function(value) {
+    if (value < 10) {
+      value = '0' + value;
+    }
+    return value;
+  };
+
   //Starts user activity and changes UI elements
   startTimer() {
     this.startedTime = new Date();
@@ -177,6 +211,15 @@ export class RecordActivityPage {
     this.stateButton = 'Pause';
     this.resumeFlag = false;
   }
+
+  //TODO: Calculate user's current speed.
+  getCurrentSpeed() {}
+
+  //TODO: Calculate user's current activity distance.
+  getDistanceTraveled() {}
+
+  //TODO: Calculate user's calories burned.
+  getCaloriesBurned() {}
 
   //Ends user activity and changes UI elements
   endActivity() {

@@ -36,6 +36,7 @@ export class CreateAccountPhysicalPage {
   //JSON Selections for user height, weight, and gender.
   physicalData = {
     heights: [
+      { description: '' },
       { description: '> 4 Feet 0 Inches' },
       { description: '4 Feet 0 Inches' },
       { description: '4 Feet 1 Inches' },
@@ -89,6 +90,7 @@ export class CreateAccountPhysicalPage {
       { description: '< 8 Feet 0 Inches' }
     ],
     weights: [
+      { description: '' },
       { description: '> 80 lbs' },
       { description: '80 lbs' },
       { description: '81 lbs' },
@@ -314,6 +316,7 @@ export class CreateAccountPhysicalPage {
       { description: '< 300 lbs' }
     ],
     gender: [
+      { description: '' },
       { description: 'Male' },
       { description: 'Female' },
       { description: 'Non-Binary' }

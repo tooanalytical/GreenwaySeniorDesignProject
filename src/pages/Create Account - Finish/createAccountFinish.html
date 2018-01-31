@@ -32,7 +32,7 @@
   <ion-row class="restart-submit-buttons">
     <ion-col col-2></ion-col>
     <ion-col col-8>
-      <button ion-button color="white" (click)=submit(data); block round icon-left>
+      <button ion-button color="white" (tap)=submit(data); block round icon-left>
         <ion-icon name="checkmark"></ion-icon>
         CREATE ACCOUNT
       </button>
@@ -42,7 +42,7 @@
   <ion-row class="restart-submit-buttons">
     <ion-col col-4></ion-col>
     <ion-col col-4>
-      <button ion-button color="white" clear="true" (click)=startOver(); icon-left>
+      <button ion-button color="white" clear="true" (tap)=startOver(); icon-left>
         <ion-icon name="refresh"></ion-icon>
         START OVER
       </button>

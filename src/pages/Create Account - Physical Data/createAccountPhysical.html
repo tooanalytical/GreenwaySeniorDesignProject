@@ -17,7 +17,7 @@
 
   <div padding>
 
-    <button ion-button color="lightGr" (click)=selectAHeight(); block round icon-left>
+    <button ion-button color="lightGr" (tap)=selectAHeight(); block round icon-left>
       Height
     </button>
 
@@ -26,7 +26,7 @@
     </p>
 
 
-    <button ion-button color="lightGr" (click)=selectAWeight(); block round icon-left>
+    <button ion-button color="lightGr" (tap)=selectAWeight(); block round icon-left>
       Weight
     </button>
 
@@ -34,7 +34,7 @@
       Your Weight: {{data.userWeight}}
     </p>
 
-    <button ion-button color="lightGr" (click)=selectAGender(); block round icon-left>
+    <button ion-button color="lightGr" (tap)=selectAGender(); block round icon-left>
       Gender
     </button>
 
@@ -60,7 +60,7 @@
     <p style="text-align:center;">
       <img src="assets/progFive.png" width=200px>
     </p>
-    <button ion-button large color="white" class="forward-button" clear (click)=createAccountNext(data);>
+    <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>
   </div>

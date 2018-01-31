@@ -24,21 +24,21 @@
           <h1> 0.00 mi </h1>
 
           <p> Calories </p>
-          <h1> 0 </h1>
+          <h1> {{totalSteps}} </h1>
         </ion-col>
       </ion-row>
     </div>
   </div>
   <div *ngIf="startFlag" align="center">
     <ion-buttons color="darkGr" align="center">
-      <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':startButtonColor }">
+      <button ion-button (tap)="activityManager()" [ngStyle]="{'background-color':startButtonColor }">
         <ion-icon class="button-icon-padding" align="left" name="play"></ion-icon> {{stateButton}}
       </button>
     </ion-buttons>
   </div>
   <div *ngIf="pauseFlag" align="center">
     <ion-buttons color="darkGr" align="center">
-      <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':pauseButtonColor }">
+      <button ion-button (tap)="activityManager()" [ngStyle]="{'background-color':pauseButtonColor }">
         <ion-icon class="button-icon-padding" name="pause"></ion-icon> {{stateButton}}
       </button>
     </ion-buttons>
@@ -47,14 +47,14 @@
     <ion-row>
       <ion-col>
         <ion-buttons align="center">
-          <button ion-button (click)="activityManager()" [ngStyle]="{'background-color':resumeButtonColor }">
+          <button ion-button (tap)="activityManager()" [ngStyle]="{'background-color':resumeButtonColor }">
             <ion-icon class="button-icon-padding" name="refresh"></ion-icon> {{stateButton}}
           </button>
         </ion-buttons>
       </ion-col>
       <ion-col>
         <ion-buttons color="darkGr" align="center">
-          <button ion-button (click)="endActivity()" [ngStyle]="{'background-color':endButtonColor }">
+          <button ion-button (tap)="endActivity()" [ngStyle]="{'background-color':endButtonColor }">
             <ion-icon class="button-icon-padding" name="square"></ion-icon> {{endButton}}
           </button>
         </ion-buttons>

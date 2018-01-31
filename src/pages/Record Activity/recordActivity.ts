@@ -38,7 +38,7 @@ export class RecordActivityPage {
   public endButtonColor: string = '#ff0000'; //Red
 
   public segmentSteps;
-  public totalSteps;
+  public totalSteps = 0;
   public segmentDistance;
   public totalDistance;
   public segmentCalories;
@@ -56,29 +56,10 @@ export class RecordActivityPage {
     public navCtrl: NavController,
     public geolocation: Geolocation,
     public pedometer: Pedometer
-  ) {
-    this.pedometer
-      .isDistanceAvailable()
-      .then((available: boolean) =>
-        console.log('Pedometer Available?' + available)
-      )
-      .catch((error: any) => console.log(error));
-
-    this.pedometer.startPedometerUpdates().subscribe(data => {
-      console.log(data);
-    });
-  }
+  ) {}
 
   ionViewDidLoad() {
     this.loadMap();
-    this.pedometerStart();
-  }
-
-  pedometerStart() {
-    this.pedometer
-      .isDistanceAvailable()
-      .then((available: boolean) => console.log(available))
-      .catch((error: any) => console.log(error));
   }
 
   loadMap() {
@@ -164,6 +145,7 @@ export class RecordActivityPage {
   //Starts user activity and changes UI elements
   startActivity() {
     this.startTimer();
+    this.pedometerStart();
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -173,6 +155,7 @@ export class RecordActivityPage {
   //Pauses user activity and changes UI elements
   pauseActivity() {
     clearInterval(this.timer_id_active);
+    this.pedometerPause();
     this.totalTime += this.activeTime;
 
     this.pauseFlag = false;
@@ -210,6 +193,28 @@ export class RecordActivityPage {
     this.pauseFlag = true;
     this.stateButton = 'Pause';
     this.resumeFlag = false;
+  }
+
+  //Starts pedometer tracking.
+  pedometerStart() {
+    this.pedometer
+      .isDistanceAvailable()
+      .then((available: boolean) =>
+        console.log('Pedometer Available?' + available)
+      )
+      .catch((error: any) => console.log(error));
+
+    this.pedometer.startPedometerUpdates().subscribe(data => {
+      this.segmentSteps = data.numberOfSteps;
+      console.log(data);
+    });
+  }
+
+  //Pausing pedometer tracking.
+  pedometerPause() {
+    this.pedometer.stopPedometerUpdates();
+    this.totalSteps += this.segmentSteps;
+    this.segmentSteps = 0;
   }
 
   //TODO: Calculate user's current speed.

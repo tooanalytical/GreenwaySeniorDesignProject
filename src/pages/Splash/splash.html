@@ -7,7 +7,7 @@
   <div padding>
 
     <p style="text-align:right;">
-      <button ion-button color="white" clear (click)=loginPage();>Log in</button>
+      <button ion-button color="white" clear (tap)=loginPage();>Log in</button>
       <p style="text-align:left;">
         <img src="assets/ViridianLogo.png" alt="CityLogo" width=100px height=140px>
         <p class="login-margin" style="text-align:left;">Welcome to Viridian.
@@ -16,13 +16,13 @@
 
   <div padding>
 
-    <button ion-button color="lightGr" (click)=googleLogin(); block round icon-left>
+    <button ion-button color="lightGr" (tap)=googleLogin(); block round icon-left>
       <ion-icon name="logo-google"></ion-icon>
       Continue with Google
     </button>
 
     <p style="login-margin">
-      <button ion-button color="darkGr" (click)=facebookLogin(); block round icon-left>
+      <button ion-button color="darkGr" (tap)=facebookLogin(); block round icon-left>
         <ion-icon name="logo-facebook"></ion-icon>
         Continue with Facebook
       </button>
@@ -30,7 +30,7 @@
 
 
       <p style="login-margin">
-        <button ion-button color="white" outline block round (click)=createNewAccount();>
+        <button ion-button color="white" outline block round (tap)=createNewAccount();>
           Create Account
         </button>
 

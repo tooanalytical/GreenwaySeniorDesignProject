@@ -2,8 +2,10 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Storage } from '@ionic/storage';
 
 import { SplashPage } from '../Splash/splash';
+import { HomePage } from '../home/home';
 
 declare var google;
 
@@ -18,14 +20,14 @@ export class CreateAccountFinishPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public storage: Storage
   ) {}
 
   firstName = this.navParams.get('firstName');
   lastName = this.navParams.get('lastName');
   emailAddress = this.navParams.get('emailAddress');
   userPassword = this.navParams.get('userPassword');
-  userPasswordConfirm = this.navParams.get('userPasswordConfirm');
   userBirthdate = this.navParams.get('userBirthdate');
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
@@ -36,7 +38,6 @@ export class CreateAccountFinishPage {
     lastName: this.lastName,
     emailAddress: this.emailAddress,
     userPassword: this.userPassword,
-    userPasswordConfirm: this.userPasswordConfirm,
     userBirthdate: this.userBirthdate,
     userHeight: this.userHeight,
     userWeight: this.userWeight,
@@ -71,11 +72,26 @@ export class CreateAccountFinishPage {
     this.data.userLng = longitude;
   }
 
+  //Saves the user's information to local storage for access later.
+  saveUserInfo() {
+    this.storage.set('name', this.data.firstName + ' ' + this.data.lastName);
+    this.storage.set('email', this.data.emailAddress);
+    this.storage.set('userPassword', this.data.userPassword);
+    this.storage.set('userBirthdate', this.data.userBirthdate);
+    this.storage.set('userHeight', this.data.userHeight);
+    this.storage.set('userWeight', this.data.userWeight);
+    this.storage.set('userGender', this.data.userGender);
+  }
+
   submit(data) {
+    //Saves the new user information locally.
+    this.saveUserInfo();
     //takes in data and sends it to server to create account
 
     //Gets the location of the user
     this.getLocation();
+
+    this.navCtrl.setRoot(HomePage);
   }
 
   startOver() {

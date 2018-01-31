@@ -7,6 +7,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Pedometer } from '@ionic-native/pedometer';
 import { Facebook } from '@ionic-native/facebook';
@@ -61,7 +62,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     CreditsPage
   ],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp)],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
+  ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -95,6 +100,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Transfer,
     Camera,
     FilePath,
+    IonicStorageModule,
     NativeStorage,
     WheelSelector,
     Pedometer,

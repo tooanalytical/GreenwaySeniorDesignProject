@@ -26,7 +26,6 @@ export class RecordActivityPage {
 
   public startedTime;
 
-  public pause;
   public timer_id_active;
   public startFlag = true;
   public pauseFlag = false;
@@ -45,12 +44,6 @@ export class RecordActivityPage {
   public totalCalories;
 
   public currentSpeed;
-
-  data = {};
-
-  steps: number = 0;
-  goal: number;
-  percentage: number;
 
   constructor(
     public navCtrl: NavController,
@@ -117,6 +110,37 @@ export class RecordActivityPage {
   };
 
   //Starts user activity and changes UI elements
+  startActivity() {
+    this.startTimer();
+    this.pedometerStart();
+
+    this.startFlag = false;
+    this.stateButton = 'Pause';
+    this.pauseFlag = true;
+  }
+
+  //Pauses user activity and changes UI elements
+  pauseActivity() {
+    clearInterval(this.timer_id_active);
+    this.pedometer.stopPedometerUpdates();
+
+    this.totalTime += this.activeTime;
+
+    this.pauseFlag = false;
+    this.stateButton = 'Resume';
+    this.resumeFlag = true;
+  }
+
+  //Resumes user activity and changes UI elements
+  resumeActivity() {
+    this.resumeTimer();
+
+    this.pauseFlag = true;
+    this.stateButton = 'Pause';
+    this.resumeFlag = false;
+  }
+
+  //Starts timer for user activity
   startTimer() {
     this.startedTime = new Date();
     this.totalTime = 0;
@@ -141,30 +165,8 @@ export class RecordActivityPage {
         this.activeHours + ':' + this.activeMinutes + ':' + this.activeSeconds;
     }, 10);
   }
-
-  //Starts user activity and changes UI elements
-  startActivity() {
-    this.startTimer();
-    this.pedometerStart();
-
-    this.startFlag = false;
-    this.stateButton = 'Pause';
-    this.pauseFlag = true;
-  }
-
-  //Pauses user activity and changes UI elements
-  pauseActivity() {
-    clearInterval(this.timer_id_active);
-    this.pedometerPause();
-    this.totalTime += this.activeTime;
-
-    this.pauseFlag = false;
-    this.stateButton = 'Resume';
-    this.resumeFlag = true;
-  }
-
-  //Resumes user activity and changes UI elements
-  resumeActivity() {
+  //Resumes timer for user activity
+  resumeTimer() {
     this.startedTime = new Date();
 
     this.timer_id_active = setInterval(() => {
@@ -189,32 +191,23 @@ export class RecordActivityPage {
       this.activityTimer =
         this.activeHours + ':' + this.activeMinutes + ':' + this.activeSeconds;
     }, 10);
-
-    this.pauseFlag = true;
-    this.stateButton = 'Pause';
-    this.resumeFlag = false;
   }
 
   //Starts pedometer tracking.
   pedometerStart() {
+    this.totalSteps = 0;
     this.pedometer
       .isDistanceAvailable()
       .then((available: boolean) =>
-        console.log('Pedometer Available?' + available)
+        console.log('Pedometer Available? ' + available)
       )
       .catch((error: any) => console.log(error));
 
     this.pedometer.startPedometerUpdates().subscribe(data => {
       this.segmentSteps = data.numberOfSteps;
+      this.totalSteps = this.totalSteps + this.segmentSteps;
       console.log(data);
     });
-  }
-
-  //Pausing pedometer tracking.
-  pedometerPause() {
-    this.pedometer.stopPedometerUpdates();
-    this.totalSteps += this.segmentSteps;
-    this.segmentSteps = 0;
   }
 
   //TODO: Calculate user's current speed.

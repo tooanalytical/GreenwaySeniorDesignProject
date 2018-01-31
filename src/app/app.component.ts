@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus, Geolocation } from 'ionic-native';
+import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
 
@@ -32,6 +33,7 @@ export class MyApp {
 
   constructor(
     public platform: Platform,
+    public storage: Storage,
     public nativeStorage: NativeStorage,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
@@ -150,6 +152,19 @@ export class MyApp {
     );
   }
 
+  clearUserData() {
+    //Clears all local user data
+    this.storage.set('firstName', '');
+    this.storage.set('lastName', '');
+    this.storage.set('fullName', '');
+    this.storage.set('email', '');
+    this.storage.set('userPassword', '');
+    this.storage.set('userBirthdate', '');
+    this.storage.set('userHeight', '');
+    this.storage.set('userWeight', '');
+    this.storage.set('userGender', '');
+  }
+
   openPage(page) {
     if (page.component) {
       this.nav.setRoot(page.component);
@@ -158,6 +173,7 @@ export class MyApp {
       // logout logic
       this.googleLogout();
       this.facebookLogout();
+      this.clearUserData();
 
       // redirect to home
       this.nav.setRoot(SplashPage);

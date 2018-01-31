@@ -73,8 +73,13 @@ export class CreateAccountFinishPage {
   }
 
   //Saves the user's information to local storage for access later.
-  saveUserInfo() {
-    this.storage.set('name', this.data.firstName + ' ' + this.data.lastName);
+  setUserInfo() {
+    this.storage.set('firstName', this.data.firstName);
+    this.storage.set('lastName', this.data.lastName);
+    this.storage.set(
+      'fullName',
+      this.data.firstName + ' ' + this.data.lastName
+    );
     this.storage.set('email', this.data.emailAddress);
     this.storage.set('userPassword', this.data.userPassword);
     this.storage.set('userBirthdate', this.data.userBirthdate);
@@ -85,7 +90,7 @@ export class CreateAccountFinishPage {
 
   submit(data) {
     //Saves the new user information locally.
-    this.saveUserInfo();
+    this.setUserInfo();
     //takes in data and sends it to server to create account
 
     //Gets the location of the user

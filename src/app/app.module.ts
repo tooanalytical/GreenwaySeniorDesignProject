@@ -10,6 +10,7 @@ import { WheelSelector } from '@ionic-native/wheel-selector';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Pedometer } from '@ionic-native/pedometer';
+import { DeviceMotion } from '@ionic-native/device-motion';
 import { Facebook } from '@ionic-native/facebook';
 
 import { MyApp } from './app.component';
@@ -104,6 +105,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     NativeStorage,
     WheelSelector,
     Pedometer,
+    DeviceMotion,
     Facebook,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

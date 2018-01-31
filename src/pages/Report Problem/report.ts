@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
-import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import {
+  NavController,
+  ActionSheetController,
+  ToastController,
+  Platform,
+  LoadingController,
+  Loading
+} from 'ionic-angular';
 
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { WheelSelector } from '@ionic-native/wheel-selector';
 
 declare var cordova: any;
 
@@ -16,8 +24,51 @@ export class ReportPage {
   lastImage: string = null;
   loading: Loading;
 
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) {
+  constructor(
+    public navCtrl: NavController,
+    private camera: Camera,
+    private transfer: Transfer,
+    private file: File,
+    private filePath: FilePath,
+    public actionSheetCtrl: ActionSheetController,
+    public toastCtrl: ToastController,
+    public platform: Platform,
+    public loadingCtrl: LoadingController,
+    public selector: WheelSelector
+  ) {}
 
+  selectedProblemType;
+  problemSummary;
+  additionalDetails;
+
+  problemType = {
+    type: [
+      { description: '' },
+      { description: 'Tree Branch' },
+      { description: 'Broken Glass' },
+      { description: 'High Water' },
+      { description: 'Vandalism' },
+      { description: 'Litter' },
+      { description: 'Overgrown Brush' },
+      { description: 'Trash Full' },
+      { description: 'Other' }
+    ]
+  };
+
+  //Prompts user to select a problem type via wheel selector
+  selectProblemType() {
+    this.selector
+      .show({
+        title: 'Problem Type',
+        items: [this.problemType.type]
+      })
+      .then(
+        result => {
+          this.problemType = result[0].description;
+          console.log(result[0].description + ' at index: ' + result[0].index);
+        },
+        err => console.log('Error: ', err)
+      );
   }
 
   public presentActionSheet() {
@@ -55,40 +106,61 @@ export class ReportPage {
     };
 
     // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
-    // Special handling for Android library
-    if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-      this.filePath.resolveNativePath(imagePath)
-        .then(filePath => {
-          let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-          let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-          this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        });
-    } else {
-      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    }
-    }, (err) => {
-      this.presentToast('Error while selecting image.');
-    });
+    this.camera.getPicture(options).then(
+      imagePath => {
+        // Special handling for Android library
+        if (
+          this.platform.is('android') &&
+          sourceType === this.camera.PictureSourceType.PHOTOLIBRARY
+        ) {
+          this.filePath.resolveNativePath(imagePath).then(filePath => {
+            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+            let currentName = imagePath.substring(
+              imagePath.lastIndexOf('/') + 1,
+              imagePath.lastIndexOf('?')
+            );
+            this.copyFileToLocalDir(
+              correctPath,
+              currentName,
+              this.createFileName()
+            );
+          });
+        } else {
+          var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+          var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+          this.copyFileToLocalDir(
+            correctPath,
+            currentName,
+            this.createFileName()
+          );
+        }
+      },
+      err => {
+        this.presentToast('Error while selecting image.');
+      }
+    );
   }
 
   // Create a new name for the image
   private createFileName() {
     var d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
+      n = d.getTime(),
+      newFileName = n + '.jpg';
     return newFileName;
   }
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
-    }, error => {
-      this.presentToast('Error while storing file.');
-    });
+    this.file
+      .copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName)
+      .then(
+        success => {
+          this.lastImage = newFileName;
+        },
+        error => {
+          this.presentToast('Error while storing file.');
+        }
+      );
   }
 
   private presentToast(text) {
@@ -111,7 +183,7 @@ export class ReportPage {
 
   public uploadImage() {
     // Destination URL
-    var url = "http://yoururl/upload.php";
+    var url = 'http://yoururl/upload.php';
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
@@ -120,28 +192,30 @@ export class ReportPage {
     var filename = this.lastImage;
 
     var options = {
-      fileKey: "file",
+      fileKey: 'file',
       fileName: filename,
       chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params : {'fileName': filename}
+      mimeType: 'multipart/form-data',
+      params: { fileName: filename }
     };
 
     const fileTransfer: TransferObject = this.transfer.create();
 
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
+      content: 'Uploading...'
     });
     this.loading.present();
 
     // Use the FileTransfer to upload the image
-    fileTransfer.upload(targetPath, url, options).then(data => {
-      this.loading.dismissAll()
-      this.presentToast('Image succesful uploaded.');
-    }, err => {
-      this.loading.dismissAll()
-      this.presentToast('Error while uploading file.');
-    });
+    fileTransfer.upload(targetPath, url, options).then(
+      data => {
+        this.loading.dismissAll();
+        this.presentToast('Image succesful uploaded.');
+      },
+      err => {
+        this.loading.dismissAll();
+        this.presentToast('Error while uploading file.');
+      }
+    );
   }
-
 }

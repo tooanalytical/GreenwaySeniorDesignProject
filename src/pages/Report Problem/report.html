@@ -17,19 +17,11 @@
     </button>
   </ion-buttons>
 
-  <ion-item class="transparent">
-    <ion-label color="white" stacked>Problem Type</ion-label>
-    <ion-select [(ngModel)]="type">
-      <ion-option value="t">Tree/Branch</ion-option>
-      <ion-option value="g">Broken Glass</ion-option>
-      <ion-option value="w">High Water</ion-option>
-      <ion-option value="v">Vandalism</ion-option>
-      <ion-option value="l">Litter</ion-option>
-      <ion-option value="o">Overgrown Brush</ion-option>
-      <ion-option value="o">Trash Full</ion-option>
-      <ion-option value="o">Other</ion-option>
-    </ion-select>
-  </ion-item>
+  <ion-buttons class="transparent">
+    <button ion-button color="darkGr" (tap)=selectProblemType(); block round icon-left>
+      Problem Type
+    </button>
+  </ion-buttons>
 
   <ion-item class="transparent">
     <ion-label color="white" stacked>Summary of problem</ion-label>

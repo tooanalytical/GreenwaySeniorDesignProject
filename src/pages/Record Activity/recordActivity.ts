@@ -1,7 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Pedometer } from '@ionic-native/pedometer';
+import {
+  DeviceMotion,
+  DeviceMotionAccelerationData
+} from '@ionic-native/device-motion';
 
 declare var google;
 
@@ -45,10 +48,18 @@ export class RecordActivityPage {
 
   public currentSpeed;
 
+  public subscription;
+
+  public frequency = 10;
+
+  public xAcceleration;
+  public yAcceleration;
+  public zAcceleration;
+
   constructor(
     public navCtrl: NavController,
     public geolocation: Geolocation,
-    public pedometer: Pedometer
+    private deviceMotion: DeviceMotion
   ) {}
 
   ionViewDidLoad() {
@@ -112,7 +123,8 @@ export class RecordActivityPage {
   //Starts user activity and changes UI elements
   startActivity() {
     this.startTimer();
-    this.pedometerStart();
+    // this.pedometerStart();
+    this.startWatchAcceleration();
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -122,7 +134,8 @@ export class RecordActivityPage {
   //Pauses user activity and changes UI elements
   pauseActivity() {
     clearInterval(this.timer_id_active);
-    this.pedometer.stopPedometerUpdates();
+    this.stopWatchAcceleration();
+    // this.pedometer.stopPedometerUpdates();
 
     this.totalTime += this.activeTime;
 
@@ -134,6 +147,7 @@ export class RecordActivityPage {
   //Resumes user activity and changes UI elements
   resumeActivity() {
     this.resumeTimer();
+    this.startWatchAcceleration();
 
     this.pauseFlag = true;
     this.stateButton = 'Pause';
@@ -165,6 +179,7 @@ export class RecordActivityPage {
         this.activeHours + ':' + this.activeMinutes + ':' + this.activeSeconds;
     }, 10);
   }
+
   //Resumes timer for user activity
   resumeTimer() {
     this.startedTime = new Date();
@@ -194,20 +209,55 @@ export class RecordActivityPage {
   }
 
   //Starts pedometer tracking.
-  pedometerStart() {
-    this.totalSteps = 0;
-    this.pedometer
-      .isDistanceAvailable()
-      .then((available: boolean) =>
-        console.log('Pedometer Available? ' + available)
-      )
-      .catch((error: any) => console.log(error));
+  // pedometerStart() {
+  //   this.totalSteps = 0;
+  //   this.pedometer
+  //     .isDistanceAvailable()
+  //     .then((available: boolean) =>
+  //       console.log('Pedometer Available? ' + available)
+  //     )
+  //     .catch((error: any) => console.log(error));
 
-    this.pedometer.startPedometerUpdates().subscribe(data => {
-      this.segmentSteps = data.numberOfSteps;
-      this.totalSteps = this.totalSteps + this.segmentSteps;
-      console.log(data);
-    });
+  //   this.pedometer.startPedometerUpdates().subscribe(data => {
+  //     this.segmentSteps = data.numberOfSteps;
+  //     this.totalSteps = this.totalSteps + this.segmentSteps;
+  //     console.log(data);
+  //   });
+  // }
+
+  //Get's the current accelleration of the device in the x, y, and z axis.
+  getCurrentAcceleration() {
+    this.deviceMotion
+      .getCurrentAcceleration()
+      .then(
+        (acceleration: DeviceMotionAccelerationData) =>
+          console.log(acceleration),
+        (error: any) => console.log(error)
+      );
+  }
+
+  //Watches and subscribes an object to keep track of a device's acceleration.
+  startWatchAcceleration() {
+    //Sets the frequency variable to capture the acceleration data to every 40ms.
+    var frequency = { frequency: 40 };
+
+    this.subscription = this.deviceMotion
+      .watchAcceleration(frequency)
+      .subscribe((acceleration: DeviceMotionAccelerationData) => {
+        this.xAcceleration = 0;
+        this.yAcceleration = 0;
+        this.zAcceleration = 0;
+
+        this.xAcceleration = acceleration.x;
+        this.yAcceleration = acceleration.y;
+        this.zAcceleration = acceleration.z;
+
+        console.log(acceleration);
+      });
+  }
+
+  stopWatchAcceleration() {
+    this.subscription.unsubscribe();
   }
 
   //TODO: Calculate user's current speed.
@@ -222,6 +272,7 @@ export class RecordActivityPage {
   //Ends user activity and changes UI elements
   endActivity() {
     clearInterval(this.timer_id_active);
+    this.stopWatchAcceleration();
     this.activityTimer = '00:00:00';
 
     this.resumeFlag = false;

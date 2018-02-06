@@ -62,8 +62,16 @@ export class RecordActivityPage {
     private deviceMotion: DeviceMotion
   ) {}
 
+  //Code which is ran after the page is loaded
   ionViewDidLoad() {
     this.loadMap();
+  }
+
+  //Code which will run before the user leaves the page
+  ionViewWillLeave() {
+    if (this.totalTime != 0) {
+      //TODO: Stop user and prompt them to either end run and save activity or discard activity.
+    }
   }
 
   loadMap() {

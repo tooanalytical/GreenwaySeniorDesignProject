@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AlertController } from 'ionic-angular';
 import {
   DeviceMotion,
   DeviceMotionAccelerationData
@@ -56,10 +57,14 @@ export class RecordActivityPage {
   public yAcceleration;
   public zAcceleration;
 
+  public velocityInitial;
+  public velocityFinal;
+
   constructor(
     public navCtrl: NavController,
     public geolocation: Geolocation,
-    private deviceMotion: DeviceMotion
+    private deviceMotion: DeviceMotion,
+    public alertCtrl: AlertController
   ) {}
 
   //Code which is ran after the page is loaded
@@ -68,9 +73,21 @@ export class RecordActivityPage {
   }
 
   //Code which will run before the user leaves the page
-  ionViewWillLeave() {
-    if (this.totalTime != 0) {
-      //TODO: Stop user and prompt them to either end run and save activity or discard activity.
+  ionViewCanLeave(): boolean {
+    // here we can either return true or false
+    // depending on if we want to leave this view
+    if (this.totalTime === 0) {
+      return true;
+    } else {
+      //TODO: Display modal alert asking if they'd like to continue their run, end and save activity, or end and discard activity.
+
+      let alert = this.alertCtrl.create({
+        title: 'Uh oh!',
+        subTitle: 'Please enter your birthdate.',
+        buttons: ['Ok']
+      });
+      alert.present();
+      return false;
     }
   }
 
@@ -247,7 +264,7 @@ export class RecordActivityPage {
   //Watches and subscribes an object to keep track of a device's acceleration.
   startWatchAcceleration() {
     //Sets the frequency variable to capture the acceleration data to every 40ms.
-    var frequency = { frequency: 40 };
+    var frequency = { frequency: 1000 };
 
     this.subscription = this.deviceMotion
       .watchAcceleration(frequency)
@@ -261,6 +278,10 @@ export class RecordActivityPage {
         this.zAcceleration = acceleration.z;
 
         console.log(acceleration);
+
+        console.log('X Acceleration: ' + this.xAcceleration);
+        console.log('Y Acceleration: ' + this.yAcceleration);
+        console.log('Z Acceleration: ' + this.zAcceleration);
       });
   }
 
@@ -269,7 +290,11 @@ export class RecordActivityPage {
   }
 
   //TODO: Calculate user's current speed.
-  getCurrentSpeed() {}
+  getCurrentSpeed() {
+    this.velocityInitial = this.velocityFinal;
+    this.velocityFinal = this.velocityInitial + this.xAcceleration * 0.04;
+    console.log('Current Velocity: ' + this.velocityFinal + ' m/s');
+  }
 
   //TODO: Calculate user's current activity distance.
   getDistanceTraveled() {}
@@ -282,6 +307,7 @@ export class RecordActivityPage {
     clearInterval(this.timer_id_active);
     this.stopWatchAcceleration();
     this.activityTimer = '00:00:00';
+    this.totalTime = 0;
 
     this.resumeFlag = false;
     this.pauseFlag = false;

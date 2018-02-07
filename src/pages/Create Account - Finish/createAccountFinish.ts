@@ -3,9 +3,10 @@ import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
-
+import { Http } from '@angular/http';
 import { SplashPage } from '../Splash/splash';
 import { HomePage } from '../home/home';
+import { HttpModule } from '@angular/http/src/http_module';
 
 declare var google;
 
@@ -21,7 +22,8 @@ export class CreateAccountFinishPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public geolocation: Geolocation,
-    public storage: Storage
+    public storage: Storage,
+    public http: Http
   ) {}
 
   firstName = this.navParams.get('firstName');
@@ -32,6 +34,7 @@ export class CreateAccountFinishPage {
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
   userGender = this.navParams.get('userGender');
+  
 
   data = {
     firstName: this.firstName,
@@ -43,7 +46,8 @@ export class CreateAccountFinishPage {
     userWeight: this.userWeight,
     userGender: this.userGender,
     userLat: '',
-    userLng: ''
+    userLng: '',
+    response: ''
   };
 
   getLocation() {
@@ -91,10 +95,19 @@ export class CreateAccountFinishPage {
   submit(data) {
     //Saves the new user information locally.
     this.setUserInfo();
-    //takes in data and sends it to server to create account
-
-    //Gets the location of the user
     this.getLocation();
+
+    var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/signup.php';
+    var myData = JSON.stringify({firstName: this.data.firstName, lastName: this.data.lastName,
+    emailAddress: this.emailAddress, userPassword: this.userPassword, userBirthdate: this.userBirthdate,
+  userHeight: this.userHeight, userWeight: this.userWeight, userGender:this.userGender});
+    
+    this.http.post(link, myData)
+    .subscribe(data => {
+    this.data.response = data["_body"]; 
+    }, error => {
+    console.log("Oooops!");
+    });
 
     this.navCtrl.setRoot(HomePage);
   }

@@ -76,7 +76,7 @@ export class RecordActivityPage {
   ionViewCanLeave(): boolean {
     // here we can either return true or false
     // depending on if we want to leave this view
-    if (this.totalTime === 0) {
+    if (this.totalTime !== 0) {
       return true;
     } else {
       //TODO: Display modal alert asking if they'd like to continue their run, end and save activity, or end and discard activity.

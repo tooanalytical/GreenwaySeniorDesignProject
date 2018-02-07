@@ -17,20 +17,31 @@
     </button>
   </ion-buttons>
 
+  <br>
+  <br>
+
   <ion-buttons class="transparent">
     <button ion-button color="darkGr" (tap)=selectProblemType(); block round icon-left>
-      Problem Type
+      Select Problem Type
     </button>
   </ion-buttons>
 
+  <div>
+
+    <p style="text-align:center;">
+      Problem Type: {{data.selectedProblemType}}
+    </p>
+
+  </div>
+
   <ion-item class="transparent">
     <ion-label color="white" stacked>Summary of problem</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="data.problemSummary"></ion-input>
   </ion-item>
 
   <ion-item class="transparent">
     <ion-label color="white" stacked>Additional details</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="data.additionalDetails"></ion-input>
   </ion-item>
 
   <ion-buttons align="center">

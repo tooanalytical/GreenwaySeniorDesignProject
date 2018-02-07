@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import { SplashPage } from '../Splash/splash';
 import { HomePage } from '../home/home';
-import { HttpModule } from '@angular/http/src/http_module';
 
 declare var google;
 
@@ -109,6 +108,7 @@ export class CreateAccountFinishPage {
     console.log("Oooops!");
     });
 
+    // TO SEE SERVER RESPONSE, DISABLE ME 
     this.navCtrl.setRoot(HomePage);
   }
 

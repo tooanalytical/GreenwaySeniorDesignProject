@@ -37,10 +37,14 @@ export class ReportPage {
     public selector: WheelSelector
   ) {}
 
-  selectedProblemType;
-  problemSummary;
-  additionalDetails;
+  //JSON Object sent to server upon submit
+  data = {
+    selectedProblemType: '',
+    problemSummary: '',
+    additionalDetails: ''
+  };
 
+  //JSON Object used for select problem type wheel selector
   problemType = {
     type: [
       { description: '' },
@@ -59,12 +63,12 @@ export class ReportPage {
   selectProblemType() {
     this.selector
       .show({
-        title: 'Problem Type',
+        title: 'Select Problem Type',
         items: [this.problemType.type]
       })
       .then(
         result => {
-          this.problemType = result[0].description;
+          this.data.selectedProblemType = result[0].description;
           console.log(result[0].description + ' at index: ' + result[0].index);
         },
         err => console.log('Error: ', err)
@@ -76,15 +80,15 @@ export class ReportPage {
       title: 'Select Image Source',
       buttons: [
         {
-          text: 'Load from Library',
+          text: 'Take Photo',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Camera Roll',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {

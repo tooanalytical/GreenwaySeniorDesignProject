@@ -21,6 +21,7 @@
         <div item-content>
           <ion-label color="white">{{userName}}</ion-label>
         </div>
+        <ion-icon (tap) = "setName()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
 
       <ion-item class="transparent">
@@ -28,6 +29,7 @@
         <div item-content>
           <ion-label color="white">{{emailAddress}}</ion-label>
         </div>
+        <ion-icon (tap) = "setEmail()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
 
       <ion-item class="transparent">
@@ -35,6 +37,7 @@
         <div item-content>
           <ion-label color="white">{{userHeight}}</ion-label>
         </div>
+        <ion-icon (tap) = "setHeight()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
 
       <ion-item class="transparent">
@@ -42,6 +45,7 @@
         <div item-content>
           <ion-label color="white">{{userWeight}}</ion-label>
         </div>
+        <ion-icon (tap) = "setWeight()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
 
       <ion-item class="transparent">
@@ -56,7 +60,9 @@
         <div item-content>
           <ion-label color="white">{{userGender}}</ion-label>
         </div>
+        <ion-icon (tap) = "setGender()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
-      <p style = "text-align: right" > EDIT INFORMATION <ion-icon (tap) = "doStuff()" color="darkgrey" name="build" item-right></ion-icon></p>
+      <p style = "text-align: right" (tap) = "openMenu()" *ngIf="submitState"> EDIT INFORMATION </p>
+      <p style = "text-align: right" (tap) = "openMenu()" *ngIf="editState"> DONE </p>
   </ion-list>
 </ion-content>

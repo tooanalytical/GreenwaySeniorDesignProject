@@ -92,7 +92,7 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Viridian uses your location to get activity data." />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.407412318918-j9t6t2uhgdo2iv8u98mcemos9cecjpqi" />
@@ -106,6 +106,11 @@
     <plugin name="cordova.plugins.diagnostic" spec="^3.9.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-device-motion" spec="^1.2.5" />
+<<<<<<< HEAD
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="6.3.0" />
+=======
+    <engine name="android" spec="7.0.0" />
+    <engine name="ios" spec="4.5.4" />
+>>>>>>> d5d96ad87455675566d08f458c91c66c44cbf6ec
 </widget>

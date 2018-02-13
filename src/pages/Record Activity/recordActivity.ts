@@ -1,11 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
-import {
-  DeviceMotion,
-  DeviceMotionAccelerationData
-} from '@ionic-native/device-motion';
 
 declare var google;
 
@@ -40,31 +36,24 @@ export class RecordActivityPage {
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
-  public segmentSteps;
-  public totalSteps = 0;
-  public segmentDistance;
+  public subscription;
+  public mphString = '0';
+  public lat1 = 0;
+  public lat2 = 0;
+  public lng1 = 0;
+  public lng2 = 0;
+  public counter = 0;
+
   public totalDistance;
+  public totalDistanceString = '0.00';
   public segmentCalories;
   public totalCalories;
-
-  public currentSpeed;
-
-  public subscription;
-
-  public frequency = 10;
-
-  public xAcceleration;
-  public yAcceleration;
-  public zAcceleration;
-
-  public velocityInitial;
-  public velocityFinal;
 
   constructor(
     public navCtrl: NavController,
     public geolocation: Geolocation,
-    private deviceMotion: DeviceMotion,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public platform: Platform
   ) {}
 
   //Code which is ran after the page is loaded
@@ -111,21 +100,24 @@ export class RecordActivityPage {
         );
 
         let marker = new google.maps.Marker({
+          position: latLng,
           map: this.map,
           icon: new google.maps.MarkerImage(
             '//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
             new google.maps.Size(22, 22),
             new google.maps.Point(0, 18),
             new google.maps.Point(11, 11)
-          ),
-          position: latLng
+          )
         });
+
+        marker.setMap(this.map);
       },
       err => {
         console.log(err);
       }
     );
   }
+
   // Selects the function to use based upon the value of the button.
   activityManager() {
     if (this.stateButton === 'Start') {
@@ -148,8 +140,7 @@ export class RecordActivityPage {
   //Starts user activity and changes UI elements
   startActivity() {
     this.startTimer();
-    // this.pedometerStart();
-    this.startWatchAcceleration();
+    this.watchCurrentSpeed();
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -159,8 +150,7 @@ export class RecordActivityPage {
   //Pauses user activity and changes UI elements
   pauseActivity() {
     clearInterval(this.timer_id_active);
-    this.stopWatchAcceleration();
-    // this.pedometer.stopPedometerUpdates();
+    this.endWatchCurrentSpeed();
 
     this.totalTime += this.activeTime;
 
@@ -172,7 +162,7 @@ export class RecordActivityPage {
   //Resumes user activity and changes UI elements
   resumeActivity() {
     this.resumeTimer();
-    this.startWatchAcceleration();
+    this.watchCurrentSpeed();
 
     this.pauseFlag = true;
     this.stateButton = 'Pause';
@@ -233,71 +223,58 @@ export class RecordActivityPage {
     }, 10);
   }
 
-  //Starts pedometer tracking.
-  // pedometerStart() {
-  //   this.totalSteps = 0;
-  //   this.pedometer
-  //     .isDistanceAvailable()
-  //     .then((available: boolean) =>
-  //       console.log('Pedometer Available? ' + available)
-  //     )
-  //     .catch((error: any) => console.log(error));
-
-  //   this.pedometer.startPedometerUpdates().subscribe(data => {
-  //     this.segmentSteps = data.numberOfSteps;
-  //     this.totalSteps = this.totalSteps + this.segmentSteps;
-  //     console.log(data);
-  //   });
-  // }
-
-  //Get's the current accelleration of the device in the x, y, and z axis.
-  getCurrentAcceleration() {
-    this.deviceMotion
-      .getCurrentAcceleration()
-      .then(
-        (acceleration: DeviceMotionAccelerationData) =>
-          console.log(acceleration),
-        (error: any) => console.log(error)
-      );
+  watchCurrentSpeed() {
+    this.platform.ready().then(() => {
+      let options = {
+        enableHighAccuracy: true
+      };
+      let tempSpeed;
+      this.subscription = this.geolocation
+        .watchPosition(options)
+        .subscribe(position => {
+          this.lat2 = this.lat1;
+          this.lng2 = this.lng1;
+          console.log(position);
+          tempSpeed = position.coords.speed;
+          if (tempSpeed < 0) {
+            tempSpeed = 0;
+          }
+          tempSpeed = tempSpeed * 2.23694;
+          tempSpeed = Math.round(tempSpeed);
+          this.mphString = tempSpeed.toString();
+          this.lat1 = position.coords.latitude;
+          this.lng1 = position.coords.longitude;
+          // Doesn't run the calculation and outputs to display on first data gathered.
+          if (this.counter > 0) {
+            this.totalDistance += this.calculateDistance(
+              this.lat1,
+              this.lat2,
+              this.lng1,
+              this.lng2
+            );
+            this.totalDistanceString = this.totalDistance.toString();
+          } else {
+            this.counter++;
+          }
+        });
+    });
   }
 
-  //Watches and subscribes an object to keep track of a device's acceleration.
-  startWatchAcceleration() {
-    //Sets the frequency variable to capture the acceleration data to every 40ms.
-    var frequency = { frequency: 1000 };
-
-    this.subscription = this.deviceMotion
-      .watchAcceleration(frequency)
-      .subscribe((acceleration: DeviceMotionAccelerationData) => {
-        this.xAcceleration = 0;
-        this.yAcceleration = 0;
-        this.zAcceleration = 0;
-
-        this.xAcceleration = acceleration.x;
-        this.yAcceleration = acceleration.y;
-        this.zAcceleration = acceleration.z;
-
-        console.log(acceleration);
-
-        console.log('X Acceleration: ' + this.xAcceleration);
-        console.log('Y Acceleration: ' + this.yAcceleration);
-        console.log('Z Acceleration: ' + this.zAcceleration);
-      });
-  }
-
-  stopWatchAcceleration() {
+  endWatchCurrentSpeed() {
     this.subscription.unsubscribe();
   }
 
-  //TODO: Calculate user's current speed.
-  getCurrentSpeed() {
-    this.velocityInitial = this.velocityFinal;
-    this.velocityFinal = this.velocityInitial + this.xAcceleration * 0.04;
-    console.log('Current Velocity: ' + this.velocityFinal + ' m/s');
+  //Calculates distance between two points using the haversine formula
+  calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
+    let p = 0.017453292519943295; // Math.PI / 180
+    let c = Math.cos;
+    let a =
+      0.5 -
+      c((lat1 - lat2) * p) / 2 +
+      c(lat2 * p) * c(lat1 * p) * (1 - c((long1 - long2) * p)) / 2;
+    let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    return distance;
   }
-
-  //TODO: Calculate user's current activity distance.
-  getDistanceTraveled() {}
 
   //TODO: Calculate user's calories burned.
   getCaloriesBurned() {}
@@ -305,9 +282,13 @@ export class RecordActivityPage {
   //Ends user activity and changes UI elements
   endActivity() {
     clearInterval(this.timer_id_active);
-    this.stopWatchAcceleration();
+    this.endWatchCurrentSpeed();
+
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
+    this.mphString = '0';
+    this.totalDistanceString = '0.00';
+    this.counter = 0;
 
     this.resumeFlag = false;
     this.pauseFlag = false;

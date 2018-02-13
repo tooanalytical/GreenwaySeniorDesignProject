@@ -39,6 +39,7 @@ export class ReportPage {
 
   //JSON Object sent to server upon submit
   data = {
+    imageContent: null,
     selectedProblemType: '',
     problemSummary: '',
     additionalDetails: ''

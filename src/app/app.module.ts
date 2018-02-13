@@ -12,7 +12,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Pedometer } from '@ionic-native/pedometer';
 import { DeviceMotion } from '@ionic-native/device-motion';
 import { Facebook } from '@ionic-native/facebook';
-import { HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';

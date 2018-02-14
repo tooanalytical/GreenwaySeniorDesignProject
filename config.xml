@@ -106,11 +106,7 @@
     <plugin name="cordova.plugins.diagnostic" spec="^3.9.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-device-motion" spec="^1.2.5" />
-<<<<<<< HEAD
-    <engine name="ios" spec="4.5.4" />
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
     <engine name="android" spec="6.3.0" />
-=======
-    <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
->>>>>>> d5d96ad87455675566d08f458c91c66c44cbf6ec
 </widget>

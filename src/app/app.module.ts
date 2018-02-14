@@ -13,6 +13,7 @@ import { Pedometer } from '@ionic-native/pedometer';
 import { DeviceMotion } from '@ionic-native/device-motion';
 import { Facebook } from '@ionic-native/facebook';
 import { HttpModule } from '@angular/http';
+import { Base64 } from '@ionic-native/base64';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
@@ -109,6 +110,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Pedometer,
     DeviceMotion,
     Facebook,
+    Base64,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

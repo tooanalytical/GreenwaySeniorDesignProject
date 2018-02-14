@@ -44,8 +44,10 @@
     <ion-input type="text" [(ngModel)]="data.additionalDetails"></ion-input>
   </ion-item>
 
+  <br>
+
   <ion-buttons align="center">
-    <button ion-button color="white" icon-left (tap)="uploadImage()" [disabled]="lastImage === null">
+    <button ion-button color="white" icon-left (tap)="submitReport()" [disabled]="lastImage === null || data.selectedProblemType === '' || data.problemSummary === '' ">
       <ion-icon name="cloud-upload"></ion-icon>Submit
     </button>
   </ion-buttons>

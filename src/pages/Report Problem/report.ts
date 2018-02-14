@@ -13,8 +13,13 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
+import { Storage } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Base64 } from '@ionic-native/base64';
+import { Http } from '@angular/http';
 
 declare var cordova: any;
+declare var google;
 
 @Component({
   selector: 'page-report',
@@ -34,15 +39,25 @@ export class ReportPage {
     public toastCtrl: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    public selector: WheelSelector
+    public selector: WheelSelector,
+    public storage: Storage,
+    public geolocation: Geolocation,
+    private base64: Base64,
+    public http: Http
   ) {}
 
   //JSON Object sent to server upon submit
   data = {
-    imageContent: null,
+    imageContent: '',
     selectedProblemType: '',
     problemSummary: '',
-    additionalDetails: ''
+    additionalDetails: '',
+    emailAddress: this.storage.get('email').then(val => {
+      this.data.emailAddress = val;
+    }),
+    userLat: '',
+    userLng: '',
+    response: ''
   };
 
   //JSON Object used for select problem type wheel selector
@@ -101,11 +116,14 @@ export class ReportPage {
     actionSheet.present();
   }
 
+  // Takes a picture for the user and prepares it for submission
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
-      quality: 100,
+      quality: 10,
       sourceType: sourceType,
+      targetWidth: 375,
+      targetHeight: 500,
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
@@ -144,6 +162,9 @@ export class ReportPage {
         this.presentToast('Error while selecting image.');
       }
     );
+    // Gets and sets user lng and lat to the JSON object
+    this.getLocation();
+    console.log('User location saved');
   }
 
   // Create a new name for the image
@@ -168,6 +189,7 @@ export class ReportPage {
       );
   }
 
+  // Presents messages to user
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -186,41 +208,101 @@ export class ReportPage {
     }
   }
 
-  public uploadImage() {
-    // Destination URL
-    var url = 'http://yoururl/upload.php';
-
-    // File for Upload
-    var targetPath = this.pathForImage(this.lastImage);
-
-    // File name only
-    var filename = this.lastImage;
-
-    var options = {
-      fileKey: 'file',
-      fileName: filename,
-      chunkedMode: false,
-      mimeType: 'multipart/form-data',
-      params: { fileName: filename }
-    };
-
-    const fileTransfer: TransferObject = this.transfer.create();
-
+  // Submits the user's report to the server
+  public submitReport() {
+    // Let's user know their report is being sent
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...'
+      content: 'Sending Report...'
     });
     this.loading.present();
 
-    // Use the FileTransfer to upload the image
-    fileTransfer.upload(targetPath, url, options).then(
-      data => {
-        this.loading.dismissAll();
-        this.presentToast('Image succesful uploaded.');
+    this.convertToBase64()
+      .then(data => {
+        var link =
+          'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/report_problem.php';
+        var myData = JSON.stringify({
+          imageContent: this.data.imageContent,
+          problemSummary: this.data.problemSummary,
+          additionalDetails: this.data.additionalDetails,
+          emailAddress: this.data.emailAddress,
+          userLat: this.data.userLat,
+          userLng: this.data.userLng
+        });
+
+        this.http.post(link, myData).subscribe(
+          data => {
+            this.data.response = data['_body'];
+            this.loading.dismissAll();
+            this.presentToast('Report Submitted. Thank You!');
+          },
+          error => {
+            this.loading.dismissAll();
+            this.presentToast('Error Submitting Report. Please try again.');
+          }
+        );
+        this.clearReport();
+      })
+
+      .catch(error => console.log(error));
+  }
+
+  // Gets the user's location
+  getLocation() {
+    this.geolocation.getCurrentPosition().then(
+      position => {
+        let latLng = new google.maps.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        let latitude = position.coords.latitude.toString();
+        let longitude = position.coords.longitude.toString();
+        this.setLat(latitude);
+        this.setLng(longitude);
       },
       err => {
-        this.loading.dismissAll();
-        this.presentToast('Error while uploading file.');
+        console.log(err);
       }
     );
+  }
+
+  // Sets user latitude
+  setLat(latitude) {
+    this.data.userLat = latitude;
+  }
+
+  // Sets user longitude
+  setLng(longitude) {
+    this.data.userLng = longitude;
+  }
+
+  // Converts the selected image to Base64 format, assigns it to JSON data member and returns Promise.
+  convertToBase64(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let filePath: string = this.pathForImage(this.lastImage);
+      this.base64.encodeFile(filePath).then(
+        (base64File: string) => {
+          this.data.imageContent = base64File;
+          console.log('Success Converting');
+          return resolve(this.data.imageContent);
+        },
+        err => {
+          console.log(err);
+          console.log('Failure Converting');
+          return reject(err);
+        }
+      );
+    });
+  }
+
+  // Clears the fields and image from page
+  clearReport() {
+    this.lastImage = null;
+    this.data.imageContent = '';
+    this.data.selectedProblemType = '';
+    this.data.problemSummary = '';
+    this.data.additionalDetails = '';
+    this.data.userLat = '';
+    this.data.userLng = '';
+    this.data.response = '';
   }
 }

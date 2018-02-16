@@ -124,7 +124,7 @@ export class RecordActivityPage {
       }
     );
   }
-
+  // Watches the user's location and updates map and location icon
   watchLocation() {
     this.platform.ready().then(() => {
       let options = {

@@ -163,7 +163,7 @@ export class RecordActivityPage {
           text: 'Discard Activity and End',
           role: 'destructive',
           handler: () => {
-            console.log('Discard Activity and End');
+            console.log('Discard Activity and End ');
           }
         },
         {

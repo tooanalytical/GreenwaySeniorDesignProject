@@ -14,11 +14,11 @@ export class TrailMapPage {
 
   constructor(public navCtrl: NavController, public geolocation: Geolocation) {}
 
-  ionViewDidLoad() {
-    this.loadMap();
+  ionViewWillEnter() {
+    this.watchMap();
   }
 
-  loadMap() {
+  watchMap() {
     this.geolocation.getCurrentPosition().then(
       position => {
         let latLng = new google.maps.LatLng(

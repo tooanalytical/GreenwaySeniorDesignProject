@@ -143,6 +143,24 @@ export class RecordActivityPage {
     });
   }
 
+  watchLocation() {
+    this.platform.ready().then(() => {
+      let options = {
+        enableHighAccuracy: true
+      };
+      this.subscriptionMap = this.geolocation
+        .watchPosition(options)
+        .subscribe(position => {
+          let latLng = new google.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          this.marker.setPosition(latLng);
+          this.map.setCenter(latLng);
+        });
+    });
+  }
+
   // Selects the function to use based upon the value of the button.
   activityManager() {
     if (this.stateButton === 'Start') {

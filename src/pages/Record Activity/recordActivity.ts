@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
+import { ActionSheetController } from 'ionic-angular';
+import { MenuController } from 'ionic-angular';
 
 declare var google;
 
@@ -17,8 +19,8 @@ export class RecordActivityPage {
   public stateButton = 'Start';
   public endButton = 'End';
 
-  public activeTime;
-  public totalTime;
+  public activeTime = 0;
+  public totalTime = 0;
 
   public activeSeconds;
   public activeMinutes;
@@ -36,7 +38,9 @@ export class RecordActivityPage {
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
-  public subscription;
+  public initialMap;
+  public subscriptionMap;
+  public subscriptionSpeed;
   public mphString = '0';
   public lat1 = 0;
   public lat2 = 0;
@@ -49,39 +53,52 @@ export class RecordActivityPage {
   public segmentCalories;
   public totalCalories;
 
+  public icon = {
+    url: 'http://www.robotwoods.com/dev/misc/bluecircle.png',
+    size: new google.maps.Size(22, 22),
+    point: new google.maps.Point(0, 18),
+    points: new google.maps.Point(11, 11)
+  };
+
+  public marker = new google.maps.Marker({
+    map: this.map,
+    icon: this.icon
+  });
+
   constructor(
     public navCtrl: NavController,
     public geolocation: Geolocation,
+    public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
+    public menuCtrl: MenuController,
     public platform: Platform
   ) {}
 
   //Code which is ran after the page is loaded
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.loadMap();
+    this.watchLocation();
   }
 
   //Code which will run before the user leaves the page
   ionViewCanLeave(): boolean {
     // here we can either return true or false
     // depending on if we want to leave this view
-    if (this.totalTime !== 0) {
+    if (this.activeTime === 0 && this.totalTime === 0) {
+      this.endWatchMap();
       return true;
     } else {
-      //TODO: Display modal alert asking if they'd like to continue their run, end and save activity, or end and discard activity.
-
-      let alert = this.alertCtrl.create({
-        title: 'Uh oh!',
-        subTitle: 'Please enter your birthdate.',
-        buttons: ['Ok']
-      });
-      alert.present();
+      //TODO: Display action sheet asking if they'd like to continue their run, end and save activity, or end and discard activity.
+      this.presentActionSheet();
       return false;
     }
   }
 
   loadMap() {
-    this.geolocation.getCurrentPosition().then(
+    let options = {
+      enableHighAccuracy: true
+    };
+    this.geolocation.getCurrentPosition(options).then(
       position => {
         let latLng = new google.maps.LatLng(
           position.coords.latitude,
@@ -99,23 +116,31 @@ export class RecordActivityPage {
           mapOptions
         );
 
-        let marker = new google.maps.Marker({
-          position: latLng,
-          map: this.map,
-          icon: new google.maps.MarkerImage(
-            '//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-            new google.maps.Size(22, 22),
-            new google.maps.Point(0, 18),
-            new google.maps.Point(11, 11)
-          )
-        });
-
-        marker.setMap(this.map);
+        this.marker.setMap(this.map);
+        this.marker.setPosition(latLng);
       },
       err => {
         console.log(err);
       }
     );
+  }
+
+  watchLocation() {
+    this.platform.ready().then(() => {
+      let options = {
+        enableHighAccuracy: true
+      };
+      this.subscriptionMap = this.geolocation
+        .watchPosition(options)
+        .subscribe(position => {
+          let latLng = new google.maps.LatLng(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          this.marker.setPosition(latLng);
+          this.map.setCenter(latLng);
+        });
+    });
   }
 
   // Selects the function to use based upon the value of the button.
@@ -127,6 +152,37 @@ export class RecordActivityPage {
     } else if (this.stateButton === 'Resume') {
       this.resumeActivity();
     }
+  }
+
+  // Presents an action sheet to the user
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'You are currently tracking an activity. Please choose an option.',
+      buttons: [
+        {
+          text: 'Discard Activity and End',
+          role: 'destructive',
+          handler: () => {
+            console.log('Discard Activity and End');
+          }
+        },
+        {
+          text: 'Save Activity and End',
+          handler: () => {
+            console.log('Save Activity and End');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.menuCtrl.toggle();
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   // Adds a zero to the tens place of the timer as placeholder
@@ -172,7 +228,6 @@ export class RecordActivityPage {
   //Starts timer for user activity
   startTimer() {
     this.startedTime = new Date();
-    this.totalTime = 0;
     this.timer_id_active = setInterval(() => {
       this.activeTime = Math.floor(
         new Date().getTime() - this.startedTime.getTime()
@@ -229,12 +284,9 @@ export class RecordActivityPage {
         enableHighAccuracy: true
       };
       let tempSpeed;
-      this.subscription = this.geolocation
+      this.subscriptionSpeed = this.geolocation
         .watchPosition(options)
         .subscribe(position => {
-          this.lat2 = this.lat1;
-          this.lng2 = this.lng1;
-          console.log(position);
           tempSpeed = position.coords.speed;
           if (tempSpeed < 0) {
             tempSpeed = 0;
@@ -252,16 +304,25 @@ export class RecordActivityPage {
               this.lng1,
               this.lng2
             );
+            this.lat2 = this.lat1;
+            this.lng2 = this.lng1;
             this.totalDistanceString = this.totalDistance.toString();
           } else {
             this.counter++;
+            this.lat2 = this.lat1;
+            this.lng2 = this.lng1;
+            console.log(this.counter);
           }
         });
     });
   }
 
   endWatchCurrentSpeed() {
-    this.subscription.unsubscribe();
+    this.subscriptionSpeed.unsubscribe();
+  }
+
+  endWatchMap() {
+    this.subscriptionMap.unsubscribe();
   }
 
   //Calculates distance between two points using the haversine formula
@@ -286,6 +347,7 @@ export class RecordActivityPage {
 
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
+    this.activeTime = 0;
     this.mphString = '0';
     this.totalDistanceString = '0.00';
     this.counter = 0;

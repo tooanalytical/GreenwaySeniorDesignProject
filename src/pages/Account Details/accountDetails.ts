@@ -29,8 +29,9 @@ export class AccountDetailsPage {
   userWeight;
   userBirthdate;
   userGender;
+  userAvatar;
   response;
-  name = "fred";
+  name = 'fred';
   public editState: boolean = false;
   public submitState: boolean = true;
 
@@ -323,13 +324,12 @@ export class AccountDetailsPage {
     ]
   };
 
-  openMenu(){
-      
+  openMenu() {
     this.editState = !this.editState;
     this.submitState = !this.submitState;
   }
 
-  setName(){
+  setName() {
     let alert = this.alertCtrl.create({
       title: 'Edit Name',
       inputs: [
@@ -338,8 +338,8 @@ export class AccountDetailsPage {
           placeholder: 'First Name'
         },
         {
-          name:'last',
-          placeholder:'Last Name'
+          name: 'last',
+          placeholder: 'Last Name'
         }
       ],
       buttons: [
@@ -357,8 +357,7 @@ export class AccountDetailsPage {
     alert.present();
   }
 
-  setEmail(){
-
+  setEmail() {
     let alert = this.alertCtrl.create({
       title: 'Edit Email',
       inputs: [
@@ -380,44 +379,40 @@ export class AccountDetailsPage {
     alert.present();
   }
 
-  setHeight(){
-
-    this.selector
-    .show({
-      title: "Edit Height",
-      items: [this.physicalData.heights]
-    })
-    .then(
-      result => {
-        this.userHeight = result[0].description;
-        this.navCtrl.setRoot(AccountDetailsPage);
-      },
-      err => console.log('Error: ', err)
-    );
-    
-  }
-
-  setWeight(){
-
-    this.selector
-    .show({
-      title: "Edit Weight",
-      items: [this.physicalData.weights]
-    })
-    .then(
-      result => {
-        this.userWeight = result[0].description;
-        this.navCtrl.setRoot(AccountDetailsPage);
-      },
-      err => console.log('Error: ', err)
-    );
-  }
-  
-  setGender(){
-
+  setHeight() {
     this.selector
       .show({
-        title: "Edit Gender",
+        title: 'Edit Height',
+        items: [this.physicalData.heights]
+      })
+      .then(
+        result => {
+          this.userHeight = result[0].description;
+          this.navCtrl.setRoot(AccountDetailsPage);
+        },
+        err => console.log('Error: ', err)
+      );
+  }
+
+  setWeight() {
+    this.selector
+      .show({
+        title: 'Edit Weight',
+        items: [this.physicalData.weights]
+      })
+      .then(
+        result => {
+          this.userWeight = result[0].description;
+          this.navCtrl.setRoot(AccountDetailsPage);
+        },
+        err => console.log('Error: ', err)
+      );
+  }
+
+  setGender() {
+    this.selector
+      .show({
+        title: 'Edit Gender',
         items: [this.physicalData.gender]
       })
       .then(
@@ -449,21 +444,31 @@ export class AccountDetailsPage {
     this.storage.get('userGender').then(val => {
       this.userGender = val;
     });
+    this.storage.get('userAvatar').then(val => {
+      this.userAvatar = val;
+    });
   }
 
   update(data) {
     //Saves the new user information locally.
 
     var link = '';
-    var myData = JSON.stringify({firstName: this.firstName, lastName: this.lastName,
-    emailAddress: this.emailAddress, userHeight: this.userHeight,
-     userWeight: this.userWeight, userGender:this.userGender});
-    
-    this.http.post(link, myData)
-    .subscribe(data => {
-    this.response = data["_body"]; 
-    }, error => {
-    console.log("Oooops!");
+    var myData = JSON.stringify({
+      firstName: this.firstName,
+      lastName: this.lastName,
+      emailAddress: this.emailAddress,
+      userHeight: this.userHeight,
+      userWeight: this.userWeight,
+      userGender: this.userGender
     });
+
+    this.http.post(link, myData).subscribe(
+      data => {
+        this.response = data['_body'];
+      },
+      error => {
+        console.log('Oooops!');
+      }
+    );
   }
 }

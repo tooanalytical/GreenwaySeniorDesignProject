@@ -48,7 +48,7 @@ export class RecordActivityPage {
   public lng2 = 0;
   public counter = 0;
 
-  public totalDistance;
+  public totalDistance = 0;
   public totalDistanceString = '0.00';
   public segmentCalories;
   public totalCalories;
@@ -89,7 +89,8 @@ export class RecordActivityPage {
       return true;
     } else {
       //TODO: Display action sheet asking if they'd like to continue their run, end and save activity, or end and discard activity.
-      this.presentActionSheet();
+      this.presentLeaveActionSheet();
+      this.menuCtrl.toggle();
       return false;
     }
   }
@@ -137,24 +138,7 @@ export class RecordActivityPage {
             position.coords.latitude,
             position.coords.longitude
           );
-          this.marker.setPosition(latLng);
-          this.map.setCenter(latLng);
-        });
-    });
-  }
 
-  watchLocation() {
-    this.platform.ready().then(() => {
-      let options = {
-        enableHighAccuracy: true
-      };
-      this.subscriptionMap = this.geolocation
-        .watchPosition(options)
-        .subscribe(position => {
-          let latLng = new google.maps.LatLng(
-            position.coords.latitude,
-            position.coords.longitude
-          );
           this.marker.setPosition(latLng);
           this.map.setCenter(latLng);
         });
@@ -172,8 +156,8 @@ export class RecordActivityPage {
     }
   }
 
-  // Presents an action sheet to the user
-  presentActionSheet() {
+  // Presents an action sheet to the user when they try to leave page without ending activity.
+  presentLeaveActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'You are currently tracking an activity. Please choose an option.',
       buttons: [
@@ -181,20 +165,75 @@ export class RecordActivityPage {
           text: 'Discard Activity and End',
           role: 'destructive',
           handler: () => {
-            console.log('Discard Activity and End ');
+            this.endActivity();
+            this.activityDiscardEndAlert();
+            console.log('Discard Activity');
           }
         },
         {
           text: 'Save Activity and End',
           handler: () => {
-            console.log('Save Activity and End');
+            // Pauses activity
+            this.pauseActivity();
+
+            // Save activity results to local storage
+            this.saveActivity();
+
+            // Presents alert to user
+            this.activitySaveEndAlert();
+
+            // Ends user activity
+            this.endActivity();
+            console.log('Save Activity');
           }
         },
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.menuCtrl.toggle();
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  // Presents an action sheet to the user when they try to end an activity.
+  presentEndActivityActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'This will end your current activity. Please choose and option.',
+      buttons: [
+        {
+          text: 'Discard Activity and End',
+          role: 'destructive',
+          handler: () => {
+            this.endActivity();
+            this.activityDiscardEndAlert();
+            console.log('Discard Activity');
+          }
+        },
+        {
+          text: 'Save Activity and End',
+          handler: () => {
+            // Pauses activity
+            this.pauseActivity();
+
+            // Save activity results to local storage
+            this.saveActivity();
+
+            // Presents alert to user
+            this.activitySaveEndAlert();
+
+            // Ends user activity
+            this.endActivity();
+            console.log('Save Activity');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
             console.log('Cancel clicked');
           }
         }
@@ -306,17 +345,19 @@ export class RecordActivityPage {
         .watchPosition(options)
         .subscribe(position => {
           tempSpeed = position.coords.speed;
+          this.lat1 = position.coords.latitude;
+          this.lng1 = position.coords.longitude;
           if (tempSpeed < 0) {
             tempSpeed = 0;
           }
           tempSpeed = tempSpeed * 2.23694;
           tempSpeed = Math.round(tempSpeed);
           this.mphString = tempSpeed.toString();
-          this.lat1 = position.coords.latitude;
-          this.lng1 = position.coords.longitude;
+          console.log('Lat 1' + this.lat1);
+          console.log('Lng 1' + this.lng1);
           // Doesn't run the calculation and outputs to display on first data gathered.
           if (this.counter > 0) {
-            this.totalDistance += this.calculateDistance(
+            let segmentDistance = this.calculateDistance(
               this.lat1,
               this.lat2,
               this.lng1,
@@ -324,11 +365,20 @@ export class RecordActivityPage {
             );
             this.lat2 = this.lat1;
             this.lng2 = this.lng1;
-            this.totalDistanceString = this.totalDistance.toString();
+
+            console.log('Segment Distance: ' + segmentDistance);
+
+            this.totalDistance += segmentDistance;
+            console.log('Total Distance: ' + this.totalDistance);
+
+            this.totalDistanceString = this.totalDistance.toFixed(2);
+            console.log('Total Distance String: ' + this.totalDistanceString);
           } else {
             this.counter++;
             this.lat2 = this.lat1;
             this.lng2 = this.lng1;
+            console.log('Lat 2' + this.lat2);
+            console.log('Lng 2' + this.lng2);
             console.log(this.counter);
           }
         });
@@ -346,11 +396,13 @@ export class RecordActivityPage {
   //Calculates distance between two points using the haversine formula
   calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
     let p = 0.017453292519943295; // Math.PI / 180
-    let c = Math.cos;
     let a =
       0.5 -
-      c((lat1 - lat2) * p) / 2 +
-      c(lat2 * p) * c(lat1 * p) * (1 - c((long1 - long2) * p)) / 2;
+      Math.cos((lat1 - lat2) * p) / 2 +
+      Math.cos(lat2 * p) *
+        Math.cos(lat1 * p) *
+        (1 - Math.cos((long1 - long2) * p)) /
+        2;
     let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
     return distance;
   }
@@ -374,5 +426,30 @@ export class RecordActivityPage {
     this.pauseFlag = false;
     this.stateButton = 'Start';
     this.startFlag = true;
+  }
+
+  // TODO: Saves session user activity data to local storage
+  saveActivity() {
+    console.log('Activity Data Saved To Local Storage');
+  }
+
+  //Presents a modal alert to the user when they end their activity and save.
+  activitySaveEndAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Activity Ended',
+      subTitle: 'Your activity has been saved!',
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
+  //Presents a modal alert to the user when they end their activity and discard.
+  activityDiscardEndAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Activity Ended',
+      subTitle: 'Your activity has been discarded!',
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }

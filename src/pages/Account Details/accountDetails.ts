@@ -45,7 +45,7 @@ export class AccountDetailsPage {
   physicalData = {
     heights: [
       { description: '' },
-      { description: '> 4 Feet 0 Inches' },
+      { description: '< 4 Feet 0 Inches' },
       { description: '4 Feet 0 Inches' },
       { description: '4 Feet 1 Inches' },
       { description: '4 Feet 2 Inches' },
@@ -95,11 +95,11 @@ export class AccountDetailsPage {
       { description: '7 Feet 10 Inches' },
       { description: '7 Feet 11 Inches' },
       { description: '8 Feet 0 Inches' },
-      { description: '< 8 Feet 0 Inches' }
+      { description: '> 8 Feet 0 Inches' }
     ],
     weights: [
       { description: '' },
-      { description: '> 80 lbs' },
+      { description: '< 80 lbs' },
       { description: '80 lbs' },
       { description: '81 lbs' },
       { description: '82 lbs' },
@@ -321,7 +321,7 @@ export class AccountDetailsPage {
       { description: '298 lbs' },
       { description: '299 lbs' },
       { description: '300 lbs' },
-      { description: '< 300 lbs' }
+      { description: '> 300 lbs' }
     ],
     gender: [
       { description: '' },
@@ -356,7 +356,8 @@ export class AccountDetailsPage {
             this.storage.set('firstName', data.first);
             this.storage.set('lastName', data.last);
             this.storage.set('fullName', data.first + ' ' + data.last);
-            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            var link =
+              'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
             var myData = JSON.stringify({
               firstName: data.first,
               lastName: data.last
@@ -386,22 +387,22 @@ export class AccountDetailsPage {
       .then(
         result => {
           this.userHeight = result[0].description;
-          
+
           this.storage.set('firstName', result[0].description);
-            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-            var myData = JSON.stringify({
-              userHeight: result[0].description
-            });
-            this.http.post(link, myData).subscribe(
-              data => {
-                this.response = data['_body'];
-              },
-              error => {
-                console.log('Oooops!');
-              }
-            );
-            this.navCtrl.setRoot(AccountDetailsPage);
-          
+          var link =
+            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+          var myData = JSON.stringify({
+            userHeight: result[0].description
+          });
+          this.http.post(link, myData).subscribe(
+            data => {
+              this.response = data['_body'];
+            },
+            error => {
+              console.log('Oooops!');
+            }
+          );
+          this.navCtrl.setRoot(AccountDetailsPage);
 
           this.navCtrl.setRoot(AccountDetailsPage);
         },
@@ -419,21 +420,21 @@ export class AccountDetailsPage {
         result => {
           this.userWeight = result[0].description;
           this.storage.set('userWeight', result[0].description);
-           
-            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-            var myData = JSON.stringify({
-              userWeight: result[0].description
-            });
-            this.http.post(link, myData).subscribe(
-              data => {
-                this.response = data['_body'];
-              },
-              error => {
-                console.log('Oooops!');
-              }
-            );
-          
-          
+
+          var link =
+            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+          var myData = JSON.stringify({
+            userWeight: result[0].description
+          });
+          this.http.post(link, myData).subscribe(
+            data => {
+              this.response = data['_body'];
+            },
+            error => {
+              console.log('Oooops!');
+            }
+          );
+
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)
@@ -450,24 +451,24 @@ export class AccountDetailsPage {
         result => {
           this.userGender = result[0].description;
           this.storage.set('userGender', result[0].description);
-            
-            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-            var myData = JSON.stringify({
-              userGender: result[0].description
-            });
-            this.http.post(link, myData).subscribe(
-              data => {
-                this.response = data['_body'];
-              },
-              error => {
-                console.log('Oooops!');
-              }
-            );
+
+          var link =
+            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+          var myData = JSON.stringify({
+            userGender: result[0].description
+          });
+          this.http.post(link, myData).subscribe(
+            data => {
+              this.response = data['_body'];
+            },
+            error => {
+              console.log('Oooops!');
+            }
+          );
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)
       );
-      
   }
 
   getUserInfo() {
@@ -493,5 +494,5 @@ export class AccountDetailsPage {
     this.storage.get('userAvatar').then(val => {
       this.userAvatar = val;
     });
-  }  
+  }
 }

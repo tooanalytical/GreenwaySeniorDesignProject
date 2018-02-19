@@ -31,9 +31,16 @@ export class AccountDetailsPage {
   userGender;
   userAvatar;
   response;
-  name = 'fred';
   public editState: boolean = false;
   public submitState: boolean = true;
+
+  data = {
+    firstName: this.firstName,
+    lastName: this.lastName,
+    userHeight: this.userHeight,
+    userWeight: this.userWeight,
+    userGender: this.userGender
+  };
 
   physicalData = {
     heights: [
@@ -349,28 +356,19 @@ export class AccountDetailsPage {
             this.storage.set('firstName', data.first);
             this.storage.set('lastName', data.last);
             this.storage.set('fullName', data.first + ' ' + data.last);
-            this.navCtrl.setRoot(AccountDetailsPage);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  setEmail() {
-    let alert = this.alertCtrl.create({
-      title: 'Edit Email',
-      inputs: [
-        {
-          name: 'email',
-          placeholder: 'Email'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: data => {
-            this.storage.set('userEamil', data.email);
+            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            var myData = JSON.stringify({
+              firstName: data.first,
+              lastName: data.last
+            });
+            this.http.post(link, myData).subscribe(
+              data => {
+                this.response = data['_body'];
+              },
+              error => {
+                console.log('Oooops!');
+              }
+            );
             this.navCtrl.setRoot(AccountDetailsPage);
           }
         }
@@ -422,6 +420,7 @@ export class AccountDetailsPage {
         },
         err => console.log('Error: ', err)
       );
+      
   }
 
   getUserInfo() {
@@ -447,28 +446,5 @@ export class AccountDetailsPage {
     this.storage.get('userAvatar').then(val => {
       this.userAvatar = val;
     });
-  }
-
-  update(data) {
-    //Saves the new user information locally.
-
-    var link = '';
-    var myData = JSON.stringify({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      emailAddress: this.emailAddress,
-      userHeight: this.userHeight,
-      userWeight: this.userWeight,
-      userGender: this.userGender
-    });
-
-    this.http.post(link, myData).subscribe(
-      data => {
-        this.response = data['_body'];
-      },
-      error => {
-        console.log('Oooops!');
-      }
-    );
-  }
+  }  
 }

@@ -39,6 +39,7 @@ import { CreditsPage } from '../pages/Credits/credits';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { WeatherProvider } from '../providers/weather/weather';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     DeviceMotion,
     Facebook,
     Base64,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    WeatherProvider
   ]
 })
 export class AppModule {}

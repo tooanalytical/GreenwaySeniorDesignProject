@@ -14,7 +14,7 @@
 
     <!--Default Holder for custom avatars? -->
     <p class=top-margin style="text-align:center;">
-      <img src={{userAvatar}} alt="userPhoto" width=80px height=80px/>
+      <img src='../assets/avatar_default.png' alt="userPhoto" width=80px height=80px/>
 
       <ion-item class="transparent">
         <ion-label color="white" stacked>NAME</ion-label>
@@ -63,6 +63,7 @@
         <ion-icon (tap)="setGender()" color="darkgrey" name="build" item-right *ngIf="editState"></ion-icon>
       </ion-item>
       <p style="text-align: right" (tap)="openMenu()" *ngIf="submitState"> EDIT INFORMATION </p>
-      <p style="text-align: right" (tap)="openMenu()" *ngIf="editState"> DONE </p>
+      <p style="text-align: right" (tap)="openMenu()" *ngIf="editState"> CANCEL </p>
   </ion-list>
+
 </ion-content>

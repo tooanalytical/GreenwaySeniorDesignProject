@@ -108,6 +108,7 @@ export class CreateAccountFinishPage {
     console.log("Oooops!");
     });
 
+    this.setUserInfo();
     // TO SEE SERVER RESPONSE, DISABLE ME 
     this.navCtrl.setRoot(HomePage);
   }

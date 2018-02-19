@@ -386,6 +386,23 @@ export class AccountDetailsPage {
       .then(
         result => {
           this.userHeight = result[0].description;
+          
+          this.storage.set('firstName', result[0].description);
+            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            var myData = JSON.stringify({
+              userHeight: result[0].description
+            });
+            this.http.post(link, myData).subscribe(
+              data => {
+                this.response = data['_body'];
+              },
+              error => {
+                console.log('Oooops!');
+              }
+            );
+            this.navCtrl.setRoot(AccountDetailsPage);
+          
+
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)
@@ -401,6 +418,22 @@ export class AccountDetailsPage {
       .then(
         result => {
           this.userWeight = result[0].description;
+          this.storage.set('userWeight', result[0].description);
+           
+            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            var myData = JSON.stringify({
+              userWeight: result[0].description
+            });
+            this.http.post(link, myData).subscribe(
+              data => {
+                this.response = data['_body'];
+              },
+              error => {
+                console.log('Oooops!');
+              }
+            );
+          
+          
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)
@@ -416,6 +449,20 @@ export class AccountDetailsPage {
       .then(
         result => {
           this.userGender = result[0].description;
+          this.storage.set('userGender', result[0].description);
+            
+            var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            var myData = JSON.stringify({
+              userGender: result[0].description
+            });
+            this.http.post(link, myData).subscribe(
+              data => {
+                this.response = data['_body'];
+              },
+              error => {
+                console.log('Oooops!');
+              }
+            );
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)

@@ -74,7 +74,7 @@ export class SplashPage {
         env.fb.api('/me?fields=name,gender', params).then(function(user) {
           user.picture =
             'https://graph.facebook.com/' + userId + '/picture?type=large';
-          //now we have the users info, let's save it in the NativeStorage
+          //now we have the users info, let's save it in the Storage
           env.nativeStorage
             .setItem('user', {
               name: user.name,

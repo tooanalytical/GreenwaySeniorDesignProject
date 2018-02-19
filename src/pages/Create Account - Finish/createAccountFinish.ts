@@ -33,7 +33,6 @@ export class CreateAccountFinishPage {
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
   userGender = this.navParams.get('userGender');
-  
 
   data = {
     firstName: this.firstName,
@@ -96,20 +95,35 @@ export class CreateAccountFinishPage {
     this.setUserInfo();
     this.getLocation();
 
-    var link = 'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/signup.php';
-    var myData = JSON.stringify({firstName: this.data.firstName, lastName: this.data.lastName,
-    emailAddress: this.emailAddress, userPassword: this.userPassword, userBirthdate: this.userBirthdate,
-  userHeight: this.userHeight, userWeight: this.userWeight, userGender:this.userGender});
-    
-    this.http.post(link, myData)
-    .subscribe(data => {
-    this.data.response = data["_body"]; 
-    }, error => {
-    console.log("Oooops!");
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/signup.php';
+    var myData = JSON.stringify({
+      firstName: this.data.firstName,
+      lastName: this.data.lastName,
+      emailAddress: this.emailAddress,
+      userPassword: this.userPassword,
+      userBirthdate: this.userBirthdate,
+      userHeight: this.userHeight,
+      userWeight: this.userWeight,
+      userGender: this.userGender
     });
 
+<<<<<<< HEAD
+    this.http.post(link, myData).subscribe(
+      data => {
+        this.data.response = data['_body'];
+        console.log(this.data.response);
+      },
+      error => {
+        console.log('Oooops!');
+      }
+    );
+
+    // TO SEE SERVER RESPONSE, DISABLE ME
+=======
     this.setUserInfo();
     // TO SEE SERVER RESPONSE, DISABLE ME 
+>>>>>>> 005f96dc614fe922bccad8095527355c62d3df7c
     this.navCtrl.setRoot(HomePage);
   }
 

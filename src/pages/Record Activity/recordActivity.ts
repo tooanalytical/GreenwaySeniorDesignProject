@@ -4,6 +4,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { AlertController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Http } from '@angular/http';
 
 declare var google;
 
@@ -53,6 +55,15 @@ export class RecordActivityPage {
   public segmentCalories;
   public totalCalories;
 
+  public data;
+
+  public userId = '12345';
+
+  // // Implement when we have the userId saved to local storage
+  // public userId = this.storage.get('userId').then(val => {
+  //   this.userId = val;
+  // });
+
   public icon = {
     url: 'http://www.robotwoods.com/dev/misc/bluecircle.png',
     size: new google.maps.Size(22, 22),
@@ -71,7 +82,9 @@ export class RecordActivityPage {
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
-    public platform: Platform
+    public storage: Storage,
+    public platform: Platform,
+    public http: Http
   ) {}
 
   //Code which is ran after the page is loaded
@@ -347,6 +360,7 @@ export class RecordActivityPage {
           tempSpeed = position.coords.speed;
           this.lat1 = position.coords.latitude;
           this.lng1 = position.coords.longitude;
+          this.reportUserLocation(this.lat1, this.lng1);
           if (tempSpeed < 0) {
             tempSpeed = 0;
           }
@@ -357,7 +371,8 @@ export class RecordActivityPage {
           console.log('Lng 1' + this.lng1);
           // Doesn't run the calculation and outputs to display on first data gathered.
           if (this.counter > 0) {
-            let segmentDistance = this.calculateDistance(
+            let segmentDistance = 0;
+            segmentDistance = this.calculateDistance(
               this.lat1,
               this.lat2,
               this.lng1,
@@ -451,5 +466,27 @@ export class RecordActivityPage {
       buttons: ['Ok']
     });
     alert.present();
+  }
+
+  reportUserLocation(lat, lng) {
+    var currentTime = new Date();
+    console.log(currentTime);
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
+    var myData = JSON.stringify({
+      userId: this.userId,
+      currentTime: currentTime,
+      lat: lat,
+      lng: lng
+    });
+
+    this.http.post(link, myData).subscribe(
+      data => {
+        this.data.response = data['_body'];
+      },
+      error => {
+        console.log('Oooops!');
+      }
+    );
   }
 }

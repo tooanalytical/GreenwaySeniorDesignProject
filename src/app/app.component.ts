@@ -163,6 +163,7 @@ export class MyApp {
     this.storage.set('userHeight', '');
     this.storage.set('userWeight', '');
     this.storage.set('userGender', '');
+    this.storage.set('userAvatar', '');
   }
 
   openPage(page) {

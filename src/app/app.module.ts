@@ -17,7 +17,6 @@ import { Base64 } from '@ionic-native/base64';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
-import { CreateAccountPage } from '../pages/Create Account/createAccount';
 import { SplashPage } from '../pages/Splash/splash';
 import { CreateAccountNamePage } from '../pages/Create Account - Name/createAccountName';
 import { CreateAccountEmailPage } from '../pages/Create Account - Email/createAccountEmail';
@@ -45,7 +44,6 @@ import { WeatherProvider } from '../providers/weather/weather';
   declarations: [
     MyApp,
     LoginPage,
-    CreateAccountPage,
     SplashPage,
     LoginPage,
     CreateAccountNamePage,
@@ -76,7 +74,6 @@ import { WeatherProvider } from '../providers/weather/weather';
   entryComponents: [
     MyApp,
     LoginPage,
-    CreateAccountPage,
     SplashPage,
     LoginPage,
     CreateAccountNamePage,

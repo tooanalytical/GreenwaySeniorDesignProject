@@ -388,7 +388,7 @@ export class AccountDetailsPage {
         result => {
           this.userHeight = result[0].description;
 
-          this.storage.set('firstName', result[0].description);
+          this.storage.set('userHeight', result[0].description);
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
@@ -402,8 +402,6 @@ export class AccountDetailsPage {
               console.log('Oooops!');
             }
           );
-          this.navCtrl.setRoot(AccountDetailsPage);
-
           this.navCtrl.setRoot(AccountDetailsPage);
         },
         err => console.log('Error: ', err)

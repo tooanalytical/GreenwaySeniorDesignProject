@@ -1,0 +1,70 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content no-bounce>
+
+  <div>
+    <button ion-button clear color="white" class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
+
+  <div padding>
+    <p class="title">Physical Data (Optional)</p>
+    <p>This data will help Viridian more accurately track your activities on the trail.</p>
+  </div>
+
+  <div padding>
+
+    <button ion-button color="lightGr" (tap)=selectAHeight(); block round icon-left>
+      Height
+    </button>
+
+    <p style="text-align:center;">
+      Your Height: {{data.userHeight}}
+    </p>
+
+
+    <button ion-button color="lightGr" (tap)=selectAWeight(); block round icon-left>
+      Weight
+    </button>
+
+    <p style="text-align:center;">
+      Your Weight: {{data.userWeight}}
+    </p>
+
+    <button ion-button color="lightGr" (tap)=selectAGender(); block round icon-left>
+      Gender
+    </button>
+
+    <p style="text-align:center;">
+      Your Gender: {{data.userGender}}
+    </p>
+
+    <!-- <ion-item class="transparent">
+      <ion-label floating class="item-input">FEET</ion-label>
+      <ion-input type="text" [(ngModel)]="data.userHeightFeet"></ion-input>
+    </ion-item>
+    <ion-item class="transparent">
+      <ion-label floating class="item-input">INCHES</ion-label>
+      <ion-input type="text" [(ngModel)]="data.userHeightInches"></ion-input>
+    </ion-item>
+    <ion-item class="transparent">
+      <ion-label floating class="item-input">WEIGHT (lbs.)</ion-label>
+      <ion-input type="text" [(ngModel)]="data.userWeight"></ion-input>
+    </ion-item> -->
+  </div>
+
+  <div>
+    <p style="text-align:center;">
+      <img src="assets/ProgFive.png" width=200px>
+    </p>
+    <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
+
+
+
+</ion-content>

@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 
 import { HomePage } from '../home/home';
 import { CreateAccountNamePage } from '../Create Account - Name/createAccountName';
+import { CreateAccountSocialBirthdatePage } from '../Create Account - Social - Birthdate/createAccountSocialBirthdate';
 import { PasswordResetPage } from '../Password Reset/passwordReset';
 import { LoginPage } from '../Login/login';
 
@@ -16,6 +17,9 @@ import { LoginPage } from '../Login/login';
 })
 export class SplashPage {
   FB_APP_ID: number = 1103480846449706;
+  public userLoggedIn = this.storage.get('userLoggedIn').then(val => {
+    this.userLoggedIn = val;
+  });
 
   constructor(
     public navCtrl: NavController,
@@ -26,36 +30,49 @@ export class SplashPage {
     this.fb.browserInit(this.FB_APP_ID, 'v2.8');
   }
 
+  // Navigates user to Login Page
   loginPage() {
     this.navCtrl.push(LoginPage);
   }
 
+  // Navigates user to new account creation process
   createNewAccount() {
     this.navCtrl.push(CreateAccountNamePage);
   }
 
+  // Navigates user to password reset process
   resetPassword() {
     this.navCtrl.push(PasswordResetPage);
   }
 
   // Login credentials for Google authentication and redirect to dashboard.
   googleLogin() {
-    GooglePlus.login({
-      webClientId:
-        '407412318918-e4mig3cqfrsb1j80goqnltu7jigitako.apps.googleusercontent.com'
-    }).then(
-      res => {
-        console.log(res);
-        this.storage.set('fullName', res.displayName);
-        this.storage.set('email', res.email);
-        this.storage.set('userAvatar', res.imageUrl);
-        this.storage.set('userGender', res.gender);
-        this.navCtrl.setRoot(HomePage);
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    if (this.userLoggedIn) {
+      this.navCtrl.setRoot(HomePage);
+    } else {
+      GooglePlus.login({
+        webClientId:
+          '407412318918-e4mig3cqfrsb1j80goqnltu7jigitako.apps.googleusercontent.com'
+      }).then(
+        res => {
+          if (true) {
+            // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
+          } else {
+            // If the user hasn't signed in using Google Authenticion before send them through the account creation process.
+            console.log(res);
+            this.storage.set('fullName', res.displayName);
+            this.storage.set('firstName', res.givenName);
+            this.storage.set('lastName', res.familyName);
+            this.storage.set('email', res.email);
+            this.storage.set('userAvatar', res.imageUrl);
+            this.navCtrl.setRoot(CreateAccountSocialBirthdatePage);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   facebookLogin() {
@@ -83,7 +100,7 @@ export class SplashPage {
             })
             .then(
               function() {
-                nav.setRoot(HomePage);
+                nav.setRoot(CreateAccountSocialBirthdatePage);
               },
               function(error) {
                 console.log(error);

@@ -88,6 +88,7 @@ export class CreateAccountFinishPage {
     this.storage.set('userHeight', this.data.userHeight);
     this.storage.set('userWeight', this.data.userWeight);
     this.storage.set('userGender', this.data.userGender);
+    this.storage.set('userLoggedIn', true);
   }
 
   submit(data) {

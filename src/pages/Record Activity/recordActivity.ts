@@ -58,6 +58,7 @@ export class RecordActivityPage {
   public data;
 
   public userId = '12345';
+  public activityId = '';
 
   // // Implement when we have the userId saved to local storage
   // public userId = this.storage.get('userId').then(val => {
@@ -267,6 +268,7 @@ export class RecordActivityPage {
   startActivity() {
     this.startTimer();
     this.watchCurrentSpeed();
+    this.getActivityId();
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -360,6 +362,7 @@ export class RecordActivityPage {
           tempSpeed = position.coords.speed;
           this.lat1 = position.coords.latitude;
           this.lng1 = position.coords.longitude;
+          this.getActivityId();
           this.reportUserLocation(this.lat1, this.lng1);
           if (tempSpeed < 0) {
             tempSpeed = 0;
@@ -436,6 +439,7 @@ export class RecordActivityPage {
     this.mphString = '0';
     this.totalDistanceString = '0.00';
     this.counter = 0;
+    this.activityId = '';
 
     this.resumeFlag = false;
     this.pauseFlag = false;
@@ -475,6 +479,7 @@ export class RecordActivityPage {
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
     var myData = JSON.stringify({
       userId: this.userId,
+      activityId: this.activityId,
       currentTime: currentTime,
       lat: lat,
       lng: lng
@@ -483,6 +488,25 @@ export class RecordActivityPage {
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
+      },
+      error => {
+        console.log('Oooops!');
+      }
+    );
+  }
+
+  getActivityId() {
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
+    var myData = JSON.stringify({
+      userId: this.userId,
+      activityId: this.activityId
+    });
+
+    this.http.post(link, myData).subscribe(
+      data => {
+        this.data.response = data['_body'];
+        this.activityId = this.data.response.activityId;
       },
       error => {
         console.log('Oooops!');

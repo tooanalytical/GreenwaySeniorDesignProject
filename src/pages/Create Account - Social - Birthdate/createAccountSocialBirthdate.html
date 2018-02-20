@@ -1,0 +1,41 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content no-bounce>
+
+  <div padding>
+    <p class="title">When is your birthday?</p>
+    <p> You must be at least 13 years old to use Viridian. Others won't see your birthday.</p>
+  </div>
+
+  <div padding>
+    <ion-list>
+
+      <ion-item no-lines class="transparent">
+        <ion-label floating>BIRTDATE - ENTER HERE</ion-label>
+        <ion-datetime displayFormat="MMMM D, YYYY" [(ngModel)]="data.userBirthdate"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <div>
+    <p style="text-align:center;">
+      <img src="assets/ProgFour.png" width=200px>
+    </p>
+    <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
+
+
+
+</ion-content>

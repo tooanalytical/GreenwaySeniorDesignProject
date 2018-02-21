@@ -14,7 +14,7 @@ import { DeviceMotion } from '@ionic-native/device-motion';
 import { Facebook } from '@ionic-native/facebook';
 import { HttpModule } from '@angular/http';
 import { Base64 } from '@ionic-native/base64';
-
+import { OneSignal } from '@ionic-native/onesignal';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
 import { CreateAccountPage } from '../pages/Create Account/createAccount';
@@ -113,7 +113,8 @@ import { WeatherProvider } from '../providers/weather/weather';
     Facebook,
     Base64,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    WeatherProvider
+    WeatherProvider,
+    OneSignal
   ]
 })
 export class AppModule {}

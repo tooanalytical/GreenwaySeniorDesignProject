@@ -6,6 +6,8 @@ import { GooglePlus } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
+import { OneSignal } from '@ionic-native/onesignal';
+import { AlertController } from 'ionic-angular'
 
 import { HomePage } from '../pages/home/home';
 import { SplashPage } from '../pages/Splash/splash';
@@ -37,10 +39,12 @@ export class MyApp {
     public nativeStorage: NativeStorage,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public fb: Facebook
+    public fb: Facebook,
+    public oneSignal: OneSignal,
+    public alertCtrl: AlertController
   ) {
     this.initializeApp();
-
+    
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'DASHBOARD', component: HomePage, icon: 'ios-apps-outline' },
@@ -113,6 +117,24 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.oneSignal.startInit('eecf381c-62fd-4ac7-ac38-4496d79c71fb', '726052510477');
+
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+
+      this.oneSignal.handleNotificationReceived().subscribe(() => {
+        let alert = this.alertCtrl.create({
+          title: 'Notification Recieved',
+          subTitle: 'Body statement',
+          buttons: ['Ok']
+        });
+        alert.present();
+      });
+
+      this.oneSignal.handleNotificationOpened().subscribe(() => {
+        // do something when a notification is opened
+      });
+
+      this.oneSignal.endInit();
     });
   }
 

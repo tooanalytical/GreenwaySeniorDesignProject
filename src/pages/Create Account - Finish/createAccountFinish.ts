@@ -108,7 +108,6 @@ export class CreateAccountFinishPage {
       userGender: this.userGender
     });
 
-<<<<<<< HEAD
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
@@ -118,12 +117,8 @@ export class CreateAccountFinishPage {
         console.log('Oooops!');
       }
     );
-
-    // TO SEE SERVER RESPONSE, DISABLE ME
-=======
     this.setUserInfo();
     // TO SEE SERVER RESPONSE, DISABLE ME 
->>>>>>> 005f96dc614fe922bccad8095527355c62d3df7c
     this.navCtrl.setRoot(HomePage);
   }
 

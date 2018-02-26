@@ -1,51 +1,39 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
+import { CreateAccountFinishPage } from '../Create Account - Finish/createAccountFinish';
 import { WheelSelector } from '@ionic-native/wheel-selector';
-import { Http } from '@angular/http';
 
 @Component({
-  selector: 'page-accountDetails',
-  templateUrl: 'accountDetails.html'
+  selector: 'page-createAccountSocialPhysical',
+  templateUrl: 'createAccountSocialPhysical.html'
 })
-export class AccountDetailsPage {
+export class CreateAccountSocialPhysicalPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public storage: Storage,
-    private alertCtrl: AlertController,
-    private http: Http,
     private selector: WheelSelector
-  ) {
-    this.getUserInfo();
-  }
+  ) {}
 
-  userName;
-  firstName;
-  lastName;
-  emailAddress;
-  userHeight;
-  userWeight;
-  userBirthdate;
-  userGender;
-  userAvatar;
-  response;
-  public editState: boolean = false;
-  public submitState: boolean = true;
+  firstName = this.navParams.get('firstName');
+  lastName = this.navParams.get('lastName');
+  emailAddress = this.navParams.get('emailAddress');
+  userBirthdate = this.navParams.get('userBirthdate');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
-    userHeight: this.userHeight,
-    userWeight: this.userWeight,
-    userGender: this.userGender
+    emailAddress: this.emailAddress,
+    userBirthdate: this.userBirthdate,
+    userHeight: '',
+    userWeight: '',
+    userGender: ''
   };
-
+  //JSON Selections for user height, weight, and gender.
   physicalData = {
     heights: [
       { description: '' },
-      { description: '< 4 Feet 0 Inches' },
+      { description: '> 4 Feet 0 Inches' },
       { description: '4 Feet 0 Inches' },
       { description: '4 Feet 1 Inches' },
       { description: '4 Feet 2 Inches' },
@@ -95,11 +83,11 @@ export class AccountDetailsPage {
       { description: '7 Feet 10 Inches' },
       { description: '7 Feet 11 Inches' },
       { description: '8 Feet 0 Inches' },
-      { description: '> 8 Feet 0 Inches' }
+      { description: '< 8 Feet 0 Inches' }
     ],
     weights: [
       { description: '' },
-      { description: '< 80 lbs' },
+      { description: '> 80 lbs' },
       { description: '80 lbs' },
       { description: '81 lbs' },
       { description: '82 lbs' },
@@ -321,7 +309,7 @@ export class AccountDetailsPage {
       { description: '298 lbs' },
       { description: '299 lbs' },
       { description: '300 lbs' },
-      { description: '> 300 lbs' }
+      { description: '< 300 lbs' }
     ],
     gender: [
       { description: '' },
@@ -331,166 +319,55 @@ export class AccountDetailsPage {
     ]
   };
 
-  openMenu() {
-    this.editState = !this.editState;
-    this.submitState = !this.submitState;
-  }
-
-  setName() {
-    let alert = this.alertCtrl.create({
-      title: 'Edit Name',
-      inputs: [
-        {
-          name: 'first',
-          placeholder: 'First Name'
-        },
-        {
-          name: 'last',
-          placeholder: 'Last Name'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: data => {
-            this.storage.set('firstName', data.first);
-            this.storage.set('lastName', data.last);
-            this.storage.set('fullName', data.first + ' ' + data.last);
-            var link =
-              'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-            var myData = JSON.stringify({
-              firstName: data.first,
-              lastName: data.last
-            });
-            this.http.post(link, myData).subscribe(
-              data => {
-                this.response = data['_body'];
-              },
-              error => {
-                console.log('Oooops!');
-              }
-            );
-            this.navCtrl.setRoot(AccountDetailsPage);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  setHeight() {
+  //JSON selection function prompting user to input height
+  selectAHeight() {
     this.selector
       .show({
-        title: 'Edit Height',
+        title: "What's your Height?",
         items: [this.physicalData.heights]
       })
       .then(
         result => {
-          this.userHeight = result[0].description;
-
-          this.storage.set('userHeight', result[0].description);
-          var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-          var myData = JSON.stringify({
-            userHeight: result[0].description
-          });
-          this.http.post(link, myData).subscribe(
-            data => {
-              this.response = data['_body'];
-            },
-            error => {
-              console.log('Oooops!');
-            }
-          );
-          this.navCtrl.setRoot(AccountDetailsPage);
+          this.data.userHeight = result[0].description;
+          console.log(result[0].description + ' at index: ' + result[0].index);
         },
         err => console.log('Error: ', err)
       );
   }
 
-  setWeight() {
+  //JSON selection function prompting user to input weight
+  selectAWeight() {
     this.selector
       .show({
-        title: 'Edit Weight',
+        title: "What's your Weight?",
         items: [this.physicalData.weights]
       })
       .then(
         result => {
-          this.userWeight = result[0].description;
-          this.storage.set('userWeight', result[0].description);
-
-          var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-          var myData = JSON.stringify({
-            userWeight: result[0].description
-          });
-          this.http.post(link, myData).subscribe(
-            data => {
-              this.response = data['_body'];
-            },
-            error => {
-              console.log('Oooops!');
-            }
-          );
-
-          this.navCtrl.setRoot(AccountDetailsPage);
+          this.data.userWeight = result[0].description;
+          console.log(result[0].description + ' at index: ' + result[0].index);
         },
         err => console.log('Error: ', err)
       );
   }
 
-  setGender() {
+  //JSON selection function prompting user to input gender
+  selectAGender() {
     this.selector
       .show({
-        title: 'Edit Gender',
+        title: "What's your Gender?",
         items: [this.physicalData.gender]
       })
       .then(
         result => {
-          this.userGender = result[0].description;
-          this.storage.set('userGender', result[0].description);
-
-          var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-          var myData = JSON.stringify({
-            userGender: result[0].description
-          });
-          this.http.post(link, myData).subscribe(
-            data => {
-              this.response = data['_body'];
-            },
-            error => {
-              console.log('Oooops!');
-            }
-          );
-          this.navCtrl.setRoot(AccountDetailsPage);
+          this.data.userGender = result[0].description;
+          console.log(result[0].description + ' at index: ' + result[0].index);
         },
         err => console.log('Error: ', err)
       );
   }
 
-  getUserInfo() {
-    this.storage.get('fullName').then(val => {
-      this.userName = val;
-    });
-    this.storage.get('email').then(val => {
-      this.emailAddress = val;
-    });
-    this.storage.get('userHeight').then(val => {
-      this.userHeight = val;
-    });
-    this.storage.get('userWeight').then(val => {
-      this.userWeight = val;
-    });
-    this.storage.get('userBirthdate').then(val => {
-      this.userBirthdate = val;
-      this.userBirthdate = new Date(val).toDateString();
-    });
-    this.storage.get('userGender').then(val => {
-      this.userGender = val;
-    });
-    this.storage.get('userAvatar').then(val => {
-      this.userAvatar = val;
-    });
+  createAccountNext() {
+    this.navCtrl.push(CreateAccountFinishPage, this.data);
   }
 }

@@ -186,6 +186,7 @@ export class MyApp {
     this.storage.set('userWeight', '');
     this.storage.set('userGender', '');
     this.storage.set('userAvatar', '');
+    this.storage.set('userLoggedIn', false);
   }
 
   openPage(page) {

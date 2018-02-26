@@ -88,11 +88,13 @@ export class CreateAccountFinishPage {
     this.storage.set('userHeight', this.data.userHeight);
     this.storage.set('userWeight', this.data.userWeight);
     this.storage.set('userGender', this.data.userGender);
+    this.storage.set('userLoggedIn', true);
   }
 
   submit(data) {
     //Saves the new user information locally.
     this.setUserInfo();
+    console.log(this.data.userHeight);
     this.getLocation();
 
     var link =
@@ -117,8 +119,8 @@ export class CreateAccountFinishPage {
         console.log('Oooops!');
       }
     );
-    this.setUserInfo();
-    // TO SEE SERVER RESPONSE, DISABLE ME 
+
+    // TO SEE SERVER RESPONSE, DISABLE ME
     this.navCtrl.setRoot(HomePage);
   }
 

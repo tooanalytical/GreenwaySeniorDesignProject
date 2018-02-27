@@ -31,6 +31,7 @@ export class RecordActivityPage {
   public startedTime;
 
   public timer_id_active;
+  public timer_id_caloric;
   public startFlag = true;
   public pauseFlag = false;
   public resumeFlag = false;
@@ -43,6 +44,7 @@ export class RecordActivityPage {
   public initialMap;
   public subscriptionMap;
   public subscriptionSpeed;
+  public tempSpeed = 0;
   public mphString = '0';
   public lat1 = 0;
   public lat2 = 0;
@@ -52,8 +54,20 @@ export class RecordActivityPage {
 
   public totalDistance = 0;
   public totalDistanceString = '0.00';
-  public segmentCalories;
-  public totalCalories;
+  public totalCalories = 0;
+  public totalCaloriesString = '0';
+
+  public metScore = 0;
+
+  public userWeight = 0;
+  public userHeight = 0;
+
+  public userHeightString = this.storage.get('userHeight').then(val => {
+    this.userHeightString = val;
+  });
+  public userWeightString = this.storage.get('userWeight').then(val => {
+    this.userWeightString = val;
+  });
 
   public data;
 
@@ -92,6 +106,10 @@ export class RecordActivityPage {
   ionViewWillEnter() {
     this.loadMap();
     this.watchLocation();
+    this.userHeight = this.convertHeightStringToInteger(this.userHeightString);
+    this.userWeight = this.convertWeightStringToInteger(this.userWeightString);
+    //Converts User Weight from pounds to kilograms
+    this.userWeight = this.userWeight * 0.45359237;
   }
 
   //Code which will run before the user leaves the page
@@ -268,7 +286,10 @@ export class RecordActivityPage {
   startActivity() {
     this.startTimer();
     this.watchCurrentSpeed();
+    this.updateCaloriesBurned();
     this.getActivityId();
+    console.log(this.userHeight);
+    console.log(this.userWeight);
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -278,6 +299,7 @@ export class RecordActivityPage {
   //Pauses user activity and changes UI elements
   pauseActivity() {
     clearInterval(this.timer_id_active);
+    clearInterval(this.timer_id_caloric);
     this.endWatchCurrentSpeed();
 
     this.totalTime += this.activeTime;
@@ -291,6 +313,7 @@ export class RecordActivityPage {
   resumeActivity() {
     this.resumeTimer();
     this.watchCurrentSpeed();
+    this.updateCaloriesBurned();
 
     this.pauseFlag = true;
     this.stateButton = 'Pause';
@@ -304,7 +327,6 @@ export class RecordActivityPage {
       this.activeTime = Math.floor(
         new Date().getTime() - this.startedTime.getTime()
       );
-
       this.activeSeconds = Math.floor(this.activeTime / 1000);
 
       this.activeMinutes = Math.floor(this.activeSeconds / 60);
@@ -330,7 +352,6 @@ export class RecordActivityPage {
       this.activeTime = Math.floor(
         new Date().getTime() - this.startedTime.getTime()
       );
-
       this.activeSeconds = Math.floor(
         (this.totalTime + this.activeTime) / 1000
       );
@@ -355,21 +376,21 @@ export class RecordActivityPage {
       let options = {
         enableHighAccuracy: true
       };
-      let tempSpeed;
+
       this.subscriptionSpeed = this.geolocation
         .watchPosition(options)
         .subscribe(position => {
-          tempSpeed = position.coords.speed;
+          this.tempSpeed = position.coords.speed;
           this.lat1 = position.coords.latitude;
           this.lng1 = position.coords.longitude;
           this.getActivityId();
           this.reportUserLocation(this.lat1, this.lng1);
-          if (tempSpeed < 0) {
-            tempSpeed = 0;
+          if (this.tempSpeed < 0) {
+            this.tempSpeed = 0;
           }
-          tempSpeed = tempSpeed * 2.23694;
-          tempSpeed = Math.round(tempSpeed);
-          this.mphString = tempSpeed.toString();
+          this.tempSpeed = this.tempSpeed * 2.23694;
+          this.tempSpeed = Math.round(this.tempSpeed);
+          this.mphString = this.tempSpeed.toString();
           console.log('Lat 1' + this.lat1);
           console.log('Lng 1' + this.lng1);
           // Doesn't run the calculation and outputs to display on first data gathered.
@@ -426,7 +447,17 @@ export class RecordActivityPage {
   }
 
   //TODO: Calculate user's calories burned.
-  getCaloriesBurned() {}
+  updateCaloriesBurned() {
+    this.timer_id_caloric = setInterval(() => {
+      // Sets the MET score of the activity during the interval
+      this.setMetScore();
+
+      //TODO: Calculate calories burned during the interval of time based upon (METs * weight(kg) * time (1/3600th of hour) = calories burned)
+      var caloriesBurned = this.metScore * this.userWeight * 0.000277777778;
+      this.totalCalories += caloriesBurned;
+      this.totalCaloriesString = Math.round(this.totalCalories).toString();
+    }, 1000);
+  }
 
   //Ends user activity and changes UI elements
   endActivity() {
@@ -440,6 +471,9 @@ export class RecordActivityPage {
     this.totalDistanceString = '0.00';
     this.counter = 0;
     this.activityId = '';
+    this.metScore = 0;
+    this.totalCalories = 0;
+    this.totalCaloriesString = '0';
 
     this.resumeFlag = false;
     this.pauseFlag = false;
@@ -512,5 +546,86 @@ export class RecordActivityPage {
         console.log('Oooops!');
       }
     );
+  }
+  // Converts the user's height string to an integer in inches
+  convertHeightStringToInteger(userHeight) {
+    var tempHeight = '';
+    for (var i = 0; i < userHeight.length; i++) {
+      var c = userHeight.charAt(i);
+      if (c.match(/[a-z]/i)) {
+        continue;
+      } else {
+        if (userHeight.charAt(i) === ' ') {
+          continue;
+        } else {
+          tempHeight = tempHeight.concat(c);
+        }
+      }
+    }
+    var height = 0;
+    var inches = '';
+    var d = '';
+    for (var j = 0; j < tempHeight.length; j++) {
+      d = tempHeight.charAt(j);
+      if (height === 0) {
+        height += 12 * parseInt(tempHeight.charAt(j));
+      } else {
+        if (tempHeight.charAt(j) !== ' ') {
+          inches = inches.concat(d);
+        }
+      }
+    }
+    height += parseInt(inches);
+    return height;
+  }
+
+  // Converts the user's weight string to an integer in pounds
+  convertWeightStringToInteger(userWeight) {
+    var tempWeight = '';
+    for (var i = 0; i < userWeight.length; i++) {
+      var c = userWeight.charAt(i);
+      if (c.match(/[a-z]/i)) {
+        continue;
+      } else {
+        tempWeight = tempWeight.concat(c);
+      }
+    }
+    // Convert weight string to integer
+    var weight = parseInt(tempWeight);
+    return weight;
+  }
+
+  setMetScore() {
+    // TODO: Modify to identify if the user is on foot or bike
+    if (this.tempSpeed > 0 && this.tempSpeed <= 2) {
+      this.metScore = 2.3;
+    } else if (this.tempSpeed > 2 && this.tempSpeed <= 3) {
+      this.metScore = 2.9;
+    } else if (this.tempSpeed > 3 && this.tempSpeed <= 3.4) {
+      this.metScore = 3.6;
+    } else if (this.tempSpeed > 3.4 && this.tempSpeed <= 4) {
+      this.metScore = 4.1;
+    } else if (this.tempSpeed > 4 && this.tempSpeed <= 5) {
+      this.metScore = 8.7;
+    } else if (this.tempSpeed > 5 && this.tempSpeed <= 6) {
+      this.metScore = 10.2;
+    } else if (this.tempSpeed > 6 && this.tempSpeed <= 7) {
+      this.metScore = 11.7;
+    } else if (this.tempSpeed > 7 && this.tempSpeed <= 8) {
+      this.metScore = 13.3;
+    } else if (this.tempSpeed > 8 && this.tempSpeed <= 9) {
+      this.metScore = 14.8;
+    } else if (this.tempSpeed > 9 && this.tempSpeed <= 10) {
+      this.metScore = 16.3;
+      // Now we're assuming they're on a bike unless they're an elite runner
+    } else if (this.tempSpeed > 10 && this.tempSpeed <= 14) {
+      this.metScore = 8.0;
+    } else if (this.tempSpeed > 14 && this.tempSpeed <= 16) {
+      this.metScore = 10.0;
+    } else if (this.tempSpeed > 16 && this.tempSpeed <= 20) {
+      this.metScore = 12.0;
+    } else if (this.tempSpeed > 20) {
+      this.metScore = 16.0;
+    }
   }
 }

@@ -108,6 +108,7 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-device-motion" spec="^1.2.5" />
     <plugin name="com-badrit-base64" spec="^0.2.0" />
+    <plugin name="onesignal-cordova-plugin" spec="^2.3.1" />
+    <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="4.5.4" />
 </widget>

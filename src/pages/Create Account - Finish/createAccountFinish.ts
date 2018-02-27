@@ -94,6 +94,7 @@ export class CreateAccountFinishPage {
   submit(data) {
     //Saves the new user information locally.
     this.setUserInfo();
+    console.log(this.data.userHeight);
     this.getLocation();
 
     var link =

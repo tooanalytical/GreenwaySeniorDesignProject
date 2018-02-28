@@ -78,7 +78,7 @@ export class RecordActivityPage {
     this.userWeightString = val;
   });
 
-  public data;
+  data:any ={};
 
   public userId = '12345';
   // // Implement when we have the userId saved to local storage
@@ -119,7 +119,8 @@ export class RecordActivityPage {
     public storage: Storage,
     public platform: Platform,
     public http: Http
-  ) {}
+  ) {this.data.response ="";
+     this.http = http;}
 
   //Code which is ran after the page is loaded
   ionViewWillEnter() {

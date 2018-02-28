@@ -9,7 +9,6 @@ import {
 } from 'ionic-angular';
 
 import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { WheelSelector } from '@ionic-native/wheel-selector';
@@ -32,7 +31,6 @@ export class ReportPage {
   constructor(
     public navCtrl: NavController,
     private camera: Camera,
-    private transfer: Transfer,
     private file: File,
     private filePath: FilePath,
     public actionSheetCtrl: ActionSheetController,
@@ -250,10 +248,13 @@ export class ReportPage {
   getLocation() {
     this.geolocation.getCurrentPosition().then(
       position => {
+        // /TODO: SLATED FOR REMOVAL
         let latLng = new google.maps.LatLng(
           position.coords.latitude,
           position.coords.longitude
         );
+        // \TODO: SLATED FOR REMOVAL
+
         let latitude = position.coords.latitude.toString();
         let longitude = position.coords.longitude.toString();
         this.setLat(latitude);

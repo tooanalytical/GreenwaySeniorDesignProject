@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
 import { OneSignal } from '@ionic-native/onesignal';
-import { AlertController } from 'ionic-angular'
+import { AlertController } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { SplashPage } from '../pages/Splash/splash';
@@ -44,7 +44,7 @@ export class MyApp {
     public alertCtrl: AlertController
   ) {
     this.initializeApp();
-    
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'DASHBOARD', component: HomePage, icon: 'ios-apps-outline' },
@@ -117,9 +117,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.oneSignal.startInit('eecf381c-62fd-4ac7-ac38-4496d79c71fb', '726052510477');
+      this.oneSignal.startInit(
+        'eecf381c-62fd-4ac7-ac38-4496d79c71fb',
+        '726052510477'
+      );
 
-      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      this.oneSignal.inFocusDisplaying(
+        this.oneSignal.OSInFocusDisplayOption.InAppAlert
+      );
 
       this.oneSignal.handleNotificationReceived().subscribe(() => {
         let alert = this.alertCtrl.create({

@@ -55,7 +55,20 @@ export class SplashPage {
           '407412318918-e4mig3cqfrsb1j80goqnltu7jigitako.apps.googleusercontent.com'
       }).then(
         res => {
-          
+          console.log(res);
+          this.storage.set('fullName', res.displayName);
+          this.storage.set('firstName', res.givenName);
+          this.storage.set('lastName', res.familyName);
+          this.storage.set('email', res.email);
+          this.storage.set('userAvatar', res.imageUrl);
+          this.navCtrl.setRoot(CreateAccountSocialBirthdatePage);
+
+          // TODO: Check to see if user has signed in previously with Google Auth
+          if (true) {
+            // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
+          } else {
+            // If the user hasn't signed in using Google Authenticion before send them through the account creation process.
+          }
         },
         err => {
           console.log(err);

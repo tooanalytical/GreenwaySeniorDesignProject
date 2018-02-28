@@ -36,24 +36,33 @@ export class RecordActivityPage {
   public pauseFlag = false;
   public resumeFlag = false;
 
+  // Button Color Variables
   public startButtonColor: string = '#37721b'; //Light Green
   public resumeButtonColor: string = '#37721b'; //Light Green
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
+  // Map Variables
   public initialMap;
   public subscriptionMap;
   public subscriptionSpeed;
+
+  // Speed Variables
   public tempSpeed = 0;
   public mphString = '0';
+
+  // User Position Variables
   public lat1 = 0;
   public lat2 = 0;
   public lng1 = 0;
   public lng2 = 0;
   public counter = 0;
 
+  // Distance Variables
   public totalDistance = 0;
   public totalDistanceString = '0.00';
+
+  // Calories Variables
   public totalCalories = 0;
   public totalCaloriesString = '0';
 
@@ -72,13 +81,22 @@ export class RecordActivityPage {
   public data;
 
   public userId = '12345';
-  public activityId = '';
-
   // // Implement when we have the userId saved to local storage
   // public userId = this.storage.get('userId').then(val => {
   //   this.userId = val;
   // });
 
+  public currentActivityId = '';
+
+  // JSON Object used to save data sent to local storage and database.
+  public activityData = {
+    activityId: this.currentActivityId,
+    totalDuration: this.activityTimer,
+    totalDistance: this.totalDistanceString,
+    totalCalories: this.totalCaloriesString
+  };
+
+  // Icon on map displaying user's current location
   public icon = {
     url: 'http://www.robotwoods.com/dev/misc/bluecircle.png',
     size: new google.maps.Size(22, 22),
@@ -86,6 +104,7 @@ export class RecordActivityPage {
     points: new google.maps.Point(11, 11)
   };
 
+  // Marker object containing icon of user's location
   public marker = new google.maps.Marker({
     map: this.map,
     icon: this.icon
@@ -120,7 +139,6 @@ export class RecordActivityPage {
       this.endWatchMap();
       return true;
     } else {
-      //TODO: Display action sheet asking if they'd like to continue their run, end and save activity, or end and discard activity.
       this.presentLeaveActionSheet();
       this.menuCtrl.toggle();
       return false;
@@ -288,8 +306,6 @@ export class RecordActivityPage {
     this.watchCurrentSpeed();
     this.updateCaloriesBurned();
     this.getActivityId();
-    console.log(this.userHeight);
-    console.log(this.userWeight);
 
     this.startFlag = false;
     this.stateButton = 'Pause';
@@ -376,14 +392,13 @@ export class RecordActivityPage {
       let options = {
         enableHighAccuracy: true
       };
-
       this.subscriptionSpeed = this.geolocation
         .watchPosition(options)
         .subscribe(position => {
           this.tempSpeed = position.coords.speed;
           this.lat1 = position.coords.latitude;
           this.lng1 = position.coords.longitude;
-          this.getActivityId();
+
           this.reportUserLocation(this.lat1, this.lng1);
           if (this.tempSpeed < 0) {
             this.tempSpeed = 0;
@@ -463,6 +478,7 @@ export class RecordActivityPage {
   endActivity() {
     clearInterval(this.timer_id_active);
     this.endWatchCurrentSpeed();
+    this.saveActivity();
 
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
@@ -470,7 +486,7 @@ export class RecordActivityPage {
     this.mphString = '0';
     this.totalDistanceString = '0.00';
     this.counter = 0;
-    this.activityId = '';
+    this.currentActivityId = '';
     this.metScore = 0;
     this.totalCalories = 0;
     this.totalCaloriesString = '0';
@@ -481,9 +497,13 @@ export class RecordActivityPage {
     this.startFlag = true;
   }
 
-  // TODO: Saves session user activity data to local storage
+  // TODO: Saves session user activity data to local storage and database
   saveActivity() {
+    // TODO: Save activity to local storage.
     console.log('Activity Data Saved To Local Storage');
+
+    // TODO: Save activity to database.
+    console.log('Activity Data Saved to Database');
   }
 
   //Presents a modal alert to the user when they end their activity and save.
@@ -513,7 +533,7 @@ export class RecordActivityPage {
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
     var myData = JSON.stringify({
       userId: this.userId,
-      activityId: this.activityId,
+      activityId: this.currentActivityId,
       currentTime: currentTime,
       lat: lat,
       lng: lng
@@ -530,17 +550,19 @@ export class RecordActivityPage {
   }
 
   getActivityId() {
+    console.log('getActivityId Called');
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
     var myData = JSON.stringify({
       userId: this.userId,
-      activityId: this.activityId
+      activityId: this.currentActivityId
     });
-
+    console.log('Calling post: ');
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
-        this.activityId = this.data.response.activityId;
+        console.log('Activity body response: ' + this.data.response);
+        this.currentActivityId = this.data.response.activityId;
       },
       error => {
         console.log('Oooops!');

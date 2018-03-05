@@ -78,7 +78,7 @@ export class RecordActivityPage {
     this.userWeightString = val;
   });
 
-  data:any ={};
+  data: any = {};
 
   public userId = '12345';
   // // Implement when we have the userId saved to local storage
@@ -98,7 +98,8 @@ export class RecordActivityPage {
 
   // Icon on map displaying user's current location
   public icon = {
-    url: 'http://www.robotwoods.com/dev/misc/bluecircle.png',
+    url:
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/userpositionIcon.png',
     size: new google.maps.Size(22, 22),
     point: new google.maps.Point(0, 18),
     points: new google.maps.Point(11, 11)
@@ -119,8 +120,10 @@ export class RecordActivityPage {
     public storage: Storage,
     public platform: Platform,
     public http: Http
-  ) {this.data.response ="";
-     this.http = http;}
+  ) {
+    this.data.response = '';
+    this.http = http;
+  }
 
   //Code which is ran after the page is loaded
   ionViewWillEnter() {

@@ -82,7 +82,7 @@ export class ReportPage {
       })
       .then(
         result => {
-          this.data.selectedProblemType = result[0].description;
+          this.data.selectedProblemType = result[0].description.toString();
           console.log(result[0].description + ' at index: ' + result[0].index);
         },
         err => console.log('Error: ', err)
@@ -219,13 +219,19 @@ export class ReportPage {
         var link =
           'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/report_problem.php';
         var myData = JSON.stringify({
-          imageContent: this.data.imageContent,
+          selectedProblemType: this.data.selectedProblemType,
           problemSummary: this.data.problemSummary,
           additionalDetails: this.data.additionalDetails,
           emailAddress: this.data.emailAddress,
           userLat: this.data.userLat,
-          userLng: this.data.userLng
+          userLng: this.data.userLng,
+          imageContent: this.data.imageContent
         });
+
+        // console.log('myData: ' + myData);
+
+        // console.log('Problem Type: ' + this.data.selectedProblemType);
+        // console.log('Problem Summary: ' + this.data.problemSummary);
 
         this.http.post(link, myData).subscribe(
           data => {

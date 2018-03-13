@@ -19,6 +19,7 @@ import { TrailMapPage } from '../pages/Trail Map/trailMap';
 import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
 import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
+import { FeedbackPage } from '../pages/Feedback/feedback';
 
 @Component({
   templateUrl: 'app.html'
@@ -83,6 +84,11 @@ export class MyApp {
         title: 'ABOUT',
         component: AboutPage,
         icon: 'ios-information-circle-outline'
+      },
+      {
+        title: 'BUG REPORT',
+        component: FeedbackPage,
+        icon: 'bug'
       },
       { title: 'LOGOUT', component: null, icon: 'ios-exit-outline' }
     ];

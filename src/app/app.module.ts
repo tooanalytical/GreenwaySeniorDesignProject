@@ -37,6 +37,7 @@ import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatis
 import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
 import { CreditsPage } from '../pages/Credits/credits';
+import { FeedbackPage } from '../pages/Feedback/feedback';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -66,7 +67,8 @@ import { WeatherProvider } from '../providers/weather/weather';
     AccountStatisticsPage,
     AccountDetailsPage,
     AboutPage,
-    CreditsPage
+    CreditsPage,
+    FeedbackPage
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,8 @@ import { WeatherProvider } from '../providers/weather/weather';
     AccountStatisticsPage,
     AccountDetailsPage,
     AboutPage,
-    CreditsPage
+    CreditsPage,
+    FeedbackPage
   ],
   providers: [
     StatusBar,

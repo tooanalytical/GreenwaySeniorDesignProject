@@ -353,6 +353,7 @@ export class AccountDetailsPage {
         {
           text: 'Ok',
           handler: data => {
+            if(this.nameValidation()){
             this.storage.set('firstName', data.first);
             this.storage.set('lastName', data.last);
             this.storage.set('fullName', data.first + ' ' + data.last);
@@ -372,6 +373,10 @@ export class AccountDetailsPage {
             );
             this.navCtrl.setRoot(AccountDetailsPage);
           }
+          else{
+              this.presentNameAlert();
+          }
+        }
         }
       ]
     });
@@ -467,6 +472,27 @@ export class AccountDetailsPage {
         },
         err => console.log('Error: ', err)
       );
+  }
+
+  nameValidation() {
+    var flag;
+
+    if(this.firstName !== '' && this.lastName !== '' && /^[a-zA-Z]+$/.test(this.data.firstName) && /^[a-zA-Z]+$/.test(this.data.lastName)){
+      flag = true;
+
+    } else {
+      flag = false;
+    }
+    return flag;
+  }
+
+  presentNameAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Uh oh!',
+      subTitle: 'Please make sure your name is not blank and only contains letters.',
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
   getUserInfo() {

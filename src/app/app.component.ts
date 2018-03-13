@@ -187,6 +187,7 @@ export class MyApp {
 
   clearUserData() {
     //Clears all local user data
+    this.storage.set('userId', '');
     this.storage.set('firstName', '');
     this.storage.set('lastName', '');
     this.storage.set('fullName', '');

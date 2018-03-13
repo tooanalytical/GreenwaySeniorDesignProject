@@ -25,6 +25,10 @@ export class CreateAccountFinishPage {
     public http: Http
   ) {}
 
+  ionViewWillEnter() {
+    this.getLocation();
+  }
+
   firstName = this.navParams.get('firstName');
   lastName = this.navParams.get('lastName');
   emailAddress = this.navParams.get('emailAddress');
@@ -51,27 +55,13 @@ export class CreateAccountFinishPage {
   getLocation() {
     this.geolocation.getCurrentPosition().then(
       position => {
-        let latLng = new google.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        let latitude = position.coords.latitude.toString();
-        let longitude = position.coords.longitude.toString();
-        this.setLat(latitude);
-        this.setLng(longitude);
+        this.data.userLat = position.coords.latitude.toString();
+        this.data.userLng = position.coords.longitude.toString();
       },
       err => {
         console.log(err);
       }
     );
-  }
-
-  setLat(latitude) {
-    this.data.userLat = latitude;
-  }
-
-  setLng(longitude) {
-    this.data.userLng = longitude;
   }
 
   //Saves the user's information to local storage for access later.
@@ -94,7 +84,6 @@ export class CreateAccountFinishPage {
   submit(data) {
     //Saves the new user information locally.
     this.setUserInfo();
-    this.getLocation();
 
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/signup.php';
@@ -115,7 +104,8 @@ export class CreateAccountFinishPage {
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
-        console.log('Response: ' + this.data.response);
+
+        this.storage.set('userId', this.data.response);
       },
       error => {
         console.log('Oooops!');

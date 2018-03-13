@@ -78,11 +78,9 @@ export class RecordActivityPage {
 
   public activityIdResponse = {};
 
-  public userId = '12345';
-  // // Implement when we have the userId saved to local storage
-  // public userId = this.storage.get('userId').then(val => {
-  //   this.userId = val;
-  // });
+  // public userId = '12345';
+  // Implement when we have the userId saved to local storage
+  public userId;
 
   public currentActivityId = '';
 
@@ -133,12 +131,19 @@ export class RecordActivityPage {
     //Converts User Weight from pounds to kilograms
     this.userWeight = this.userWeight * 0.45359237;
 
+    this.userId = this.storage.get('userId').then(val => {
+      this.userId = val;
+    });
+
     this.userHeightString = this.storage.get('userHeight').then(val => {
       this.userHeightString = val;
     });
+
     this.userWeightString = this.storage.get('userWeight').then(val => {
       this.userWeightString = val;
     });
+    console.log('User ID is: ' + this.userId);
+    console.log('Page Loaded.');
   }
 
   //Code which will run before the user leaves the page

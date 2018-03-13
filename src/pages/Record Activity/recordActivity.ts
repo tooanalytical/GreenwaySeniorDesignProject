@@ -71,14 +71,12 @@ export class RecordActivityPage {
   public userWeight = 0;
   public userHeight = 0;
 
-  public userHeightString = this.storage.get('userHeight').then(val => {
-    this.userHeightString = val;
-  });
-  public userWeightString = this.storage.get('userWeight').then(val => {
-    this.userWeightString = val;
-  });
+  public userHeightString;
+  public userWeightString;
 
   data: any = {};
+
+  public activityIdResponse = {};
 
   public userId = '12345';
   // // Implement when we have the userId saved to local storage
@@ -90,6 +88,7 @@ export class RecordActivityPage {
 
   // JSON Object used to save data sent to local storage and database.
   public activityData = {
+    userId: this.userId,
     activityId: this.currentActivityId,
     totalDuration: this.activityTimer,
     totalDistance: this.totalDistanceString,
@@ -133,6 +132,13 @@ export class RecordActivityPage {
     this.userWeight = this.convertWeightStringToInteger(this.userWeightString);
     //Converts User Weight from pounds to kilograms
     this.userWeight = this.userWeight * 0.45359237;
+
+    this.userHeightString = this.storage.get('userHeight').then(val => {
+      this.userHeightString = val;
+    });
+    this.userWeightString = this.storage.get('userWeight').then(val => {
+      this.userWeightString = val;
+    });
   }
 
   //Code which will run before the user leaves the page
@@ -482,7 +488,6 @@ export class RecordActivityPage {
   endActivity() {
     clearInterval(this.timer_id_active);
     this.endWatchCurrentSpeed();
-    this.saveActivity();
 
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
@@ -504,9 +509,24 @@ export class RecordActivityPage {
   // TODO: Saves session user activity data to local storage and database
   saveActivity() {
     // TODO: Save activity to local storage.
+
     console.log('Activity Data Saved To Local Storage');
 
     // TODO: Save activity to database.
+    console.log('Saving Activity Data to Database');
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/end_activity.php';
+    console.log('Calling post: ');
+    console.log('Being sent to database: ' + this.activityData);
+    this.http.post(link, this.activityData).subscribe(
+      data => {
+        this.data.response = data['_body'];
+        console.log('Activity data body response: ' + this.data.response);
+      },
+      error => {
+        console.log('Oooops!');
+      }
+    );
     console.log('Activity Data Saved to Database');
   }
 
@@ -567,6 +587,8 @@ export class RecordActivityPage {
         this.data.response = data['_body'];
         console.log('Activity body response: ' + this.data.response);
         this.currentActivityId = this.data.response.activityId;
+        console.log('ActivityId Response: ' + this.data.response.activityId);
+        this.activityData.activityId = this.currentActivityId;
       },
       error => {
         console.log('Oooops!');

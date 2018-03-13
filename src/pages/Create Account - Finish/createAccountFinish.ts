@@ -94,7 +94,6 @@ export class CreateAccountFinishPage {
   submit(data) {
     //Saves the new user information locally.
     this.setUserInfo();
-    console.log(this.data.userHeight);
     this.getLocation();
 
     var link =
@@ -107,13 +106,16 @@ export class CreateAccountFinishPage {
       userBirthdate: this.userBirthdate,
       userHeight: this.userHeight,
       userWeight: this.userWeight,
-      userGender: this.userGender
+      userGender: this.userGender,
+      userLat: this.data.userLat,
+      userLng: this.data.userLng,
+      userId: ''
     });
 
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
-        console.log(this.data.response);
+        console.log('Response: ' + this.data.response);
       },
       error => {
         console.log('Oooops!');

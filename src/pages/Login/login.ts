@@ -18,6 +18,17 @@ export class LoginPage {
     public http: Http
   ) {}
 
+  userInfo = {
+    userId: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    userBirthdate: '',
+    userHeight: '',
+    userWeight: '',
+    userGender: ''
+  };
+
   data = {
     emailAddress: '',
     userPassword: ''
@@ -34,33 +45,48 @@ export class LoginPage {
 
     this.http.post(link, myData).subscribe(
       data => {
-        var userId = data['_body'];
+        var response = data['_body'];
 
-        if (userId === '4') {
+        if (response === '4') {
           console.log('4 Attempt Left Password Mismatch');
           this.loginErrorAlert4AttemptsLeft();
-        } else if (userId === '3') {
+        } else if (response === '3') {
           console.log('3 Attempt Left Password Mismatch');
           this.loginErrorAlert3AttemptsLeft();
-        } else if (userId === '2') {
+        } else if (response === '2') {
           console.log('2 Attempt Left Password Mismatch');
           this.loginErrorAlert2AttemptsLeft();
-        } else if (userId === '1') {
+        } else if (response === '1') {
           console.log('1 Attempt Left Password Mismatch');
           this.loginErrorAlert1AttemptLeft();
-        } else if (userId === '-1') {
+        } else if (response === '-1') {
           console.log('User Account is Locked');
           this.loginErrorAlert0AttemptsLeft();
-        } else if (userId === '-2') {
+        } else if (response === '-2') {
           console.log('User Account Not Found');
           this.loginErrorUserNotFound();
-        } else if (userId === '-3') {
+        } else if (response === '-3') {
           console.log('JSON not valid');
           this.loginErrorJSON();
         } else {
           console.log('Sucessful Login');
-          this.storage.set('userId', userId);
-          console.log(userId);
+
+          console.log(response);
+
+          var rawReturn = JSON.parse(response);
+
+          this.userInfo.userId = rawReturn.userId;
+          this.userInfo.firstName = rawReturn.firstName;
+          this.userInfo.lastName = rawReturn.lastName;
+          this.userInfo.emailAddress = rawReturn.emailAddress;
+          this.userInfo.userBirthdate = rawReturn.userBirthdate;
+          this.userInfo.userHeight = rawReturn.userHeight;
+          this.userInfo.userWeight = rawReturn.userWeight;
+          this.userInfo.userGender = rawReturn.userGender;
+
+          this.setUserInfo();
+
+          console.log('UserId: ' + this.userInfo.userId);
           this.navCtrl.setRoot(HomePage);
         }
       },
@@ -71,8 +97,20 @@ export class LoginPage {
     );
   }
 
-  loginBypass() {
-    this.navCtrl.setRoot(HomePage);
+  setUserInfo() {
+    this.storage.set('userId', this.userInfo.userId);
+    this.storage.set('firstName', this.userInfo.firstName);
+    this.storage.set('lastName', this.userInfo.lastName);
+    this.storage.set(
+      'fullName',
+      this.userInfo.firstName + ' ' + this.userInfo.lastName
+    );
+    this.storage.set('email', this.userInfo.emailAddress);
+    this.storage.set('userBirthdate', this.userInfo.userBirthdate);
+    this.storage.set('userHeight', this.userInfo.userHeight);
+    this.storage.set('userWeight', this.userInfo.userWeight);
+    this.storage.set('userGender', this.userInfo.userGender);
+    this.storage.set('userLoggedIn', true);
   }
 
   resetPassword() {

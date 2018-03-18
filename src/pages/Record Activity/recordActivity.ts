@@ -83,17 +83,13 @@ export class RecordActivityPage {
 
   public activityIdResponse = {};
 
-  // public userId = '12345';
-  // Implement when we have the userId saved to local storage
-  public userId = this.storage.get('userId').then(val => {
-    this.userId = val;
-  });
-
   public currentActivityId = '';
 
   // JSON Object used to save data sent to local storage and database.
   public activityData = {
-    userId: this.userId,
+    userId: this.storage.get('userId').then(val => {
+      this.activityData.userId = val;
+    }),
     activityId: this.currentActivityId,
     totalDuration: this.activityTimer,
     totalDistance: this.totalDistanceString,
@@ -551,8 +547,13 @@ export class RecordActivityPage {
 
     console.log('Calling post: ');
     var myData = JSON.stringify({
+      userId: this.activityData.userId,
       activityId: this.activityData.activityId
     });
+
+    console.log(
+      'USER ID IT IS SENDING UPON DELETE: ' + this.activityData.userId
+    );
 
     this.http.post(link, myData).subscribe(
       data => {
@@ -590,9 +591,9 @@ export class RecordActivityPage {
     var currentTime = new Date();
     console.log(currentTime);
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track.php';
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_activity.php';
     var myData = JSON.stringify({
-      userId: this.userId,
+      userId: this.activityData.userId,
       activityId: this.currentActivityId,
       currentTime: currentTime,
       lat: lat,
@@ -617,7 +618,7 @@ export class RecordActivityPage {
       var link =
         'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/start_activity.php';
       var myData = JSON.stringify({
-        userId: this.userId
+        userId: this.activityData.userId
       });
       console.log('Calling post');
       this.http.post(link, myData).subscribe(

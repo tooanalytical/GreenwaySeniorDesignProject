@@ -71,8 +71,13 @@ export class RecordActivityPage {
   public userWeight = 0;
   public userHeight = 0;
 
-  public userHeightString;
-  public userWeightString;
+  public userHeightString = this.storage.get('userHeight').then(val => {
+    this.userHeightString = val;
+  });
+
+  public userWeightString = this.storage.get('userWeight').then(val => {
+    this.userWeightString = val;
+  });
 
   data: any = {};
 
@@ -80,7 +85,9 @@ export class RecordActivityPage {
 
   // public userId = '12345';
   // Implement when we have the userId saved to local storage
-  public userId;
+  public userId = this.storage.get('userId').then(val => {
+    this.userId = val;
+  });
 
   public currentActivityId = '';
 
@@ -126,24 +133,12 @@ export class RecordActivityPage {
   ionViewWillEnter() {
     this.loadMap();
     this.watchLocation();
+
+    //Converting the user height and weight to integers for calculating calories burned.
     this.userHeight = this.convertHeightStringToInteger(this.userHeightString);
     this.userWeight = this.convertWeightStringToInteger(this.userWeightString);
     //Converts User Weight from pounds to kilograms
     this.userWeight = this.userWeight * 0.45359237;
-
-    this.userId = this.storage.get('userId').then(val => {
-      this.userId = val;
-    });
-
-    this.userHeightString = this.storage.get('userHeight').then(val => {
-      this.userHeightString = val;
-    });
-
-    this.userWeightString = this.storage.get('userWeight').then(val => {
-      this.userWeightString = val;
-    });
-    console.log('User ID is: ' + this.userId);
-    console.log('Page Loaded.');
   }
 
   //Code which will run before the user leaves the page
@@ -231,6 +226,7 @@ export class RecordActivityPage {
           role: 'destructive',
           handler: () => {
             this.endActivity();
+            this.deleteActivity();
             this.activityDiscardEndAlert();
             console.log('Discard Activity');
           }
@@ -242,14 +238,13 @@ export class RecordActivityPage {
             this.pauseActivity();
 
             // Save activity results to local storage
-            this.saveActivity();
+            this.saveActivity().then(data => {
+              // Presents alert to user
+              this.activitySaveEndAlert();
 
-            // Presents alert to user
-            this.activitySaveEndAlert();
-
-            // Ends user activity
-            this.endActivity();
-            console.log('Save Activity');
+              // Ends user activity
+              this.endActivity();
+            });
           }
         },
         {
@@ -274,6 +269,7 @@ export class RecordActivityPage {
           role: 'destructive',
           handler: () => {
             this.endActivity();
+            this.deleteActivity();
             this.activityDiscardEndAlert();
             console.log('Discard Activity');
           }
@@ -285,14 +281,13 @@ export class RecordActivityPage {
             this.pauseActivity();
 
             // Save activity results to local storage
-            this.saveActivity();
+            this.saveActivity().then(data => {
+              // Presents alert to user
+              this.activitySaveEndAlert();
 
-            // Presents alert to user
-            this.activitySaveEndAlert();
-
-            // Ends user activity
-            this.endActivity();
-            console.log('Save Activity');
+              // Ends user activity
+              this.endActivity();
+            });
           }
         },
         {
@@ -317,14 +312,15 @@ export class RecordActivityPage {
 
   //Starts user activity and changes UI elements
   startActivity() {
-    this.startTimer();
-    this.watchCurrentSpeed();
-    this.updateCaloriesBurned();
-    this.getActivityId();
+    this.getActivityId().then(data => {
+      this.startTimer();
+      this.watchCurrentSpeed();
+      this.updateCaloriesBurned();
 
-    this.startFlag = false;
-    this.stateButton = 'Pause';
-    this.pauseFlag = true;
+      this.startFlag = false;
+      this.stateButton = 'Pause';
+      this.pauseFlag = true;
+    });
   }
 
   //Pauses user activity and changes UI elements
@@ -332,6 +328,14 @@ export class RecordActivityPage {
     clearInterval(this.timer_id_active);
     clearInterval(this.timer_id_caloric);
     this.endWatchCurrentSpeed();
+    this.activityData.totalDuration = this.activityTimer;
+    this.activityData.totalDistance = this.totalDistanceString;
+    this.activityData.totalCalories = this.totalCaloriesString;
+    console.log('UserID on Pause: ' + this.activityData.userId);
+    console.log('ActivityID on Pause: ' + this.activityData.activityId);
+    console.log('TotalDuration on Pause: ' + this.activityData.totalDuration);
+    console.log('TotalDistance on Pause: ' + this.activityData.totalDistance);
+    console.log('TotalCalories on Pause: ' + this.activityData.totalCalories);
 
     this.totalTime += this.activeTime;
 
@@ -421,8 +425,7 @@ export class RecordActivityPage {
           this.tempSpeed = this.tempSpeed * 2.23694;
           this.tempSpeed = Math.round(this.tempSpeed);
           this.mphString = this.tempSpeed.toString();
-          console.log('Lat 1' + this.lat1);
-          console.log('Lng 1' + this.lng1);
+          console.log('mphString: ' + this.mphString);
           // Doesn't run the calculation and outputs to display on first data gathered.
           if (this.counter > 0) {
             let segmentDistance = 0;
@@ -481,11 +484,17 @@ export class RecordActivityPage {
     this.timer_id_caloric = setInterval(() => {
       // Sets the MET score of the activity during the interval
       this.setMetScore();
+      console.log('MetScore: ' + this.metScore);
+      console.log('User Weight: ' + this.userWeight);
 
       //TODO: Calculate calories burned during the interval of time based upon (METs * weight(kg) * time (1/3600th of hour) = calories burned)
       var caloriesBurned = this.metScore * this.userWeight * 0.000277777778;
+
       this.totalCalories += caloriesBurned;
+      console.log('Segment calories burned: ' + caloriesBurned);
+      console.log('Total Calories burned: ' + this.totalCalories);
       this.totalCaloriesString = Math.round(this.totalCalories).toString();
+      console.log('Total Calories burned string: ' + this.totalCaloriesString);
     }, 1000);
   }
 
@@ -512,27 +521,48 @@ export class RecordActivityPage {
   }
 
   // TODO: Saves session user activity data to local storage and database
-  saveActivity() {
-    // TODO: Save activity to local storage.
+  saveActivity(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      // TODO: Save activity to database.
+      console.log('Saving Activity Data to Database');
+      var link =
+        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/end_activity.php';
+      console.log('Calling post: ');
+      console.log('Being sent to database: ' + this.activityData);
+      this.http.post(link, this.activityData).subscribe(
+        data => {
+          this.data.response = data['_body'];
+          return resolve(data);
+        },
+        error => {
+          console.log('Oooops!');
+          return reject(error);
+        }
+      );
+      console.log('Activity Data Saved to Database');
+    });
+  }
 
-    console.log('Activity Data Saved To Local Storage');
-
-    // TODO: Save activity to database.
-    console.log('Saving Activity Data to Database');
+  // Deletes an active activity's data from the database if the user discards the activity
+  deleteActivity() {
+    console.log('Deleting activity from database');
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/end_activity.php';
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/delete_activity.php';
+
     console.log('Calling post: ');
-    console.log('Being sent to database: ' + this.activityData);
-    this.http.post(link, this.activityData).subscribe(
+    var myData = JSON.stringify({
+      activityId: this.activityData.activityId
+    });
+
+    this.http.post(link, myData).subscribe(
       data => {
-        this.data.response = data['_body'];
-        console.log('Activity data body response: ' + this.data.response);
+        console.log('Success!');
       },
       error => {
         console.log('Oooops!');
       }
     );
-    console.log('Activity Data Saved to Database');
+    console.log('Activity Data Deleted from Database');
   }
 
   //Presents a modal alert to the user when they end their activity and save.
@@ -555,11 +585,12 @@ export class RecordActivityPage {
     alert.present();
   }
 
+  // Sends the UserId, ActivityId, Curent Time, lat and lng to server.
   reportUserLocation(lat, lng) {
     var currentTime = new Date();
     console.log(currentTime);
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track.php';
     var myData = JSON.stringify({
       userId: this.userId,
       activityId: this.currentActivityId,
@@ -570,6 +601,7 @@ export class RecordActivityPage {
 
     this.http.post(link, myData).subscribe(
       data => {
+        console.log('Callback from reportUserLocation after sending: ' + data);
         this.data.response = data['_body'];
       },
       error => {
@@ -578,28 +610,31 @@ export class RecordActivityPage {
     );
   }
 
-  getActivityId() {
-    console.log('getActivityId Called');
-    var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_location.php';
-    var myData = JSON.stringify({
-      userId: this.userId,
-      activityId: this.currentActivityId
+  // Sends the UserId to the server and receives the activityId returned
+  getActivityId(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log('getActivityId Called');
+      var link =
+        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/start_activity.php';
+      var myData = JSON.stringify({
+        userId: this.userId
+      });
+      console.log('Calling post');
+      this.http.post(link, myData).subscribe(
+        data => {
+          this.data.response = data['_body'];
+          this.currentActivityId = this.data.response;
+          this.activityData.activityId = this.currentActivityId;
+          return resolve(this.data.response);
+        },
+        error => {
+          console.log('Oooops!');
+          return reject(error);
+        }
+      );
     });
-    console.log('Calling post: ');
-    this.http.post(link, myData).subscribe(
-      data => {
-        this.data.response = data['_body'];
-        console.log('Activity body response: ' + this.data.response);
-        this.currentActivityId = this.data.response.activityId;
-        console.log('ActivityId Response: ' + this.data.response.activityId);
-        this.activityData.activityId = this.currentActivityId;
-      },
-      error => {
-        console.log('Oooops!');
-      }
-    );
   }
+
   // Converts the user's height string to an integer in inches
   convertHeightStringToInteger(userHeight) {
     var tempHeight = '';

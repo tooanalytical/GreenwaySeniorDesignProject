@@ -90,21 +90,34 @@ export class CreateAccountFinishPage {
     var myData = JSON.stringify({
       firstName: this.data.firstName,
       lastName: this.data.lastName,
-      emailAddress: this.emailAddress,
-      userPassword: this.userPassword,
-      userBirthdate: this.userBirthdate,
-      userHeight: this.userHeight,
-      userWeight: this.userWeight,
-      userGender: this.userGender,
+      emailAddress: this.data.emailAddress,
+      userPassword: this.data.userPassword,
+      userBirthdate: this.data.userBirthdate,
+      userHeight: this.data.userHeight,
+      userWeight: this.data.userWeight,
+      userGender: this.data.userGender,
       userLat: this.data.userLat,
       userLng: this.data.userLng,
       userId: ''
     });
+    console.log('What is being sent to server:');
+    console.log(myData);
 
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
 
+        console.log('Response from server: ' + this.data.response);
+        console.log('What is being saved to the local storage:');
+        console.log(this.data.firstName);
+        console.log(this.data.lastName);
+        console.log(this.emailAddress);
+        console.log(this.userBirthdate);
+        console.log(this.userHeight);
+        console.log(this.userWeight);
+        console.log(this.userGender);
+        console.log(this.data.userLat);
+        console.log(this.data.userLng);
         this.storage.set('userId', this.data.response);
       },
       error => {

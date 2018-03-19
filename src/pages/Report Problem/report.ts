@@ -46,6 +46,9 @@ export class ReportPage {
 
   //JSON Object sent to server upon submit
   data = {
+    userId: this.storage.get('userId').then(val => {
+      this.data.userId = val;
+    }),
     imageContent: '',
     selectedProblemType: '',
     problemSummary: '',
@@ -66,6 +69,7 @@ export class ReportPage {
       { description: 'Broken Glass' },
       { description: 'High Water' },
       { description: 'Vandalism' },
+      { description: 'Suspicious Persons' },
       { description: 'Litter' },
       { description: 'Overgrown Brush' },
       { description: 'Trash Full' },
@@ -213,12 +217,14 @@ export class ReportPage {
       content: 'Sending Report...'
     });
     this.loading.present();
+    console.log(this.data.userId);
 
     this.convertToBase64()
       .then(data => {
         var link =
           'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/report_problem.php';
         var myData = JSON.stringify({
+          userId: this.data.userId,
           selectedProblemType: this.data.selectedProblemType,
           problemSummary: this.data.problemSummary,
           additionalDetails: this.data.additionalDetails,
@@ -227,11 +233,6 @@ export class ReportPage {
           userLng: this.data.userLng,
           imageContent: this.data.imageContent
         });
-
-        // console.log('myData: ' + myData);
-
-        // console.log('Problem Type: ' + this.data.selectedProblemType);
-        // console.log('Problem Summary: ' + this.data.problemSummary);
 
         this.http.post(link, myData).subscribe(
           data => {

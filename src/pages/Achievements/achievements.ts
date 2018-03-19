@@ -14,16 +14,16 @@ export class AchievementsPage {
 
 
   ach1Flag = true;
-  ach2Flag = true;
-  ach3Flag = false;
+  ach2Flag = false;
+  ach3Flag = true;
   ach4Flag = true;
   ach5Flag = true;
   ach6Flag = false;
-  ach7Flag = true;
+  ach7Flag = false;
   ach8Flag = true;
   ach9Flag = true;
   ach10Flag = true;
-  ach11Flag = false;
+  ach11Flag = true;
 
   showAch1() {
 

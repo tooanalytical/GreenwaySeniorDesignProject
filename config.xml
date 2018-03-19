@@ -86,10 +86,6 @@
     </plugin>
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
-    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="1103480846449706" />
-        <variable name="APP_NAME" value="TrailLinx" />
-    </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
@@ -111,4 +107,8 @@
     <plugin name="onesignal-cordova-plugin" spec="^2.3.1" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="1128917887264749" />
+        <variable name="APP_NAME" value="Viridian" />
+    </plugin>
 </widget>

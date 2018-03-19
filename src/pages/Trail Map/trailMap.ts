@@ -11,7 +11,15 @@ declare var google;
 export class TrailMapPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-
+  // Icon on map displaying user's current location
+  public icon = {
+    url:
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/userpositionIcon.png',
+    size: new google.maps.Size(22, 22),
+    point: new google.maps.Point(0, 18),
+    points: new google.maps.Point(11, 11)
+  };
+  
   constructor(public navCtrl: NavController, public geolocation: Geolocation) {}
 
   ionViewWillEnter() {
@@ -42,15 +50,10 @@ export class TrailMapPage {
             'https://github.com/tooanalytical/GreenwaySeniorDesignProject/raw/master/src/assets/trailNetwork.kmz',
           map: this.map
         });
-
+        
         let marker = new google.maps.Marker({
           map: this.map,
-          icon: new google.maps.MarkerImage(
-            '//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-            new google.maps.Size(22, 22),
-            new google.maps.Point(0, 18),
-            new google.maps.Point(11, 11)
-          ),
+          icon: this.icon,
           position: latLng
         });
       },

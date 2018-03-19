@@ -77,6 +77,10 @@ export class SplashPage {
     }
   }
 
+  facebookTrueLogin(){
+    
+  }
+
   facebookLogin() {
     let permissions = new Array<string>();
     let nav = this.navCtrl;

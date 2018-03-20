@@ -105,10 +105,10 @@
     <plugin name="cordova-plugin-device-motion" spec="^1.2.5" />
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="onesignal-cordova-plugin" spec="^2.3.1" />
-    <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="6.3.0" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="1128917887264749" />
         <variable name="APP_NAME" value="Viridian" />
     </plugin>
+    <engine name="browser" spec="5.0.3" />
+    <engine name="android" spec="6.3.0" />
 </widget>

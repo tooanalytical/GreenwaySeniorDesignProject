@@ -35,6 +35,7 @@ export class RecordActivityPage {
   public startFlag = true;
   public pauseFlag = false;
   public resumeFlag = false;
+  public typeFlag = false;
 
   // Button Color Variables
   public startButtonColor: string = '#37721b'; //Light Green
@@ -66,6 +67,9 @@ export class RecordActivityPage {
   public totalCalories = 0;
   public totalCaloriesString = '0';
 
+  //Activity Type Variable
+  public activityTypeNum = '';
+
   public metScore = 0;
 
   public userWeight = 0;
@@ -93,7 +97,8 @@ export class RecordActivityPage {
     activityId: this.currentActivityId,
     totalDuration: this.activityTimer,
     totalDistance: this.totalDistanceString,
-    totalCalories: this.totalCaloriesString
+    totalCalories: this.totalCaloriesString,
+    activityType: this.activityTypeNum
   };
 
   // Icon on map displaying user's current location
@@ -151,6 +156,66 @@ export class RecordActivityPage {
     }
   }
 
+  selectTypeWalk(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Selection',
+      subTitle: 'Would you like to go walking?',
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType = '1';
+          this.typeFlag = true;
+        }
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
+    });
+    alert.present();
+  }
+  selectTypeRun(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Selection',
+      subTitle: 'Would you like to go running?',
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='2';
+          this.typeFlag = true;
+        }
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
+    });
+    alert.present();
+  }
+  selectTypeBike(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Selection',
+      subTitle: 'Would you like to go cycling?',
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='3';
+          this.typeFlag = true;
+        }
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
+    });
+    alert.present();
+  }
   loadMap() {
     let options = {
       enableHighAccuracy: true
@@ -514,6 +579,7 @@ export class RecordActivityPage {
     this.pauseFlag = false;
     this.stateButton = 'Start';
     this.startFlag = true;
+    this.typeFlag = false;
   }
 
   // TODO: Saves session user activity data to local storage and database
@@ -574,6 +640,7 @@ export class RecordActivityPage {
       buttons: ['Ok']
     });
     alert.present();
+    this.navCtrl.setRoot(RecordActivityPage);
   }
 
   //Presents a modal alert to the user when they end their activity and discard.
@@ -584,6 +651,7 @@ export class RecordActivityPage {
       buttons: ['Ok']
     });
     alert.present();
+    this.navCtrl.setRoot(RecordActivityPage);
   }
 
   // Sends the UserId, ActivityId, Curent Time, lat and lng to server.

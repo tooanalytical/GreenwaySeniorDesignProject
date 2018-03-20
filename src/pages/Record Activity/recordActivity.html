@@ -9,7 +9,7 @@
 
 <ion-content no-bounce class="bg">
   <div #map id="map"></div>
-  <div align="center">
+  <div align="center" *ngIf="typeFlag">
     <div>
       <ion-row>
         <ion-col>
@@ -29,7 +29,26 @@
       </ion-row>
     </div>
   </div>
-  <div *ngIf="startFlag" align="center">
+  <div align="center" *ngIf="!typeFlag && startFlag">
+    <div>
+    <p>Select Activity Type</p>
+    <ion-row>
+      <ion-col>
+        <ion-img (tap)="selectTypeWalk()" style ="width: 80px; height: 80px;  background: transparent !important;"
+        src="assets/walk.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img (tap)="selectTypeRun()" style ="width: 80px; height: 80px;  background: transparent !important;"
+        src="assets/run.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img (tap)="selectTypeBike()" style ="width: 80px; height: 80px;  background: transparent !important;"
+        src="assets/bike.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    </div>
+  </div>
+  <div *ngIf="startFlag && typeFlag" align="center">
     <ion-buttons color="darkGr" align="center">
       <button ion-button (tap)="activityManager()" [ngStyle]="{'background-color':startButtonColor }">
         <ion-icon class="button-icon-padding" align="left" name="play"></ion-icon> {{stateButton}}

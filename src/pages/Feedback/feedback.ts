@@ -58,7 +58,7 @@ export class FeedbackPage {
         {
           text: 'Cancel',
           handler: data =>{
-            this.navCtrl.push(FeedbackPage);
+            this.navCtrl.setRoot(FeedbackPage);
           }
         }
       ]

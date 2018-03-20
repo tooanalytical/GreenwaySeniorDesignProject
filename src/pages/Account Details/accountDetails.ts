@@ -35,6 +35,9 @@ export class AccountDetailsPage {
   public submitState: boolean = true;
 
   data = {
+    userId: this.storage.get('userId').then(val => {
+      this.data.userId = val;
+    }),
     firstName: this.firstName,
     lastName: this.lastName,
     userHeight: this.userHeight,
@@ -353,30 +356,31 @@ export class AccountDetailsPage {
         {
           text: 'Ok',
           handler: data => {
-            if(this.nameValidation()){
-            this.storage.set('firstName', data.first);
-            this.storage.set('lastName', data.last);
-            this.storage.set('fullName', data.first + ' ' + data.last);
-            var link =
-              'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
-            var myData = JSON.stringify({
-              firstName: data.first,
-              lastName: data.last
-            });
-            this.http.post(link, myData).subscribe(
-              data => {
-                this.response = data['_body'];
-              },
-              error => {
-                console.log('Oooops!');
-              }
-            );
-            this.navCtrl.setRoot(AccountDetailsPage);
-          }
-          else{
+            if (this.nameValidation()) {
+              this.storage.set('firstName', data.first);
+              this.storage.set('lastName', data.last);
+              this.storage.set('fullName', data.first + ' ' + data.last);
+              var fullName = data.first + ' ' + data.last;
+              var link =
+                'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+              var myData = JSON.stringify({
+                userId: this.data.userId,
+                changeField: 'fullName',
+                changeValue: fullName
+              });
+              this.http.post(link, myData).subscribe(
+                data => {
+                  this.response = data['_body'];
+                },
+                error => {
+                  console.log('Oooops!');
+                }
+              );
+              this.navCtrl.setRoot(AccountDetailsPage);
+            } else {
               this.presentNameAlert();
+            }
           }
-        }
         }
       ]
     });
@@ -397,7 +401,9 @@ export class AccountDetailsPage {
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
-            userHeight: result[0].description
+            userId: this.data.userId,
+            changeField: 'intHeight',
+            changeValue: result[0].description
           });
           this.http.post(link, myData).subscribe(
             data => {
@@ -427,7 +433,9 @@ export class AccountDetailsPage {
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
-            userWeight: result[0].description
+            userId: this.data.userId,
+            changeField: 'intWeight',
+            changeValue: result[0].description
           });
           this.http.post(link, myData).subscribe(
             data => {
@@ -458,7 +466,9 @@ export class AccountDetailsPage {
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
-            userGender: result[0].description
+            userId: this.data.userId,
+            changeField: 'strGender',
+            changeValue: result[0].description
           });
           this.http.post(link, myData).subscribe(
             data => {
@@ -477,9 +487,13 @@ export class AccountDetailsPage {
   nameValidation() {
     var flag;
 
-    if(this.firstName !== '' && this.lastName !== '' && /^[a-zA-Z]+$/.test(this.data.firstName) && /^[a-zA-Z]+$/.test(this.data.lastName)){
+    if (
+      this.firstName !== '' &&
+      this.lastName !== '' &&
+      /^[a-zA-Z]+$/.test(this.data.firstName) &&
+      /^[a-zA-Z]+$/.test(this.data.lastName)
+    ) {
       flag = true;
-
     } else {
       flag = false;
     }
@@ -489,7 +503,8 @@ export class AccountDetailsPage {
   presentNameAlert() {
     let alert = this.alertCtrl.create({
       title: 'Uh oh!',
-      subTitle: 'Please make sure your name is not blank and only contains letters.',
+      subTitle:
+        'Please make sure your name is not blank and only contains letters.',
       buttons: ['Ok']
     });
     alert.present();

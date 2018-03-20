@@ -45,6 +45,13 @@
   </ion-item>
 
   <br>
+  <ion-list no-lines>
+    <ion-item class="transparent">
+      <ion-label color="white">Urgent Problem?</ion-label>
+      <ion-checkbox [(ngModel)]="isUrgent"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
 
   <ion-buttons align="center">
     <button ion-button color="white" icon-left (tap)="submitReport()" [disabled]="lastImage === null || data.selectedProblemType === '' || data.problemSummary === '' ">

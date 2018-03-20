@@ -77,6 +77,8 @@ export class ReportPage {
     ]
   };
 
+  isUrgent: boolean = false;
+
   //Prompts user to select a problem type via wheel selector
   selectProblemType() {
     this.selector
@@ -231,8 +233,10 @@ export class ReportPage {
           emailAddress: this.data.emailAddress,
           userLat: this.data.userLat,
           userLng: this.data.userLng,
+          urgent: this.isUrgent,
           imageContent: this.data.imageContent
         });
+        console.log(this.isUrgent);
 
         this.http.post(link, myData).subscribe(
           data => {
@@ -312,5 +316,6 @@ export class ReportPage {
     this.data.userLat = '';
     this.data.userLng = '';
     this.data.response = '';
+    this.isUrgent = false;
   }
 }

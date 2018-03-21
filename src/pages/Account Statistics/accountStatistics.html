@@ -12,13 +12,13 @@
     <ion-item class="transparent">
       <ion-label color="white">TOTAL DISTANCE TRAVELED</ion-label>
     </ion-item>
-    <p style="text-align:center;"> WALKING
-      <br> RUNNING
-      <br> CYCLING
-      <br> AVERAGE PER TRIP
+    <p style="text-align:center;"> WALKING: {{userStatisticData.totalDistanceWalking}} Miles
+      <br> RUNNING: {{userStatisticData.totalDistanceRunning}} Miles
+      <br> CYCLING: {{userStatisticData.totalDistanceCycling}} Miles
+      <br> TOTAL DISTANCE TRAVELED: {{userStatisticData.totalDistanceTraveled}} Miles
       <br>
     </p>
-    <ion-item class="transparent">
+    <!-- <ion-item class="transparent">
       <ion-label color="white">AVERAGE SPEED</ion-label>
     </ion-item>
     <p style="text-align:center;">
@@ -28,25 +28,30 @@
       <br> CYCLING
       <br> AVERAGE PER TRIP
       <br>
-    </p>
+    </p> -->
     <ion-item class="transparent">
       <ion-label color="white">TOTAL CALORIES BURNED</ion-label>
     </ion-item>
     <p style="text-align:center;">
-      <ion-label color="white"></ion-label>
-      WALKING
-      <br> RUNNING
-      <br> CYCLING
-      <br> AVERAGE PER TRIP
+      <ion-label color="white"></ion-label>WALKING: {{userStatisticData.totalCaloriesWalking}} Calories
+      <br> RUNNING: {{userStatisticData.totalCaloriesRunning}} Calories
+      <br> CYCLING: {{userStatisticData.totalCaloriesCycling}} Calories
+      <br> TOTAL CALORIES BURNED: {{userStatisticData.totalCaloriesBurned}} Calories
       <br>
       <br>
     </p>
     <ion-item class="transparent">
       <ion-label color="white">HAZARDS REPORTED</ion-label>
     </ion-item>
+    <p style="text-align:center;">
+      <ion-label color="white"></ion-label>{{userStatisticData.hazardsReported}}
+    </p>
     <ion-item class="transparent">
       <ion-label color="white">HAZARDS SUCCESSFULLY REMOVED</ion-label>
     </ion-item>
+    <p style="text-align:center;">
+      <ion-label color="white"></ion-label>{{userStatisticData.hazardsRemoved}}
+    </p>
 
   </ion-list>
 

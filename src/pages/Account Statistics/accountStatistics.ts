@@ -22,16 +22,16 @@ export class AccountStatisticsPage {
     userId: this.storage.get('userId').then(val => {
       this.userStatisticData.userId = val;
     }),
-    totalDistanceWalking: '',
-    totalDistanceRunning: '',
-    totalDistanceCycling: '',
-    totalDistanceTraveled: '',
-    totalCaloriesWalking: '',
-    totalCaloriesRunning: '',
-    totalCaloriesCycling: '',
-    totalCaloriesBurned: '',
-    hazardsReported: '',
-    hazardsRemoved: '',
+    totalDistanceWalking: '0',
+    totalDistanceRunning: '0',
+    totalDistanceCycling: '0',
+    totalDistanceTraveled: '0',
+    totalCaloriesWalking: '0',
+    totalCaloriesRunning: '0',
+    totalCaloriesCycling: '0',
+    totalCaloriesBurned: '0',
+    hazardsReported: '0',
+    hazardsRemoved: '0',
     response: ''
   };
 

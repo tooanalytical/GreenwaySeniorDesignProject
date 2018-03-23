@@ -55,24 +55,73 @@ export class AccountStatisticsPage {
 
           var rawReturn = JSON.parse(response);
 
-          this.userStatisticData.totalDistanceWalking =
-            rawReturn.totalDistance_Walking;
-          this.userStatisticData.totalDistanceRunning =
-            rawReturn.totalDistance_Running;
-          this.userStatisticData.totalDistanceCycling =
-            rawReturn.totalDistance_Biking;
-          this.userStatisticData.totalDistanceTraveled =
-            rawReturn.totalDistance_Overall;
-          this.userStatisticData.totalCaloriesWalking =
-            rawReturn.totalCalories_Walking;
-          this.userStatisticData.totalCaloriesRunning =
-            rawReturn.totalCalories_Running;
-          this.userStatisticData.totalCaloriesCycling =
-            rawReturn.totalCalories_Biking;
-          this.userStatisticData.totalCaloriesBurned =
-            rawReturn.totalCalories_Overall;
-          this.userStatisticData.hazardsReported = rawReturn.hazards_reported;
-          this.userStatisticData.hazardsRemoved = rawReturn.hazards_removed;
+          if (rawReturn.totalDistance_Walking == null) {
+            this.userStatisticData.totalDistanceWalking = '0';
+          } else {
+            this.userStatisticData.totalDistanceWalking =
+              rawReturn.totalDistance_Walking;
+          }
+
+          if (rawReturn.totalDistance_Running == null) {
+            this.userStatisticData.totalDistanceRunning = '0';
+          } else {
+            this.userStatisticData.totalDistanceRunning =
+              rawReturn.totalDistance_Running;
+          }
+
+          if (rawReturn.totalDistance_Biking == null) {
+            this.userStatisticData.totalDistanceCycling = '0';
+          } else {
+            this.userStatisticData.totalDistanceCycling =
+              rawReturn.totalDistance_Biking;
+          }
+
+          if (rawReturn.totalDistance_Overall == null) {
+            this.userStatisticData.totalDistanceTraveled = '0';
+          } else {
+            this.userStatisticData.totalDistanceTraveled =
+              rawReturn.totalDistance_Overall;
+          }
+
+          if (rawReturn.totalCalories_Walking == null) {
+            this.userStatisticData.totalCaloriesWalking = '0';
+          } else {
+            this.userStatisticData.totalCaloriesWalking =
+              rawReturn.totalCalories_Walking;
+          }
+
+          if (rawReturn.totalCalories_Running == null) {
+            this.userStatisticData.totalCaloriesRunning = '0';
+          } else {
+            this.userStatisticData.totalCaloriesRunning =
+              rawReturn.totalCalories_Running;
+          }
+
+          if (rawReturn.totalCalories_Biking == null) {
+            this.userStatisticData.totalCaloriesCycling = '0';
+          } else {
+            this.userStatisticData.totalCaloriesCycling =
+              rawReturn.totalCalories_Biking;
+          }
+
+          if (rawReturn.totalCalories_Overall == null) {
+            this.userStatisticData.totalCaloriesBurned = '0';
+          } else {
+            this.userStatisticData.totalCaloriesBurned =
+              rawReturn.totalCalories_Overall;
+          }
+
+          if (rawReturn.hazards_reported == null) {
+            this.userStatisticData.hazardsReported = '0';
+          } else {
+            this.userStatisticData.hazardsReported = rawReturn.hazards_reported;
+          }
+
+          if (rawReturn.hazards_removed == null) {
+            this.userStatisticData.hazardsRemoved = '0';
+          } else {
+            this.userStatisticData.hazardsRemoved = rawReturn.hazards_removed;
+          }
 
           return resolve(response);
         },

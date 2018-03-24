@@ -525,7 +525,6 @@ export class AccountDetailsPage {
     });
     this.storage.get('userBirthdate').then(val => {
       this.userBirthdate = val;
-      this.userBirthdate = new Date(val).toDateString();
     });
     this.storage.get('userGender').then(val => {
       this.userGender = val;

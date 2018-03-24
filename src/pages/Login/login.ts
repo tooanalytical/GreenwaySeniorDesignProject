@@ -71,22 +71,18 @@ export class LoginPage {
         } else {
           console.log('Sucessful Login');
 
-          console.log(response);
-
           var rawReturn = JSON.parse(response);
 
           this.userInfo.userId = rawReturn.userId;
           this.userInfo.firstName = rawReturn.firstName;
           this.userInfo.lastName = rawReturn.lastName;
           this.userInfo.emailAddress = rawReturn.emailAddress;
-          this.userInfo.userBirthdate = rawReturn.userBirthdate;
+          this.userInfo.userBirthdate = rawReturn.userBirthday;
           this.userInfo.userHeight = rawReturn.userHeight;
           this.userInfo.userWeight = rawReturn.userWeight;
           this.userInfo.userGender = rawReturn.userGender;
 
           this.setUserInfo();
-
-          console.log('UserId: ' + this.userInfo.userId);
           this.navCtrl.setRoot(HomePage);
         }
       },

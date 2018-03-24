@@ -100,24 +100,11 @@ export class CreateAccountFinishPage {
       userLng: this.data.userLng,
       userId: ''
     });
-    console.log('What is being sent to server:');
-    console.log(myData);
 
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
 
-        console.log('Response from server: ' + this.data.response);
-        console.log('What is being saved to the local storage:');
-        console.log(this.data.firstName);
-        console.log(this.data.lastName);
-        console.log(this.emailAddress);
-        console.log(this.userBirthdate);
-        console.log(this.userHeight);
-        console.log(this.userWeight);
-        console.log(this.userGender);
-        console.log(this.data.userLat);
-        console.log(this.data.userLng);
         this.storage.set('userId', this.data.response);
       },
       error => {

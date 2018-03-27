@@ -39,9 +39,8 @@ export class AccountStatisticsPage {
     this.getUserStatistics();
   }
 
-  // Sends the UserId to the server and receives the activityId returned
+  // Sends the UserId to the server and receives the activity statistics returned
   getUserStatistics() {
-    // return new Promise((resolve, reject) => {
     console.log('getUserStatistics Called');
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_statistics.php';
@@ -146,14 +145,10 @@ export class AccountStatisticsPage {
         } else {
           this.userStatisticData.hazardsRemoved = rawReturn.hazards_removed;
         }
-
-        // return resolve(response);
       },
       error => {
         console.log('Oooops!');
-        // return reject(error);
       }
     );
-    // });
   }
 }

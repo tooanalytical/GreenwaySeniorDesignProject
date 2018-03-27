@@ -7,11 +7,11 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'achievements.html'
 })
 export class AchievementsPage {
-
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) { }
-
-
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController
+  ) {}
 
   ach1Flag = true;
   ach2Flag = false;
@@ -26,7 +26,6 @@ export class AchievementsPage {
   ach11Flag = true;
 
   showAch1() {
-
     if (this.ach1Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Starting Strong',
@@ -44,7 +43,6 @@ export class AchievementsPage {
     }
   }
   showAch2() {
-
     if (this.ach2Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Push It to the Limit',
@@ -62,7 +60,6 @@ export class AchievementsPage {
     }
   }
   showAch3() {
-
     if (this.ach3Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Stop and Smell the Roses',
@@ -80,7 +77,6 @@ export class AchievementsPage {
     }
   }
   showAch4() {
-
     if (this.ach4Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Nomad',
@@ -98,7 +94,6 @@ export class AchievementsPage {
     }
   }
   showAch5() {
-
     if (this.ach5Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Trail Fanatic',
@@ -109,14 +104,14 @@ export class AchievementsPage {
     } else {
       let alert = this.alertCtrl.create({
         title: 'Trail Fanatic',
-        subTitle: 'To unlock this badge, visit Rivergreenway every day for a week!',
+        subTitle:
+          'To unlock this badge, visit Rivergreenway every day for a week!',
         buttons: ['Ok!']
       });
       alert.present();
     }
   }
   showAch6() {
-
     if (this.ach6Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Wheels of Steel',
@@ -134,7 +129,6 @@ export class AchievementsPage {
     }
   }
   showAch7() {
-
     if (this.ach7Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Burning Rubber',
@@ -152,7 +146,6 @@ export class AchievementsPage {
     }
   }
   showAch8() {
-
     if (this.ach8Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'The Long Haul',
@@ -163,14 +156,14 @@ export class AchievementsPage {
     } else {
       let alert = this.alertCtrl.create({
         title: 'The Long Haul',
-        subTitle: 'Complete the long haul and cycle for more than 25 miles to earn this badge!',
+        subTitle:
+          'Complete the long haul and cycle for more than 25 miles to earn this badge!',
         buttons: ['Ok!']
       });
       alert.present();
     }
   }
   showAch9() {
-
     if (this.ach9Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Neighborhood Watch',
@@ -188,7 +181,6 @@ export class AchievementsPage {
     }
   }
   showAch10() {
-
     if (this.ach10Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Wayfinder',
@@ -206,7 +198,6 @@ export class AchievementsPage {
     }
   }
   showAch11() {
-
     if (this.ach11Flag == true) {
       let alert = this.alertCtrl.create({
         title: 'Feel the Burn',
@@ -217,11 +208,11 @@ export class AchievementsPage {
     } else {
       let alert = this.alertCtrl.create({
         title: 'Feel the Burn',
-        subTitle: 'Get fit and burn more than 500 calories in one activity to earn this badge!',
+        subTitle:
+          'Get fit and burn more than 500 calories in one activity to earn this badge!',
         buttons: ['Ok!']
       });
       alert.present();
     }
   }
 }
-

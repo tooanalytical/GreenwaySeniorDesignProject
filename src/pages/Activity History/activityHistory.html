@@ -8,7 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    
-  </ion-list>
+  <div class="row" *ngIf="activityList && activityList.length > 0">
+    <ion-list>
+      <ion-item *ngFor="let activityList of activityLists">{{activityList.startDate}}</ion-item>
+    </ion-list>
+  </div>
 </ion-content>

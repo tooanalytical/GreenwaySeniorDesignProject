@@ -31,21 +31,23 @@
   </div>
   <div align="center" *ngIf="!typeFlag && startFlag">
     <div>
-    <p>Select Activity Type</p>
-    <ion-row>
-      <ion-col>
-        <ion-img (tap)="selectTypeWalk()" style ="width: 80px; height: 80px;  background: transparent !important;"
-        src="assets/walk.png"></ion-img>
-      </ion-col>
-      <ion-col>
-        <ion-img (tap)="selectTypeRun()" style ="width: 80px; height: 80px;  background: transparent !important;"
-        src="assets/run.png"></ion-img>
-      </ion-col>
-      <ion-col>
-        <ion-img (tap)="selectTypeBike()" style ="width: 80px; height: 80px;  background: transparent !important;"
-        src="assets/bike.png"></ion-img>
-      </ion-col>
-    </ion-row>
+      <br>
+      <h2 class="transparent">Select Activity Type</h2>
+      <br>
+      <ion-row>
+        <ion-col>
+          <ion-img (tap)="selectTypeWalk()" style="width: 80px; height: 80px;  background: transparent !important;" src="assets/walk.png"></ion-img>
+          <p>Walk</p>
+        </ion-col>
+        <ion-col>
+          <ion-img (tap)="selectTypeRun()" style="width: 80px; height: 80px;  background: transparent !important;" src="assets/run.png"></ion-img>
+          <p>Run</p>
+        </ion-col>
+        <ion-col>
+          <ion-img (tap)="selectTypeBike()" style="width: 80px; height: 80px;  background: transparent !important;" src="assets/bike.png"></ion-img>
+          <p>Cycle</p>
+        </ion-col>
+      </ion-row>
     </div>
   </div>
   <div *ngIf="startFlag && typeFlag" align="center">

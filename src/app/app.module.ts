@@ -31,6 +31,7 @@ import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/Report Problem/report';
 import { RecordActivityPage } from '../pages/Record Activity/recordActivity';
 import { ActivityHistoryPage } from '../pages/Activity History/activityHistory';
+import { ActivityDetailsPage } from '../pages/Activity Details/activityDetails';
 import { AchievementsPage } from '../pages/Achievements/achievements';
 import { TrailMapPage } from '../pages/Trail Map/trailMap';
 import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatistics';
@@ -62,6 +63,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     ReportPage,
     RecordActivityPage,
     ActivityHistoryPage,
+    ActivityDetailsPage,
     AchievementsPage,
     TrailMapPage,
     AccountStatisticsPage,
@@ -95,6 +97,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     ReportPage,
     RecordActivityPage,
     ActivityHistoryPage,
+    ActivityDetailsPage,
     AchievementsPage,
     TrailMapPage,
     AccountStatisticsPage,

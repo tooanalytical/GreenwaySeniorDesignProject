@@ -8,9 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <div class="row" *ngIf="activityList && activityList.length > 0">
+  <div>
     <ion-list>
-      <ion-item *ngFor="let activityList of activityLists">{{activityList.startDate}}</ion-item>
+      <button ion-item *ngFor="let activity of data" (tap)="activitySelected($event, activity)">
+        Date: {{ activity.startDate }} Activity Type: {{activity.activityType}}
+      </button>
     </ion-list>
   </div>
 </ion-content>

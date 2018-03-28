@@ -2,12 +2,16 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
+import { ActivityDetailsPage } from '../Activity Details/activityDetails';
 
 @Component({
   selector: 'page-activityHistory',
   templateUrl: 'activityHistory.html'
 })
 export class ActivityHistoryPage {
+  data: Array<any>;
+  activityData = {};
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -19,7 +23,7 @@ export class ActivityHistoryPage {
     this.userId = val;
   });
 
-  activityList = {};
+  //activityList = {};
 
   ionViewWillEnter() {
     this.getActivityHistoryList();
@@ -39,13 +43,34 @@ export class ActivityHistoryPage {
       var response = data['_body'];
       console.log('Response: ' + response);
 
-      var rawReturn = JSON.parse(response);
-      console.log('Raw Return: ' + rawReturn);
-
-      this.activityList = rawReturn;
+      this.data = JSON.parse(response);
+      console.log('Now in Data Array: ' + this.data);
     });
   }
 
-  //
-  getSingleActivity() {}
+  // Captures user's activity selection and presents new activity details page with that data
+  activitySelected(event, activity) {
+    console.log('Activity selected');
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_activity_info.php';
+    var myData = JSON.stringify({
+      activityId: activity.activityId
+    });
+    console.log('Activity Id being sent: ' + myData);
+    console.log('Calling post...');
+    this.http.post(link, myData).subscribe(data => {
+      var response = data['_body'];
+      console.log('Response: ' + response);
+
+      this.activityData = JSON.parse(response);
+      console.log('Now in Data Array: ' + this.activityData);
+
+      this.navCtrl.push(ActivityDetailsPage, {
+        activityData: this.activityData
+      });
+      console.log(
+        'What is being pushed to the next page: ' + this.activityData
+      );
+    });
+  }
 }

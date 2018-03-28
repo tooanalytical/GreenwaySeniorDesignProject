@@ -39,7 +39,7 @@ export class ActivityDetailsPage {
 
     let mapOptions = {
       center: activityCenter,
-      zoom: 15,
+      zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -59,9 +59,9 @@ export class ActivityDetailsPage {
   // Converts activity type values sent from server to appropriate naming convention
   convertActivityType() {
     if (this.activityData.activityType == '1') {
-      this.activityData.activityType = 'Walking';
-    } else if (this.activityData.activityType == '2') {
       this.activityData.activityType = 'Running';
+    } else if (this.activityData.activityType == '2') {
+      this.activityData.activityType = 'Walking';
     } else if (this.activityData.activityType == '3') {
       this.activityData.activityType = 'Cycling';
     }

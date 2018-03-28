@@ -43,9 +43,9 @@ export class ActivityHistoryPage {
 
       for (let activity in this.data) {
         if (this.data[activity].activityType == '1') {
-          this.data[activity].activityType = 'Walking';
-        } else if (this.data[activity].activityType == '2') {
           this.data[activity].activityType = 'Running';
+        } else if (this.data[activity].activityType == '2') {
+          this.data[activity].activityType = 'Walking';
         } else if (this.data[activity].activityType == '3') {
           this.data[activity].activityType = 'Cycling';
         }

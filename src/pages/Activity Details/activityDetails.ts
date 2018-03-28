@@ -28,34 +28,35 @@ export class ActivityDetailsPage {
     this.convertActivityType();
   }
 
+  // Loads map of user activity and overlays polylines showing activity path
   loadMap() {
-    let options = {
-      enableHighAccuracy: true
-    };
-    this.geolocation.getCurrentPosition(options).then(
-      position => {
-        let latLng = new google.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-        );
+    let activityPathCoordinates = this.activityData.locationData;
 
-        let mapOptions = {
-          center: latLng,
-          zoom: 17,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        this.map = new google.maps.Map(
-          this.mapElement.nativeElement,
-          mapOptions
-        );
-      },
-      err => {
-        console.log(err);
-      }
+    let activityCenter = new google.maps.LatLng(
+      activityPathCoordinates[0].lat,
+      activityPathCoordinates[0].lng
     );
+
+    let mapOptions = {
+      center: activityCenter,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    var activityPath = new google.maps.Polyline({
+      path: activityPathCoordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    activityPath.setMap(this.map);
   }
 
+  // Converts activity type values sent from server to appropriate naming convention
   convertActivityType() {
     if (this.activityData.activityType == '1') {
       this.activityData.activityType = 'Walking';

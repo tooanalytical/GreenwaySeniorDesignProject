@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { CreateAccountFinishPage } from '../Create Account - Finish/createAccountFinish';
+import { CreateAccountProfilePage } from '../Create Account - Profile Picture/createAccountProfilePicture';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 
 @Component({

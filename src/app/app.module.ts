@@ -24,7 +24,7 @@ import { CreateAccountPasswordPage } from '../pages/Create Account - Password/cr
 import { CreateAccountBirthdatePage } from '../pages/Create Account - Birthdate/createAccountBirthdate';
 import { CreateAccountSocialBirthdatePage } from '../pages/Create Account - Social - Birthdate/createAccountSocialBirthdate';
 import { CreateAccountPhysicalPage } from '../pages/Create Account - Physical Data/createAccountPhysical';
-import { CreateAccountProfilePage } from '../pages/Create Account - Profile Picture/createAccountProfilePicture';
+import { CreateAccountProfilePicturePage } from '../pages/Create Account - Profile Picture/createAccountProfilePicture';
 import { CreateAccountSocialPhysicalPage } from '../pages/Create Account - Social - Physical Data/createAccountSocialPhysical';
 import { CreateAccountFinishPage } from '../pages/Create Account - Finish/createAccountFinish';
 import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
@@ -57,7 +57,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     CreateAccountBirthdatePage,
     CreateAccountSocialBirthdatePage,
     CreateAccountPhysicalPage,
-    CreateAccountProfilePage,
+    CreateAccountProfilePicturePage,
     CreateAccountSocialPhysicalPage,
     CreateAccountFinishPage,
     PasswordResetPage,
@@ -92,7 +92,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     CreateAccountBirthdatePage,
     CreateAccountSocialBirthdatePage,
     CreateAccountPhysicalPage,
-    CreateAccountProfilePage,
+    CreateAccountProfilePicturePage,
     CreateAccountSocialPhysicalPage,
     CreateAccountFinishPage,
     PasswordResetPage,

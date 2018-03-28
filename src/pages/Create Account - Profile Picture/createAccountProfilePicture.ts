@@ -28,10 +28,31 @@ import { CreateAccountFinishPage } from '../Create Account - Finish/createAccoun
   selector: 'page-createAccountProfilePicture',
   templateUrl: 'createAccountProfilePicture.html'
 })
-export class CreateAccountProfilePage {
+export class CreateAccountProfilePicturePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController
   ) {}
+
+  firstName = this.navParams.get('firstName');
+  lastName = this.navParams.get('lastName');
+  emailAddress = this.navParams.get('emailAddress');
+  userPassword = this.navParams.get('userPassword');
+  userBirthdate = this.navParams.get('userBirthdate');
+  userHeight = this.navParams.get('userHeight');
+  userWeight = this.navParams.get('userWeight');
+  userGender = this.navParams.get('userGender');
+
+  data = {
+    firstName: this.firstName,
+    lastName: this.lastName,
+    emailAddress: this.emailAddress,
+    userPassword: this.userPassword,
+    userBirthdate: this.userBirthdate,
+    userHeight: this.userHeight,
+    userWeight: this.userWeight,
+    userGender: this.userGender,
+    userAvatar: ''
+  };
 }

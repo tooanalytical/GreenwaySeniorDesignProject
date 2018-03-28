@@ -22,7 +22,6 @@ export class ActivityDetailsPage {
   }
 
   convertActivityType() {
-    console.log('convertActivityType Called!');
     if (this.activityData.activityType == '1') {
       this.activityData.activityType = 'Walking';
     } else if (this.activityData.activityType == '2') {

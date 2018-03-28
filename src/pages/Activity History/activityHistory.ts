@@ -45,6 +45,15 @@ export class ActivityHistoryPage {
 
       this.data = JSON.parse(response);
       console.log('Now in Data Array: ' + this.data);
+      for (let activity in this.data) {
+        if (this.data[activity].activityType == '1') {
+          this.data[activity].activityType = 'Walking';
+        } else if (this.data[activity].activityType == '2') {
+          this.data[activity].activityType = 'Running';
+        } else if (this.data[activity].activityType == '3') {
+          this.data[activity].activityType = 'Cycling';
+        }
+      }
     });
   }
 

@@ -163,7 +163,7 @@ export class RecordActivityPage {
       buttons: [{
         text: 'Yes',
         handler: ()=>{
-          this.activityData.activityType = '1';
+          this.activityData.activityType = '2';
           this.typeFlag = true;
         }
       },{
@@ -183,7 +183,7 @@ export class RecordActivityPage {
       buttons: [{
         text: 'Yes',
         handler: ()=>{
-          this.activityData.activityType='2';
+          this.activityData.activityType='1';
           this.typeFlag = true;
         }
       },{

@@ -15,6 +15,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { HttpModule } from '@angular/http';
 import { Base64 } from '@ionic-native/base64';
 import { OneSignal } from '@ionic-native/onesignal';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
 import { SplashPage } from '../pages/Splash/splash';
@@ -124,6 +125,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     DeviceMotion,
     Facebook,
     Base64,
+    BackgroundMode,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     WeatherProvider,
     OneSignal

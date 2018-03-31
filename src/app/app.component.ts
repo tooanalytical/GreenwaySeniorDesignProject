@@ -9,6 +9,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { OneSignal } from '@ionic-native/onesignal';
 import { AlertController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular/index';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { HomePage } from '../pages/home/home';
 import { SplashPage } from '../pages/Splash/splash';
@@ -44,7 +45,8 @@ export class MyApp {
     public fb: Facebook,
     public oneSignal: OneSignal,
     public alertCtrl: AlertController,
-    public menu: MenuController
+    public menu: MenuController,
+    private backgroundMode: BackgroundMode
   ) {
     this.initializeApp();
 
@@ -123,6 +125,7 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      this.backgroundMode.enable();
       this.menu.swipeEnable(false);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -216,6 +219,7 @@ export class MyApp {
 
       // redirect to home
       this.nav.setRoot(SplashPage);
+      this.backgroundMode.disable();
     }
   }
 }

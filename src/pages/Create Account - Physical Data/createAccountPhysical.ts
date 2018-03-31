@@ -373,6 +373,11 @@ export class CreateAccountPhysicalPage {
   }
 
   createAccountNext() {
-    this.navCtrl.push(CreateAccountFinishPage, this.data);
+    if (this.data.userWeight == '') {
+      this.data.userWeight = '150 lbs';
+      this.navCtrl.push(CreateAccountProfilePicturePage, this.data);
+    } else {
+      this.navCtrl.push(CreateAccountProfilePicturePage, this.data);
+    }
   }
 }

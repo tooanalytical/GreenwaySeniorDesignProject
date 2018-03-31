@@ -26,7 +26,8 @@ export class LoginPage {
     userBirthdate: '',
     userHeight: '',
     userWeight: '',
-    userGender: ''
+    userGender: '',
+    userAvatar: ''
   };
 
   data = {
@@ -46,6 +47,7 @@ export class LoginPage {
     this.http.post(link, myData).subscribe(
       data => {
         var response = data['_body'];
+        console.log(response);
 
         if (response === '4') {
           console.log('4 Attempt Left Password Mismatch');
@@ -81,6 +83,7 @@ export class LoginPage {
           this.userInfo.userHeight = rawReturn.userHeight;
           this.userInfo.userWeight = rawReturn.userWeight;
           this.userInfo.userGender = rawReturn.userGender;
+          this.userInfo.userAvatar = rawReturn.userAvatar;
 
           this.setUserInfo();
           this.navCtrl.setRoot(HomePage);
@@ -106,6 +109,7 @@ export class LoginPage {
     this.storage.set('userHeight', this.userInfo.userHeight);
     this.storage.set('userWeight', this.userInfo.userWeight);
     this.storage.set('userGender', this.userInfo.userGender);
+    this.storage.set('userAvatar', this.userInfo.userAvatar);
     this.storage.set('userLoggedIn', true);
   }
 

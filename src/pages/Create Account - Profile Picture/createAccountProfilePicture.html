@@ -4,7 +4,40 @@
 
 <ion-content no-bounce>
 
+  <div>
+    <button ion-button color="white" clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
 
+  <div padding>
+    <p class="title">Profile Picture (Optional)</p>
+  </div>
+
+  <br>
+  <br>
+
+  <img src="{{pathForImage(lastImage)}}" style="width: 40%" [hidden]="lastImage === null" class="center-photo">
+  <h4 [hidden]="lastImage !== null" align="center">Let's get a profile picture. Smile!</h4>
+
+  <br>
+  <ion-buttons align="center">
+    <button ion-button color="white" icon-left (tap)="presentActionSheet()">
+      <ion-icon name="camera"></ion-icon>Take Profile Picture
+    </button>
+  </ion-buttons>
+
+  <br>
+  <br>
+
+
+
+
+  <div>
+    <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+    </button>
+  </div>
 
 
 

@@ -37,6 +37,7 @@ export class CreateAccountFinishPage {
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
   userGender = this.navParams.get('userGender');
+  userAvatar = this.navParams.get('userAvatar');
 
   data = {
     firstName: this.firstName,
@@ -47,6 +48,7 @@ export class CreateAccountFinishPage {
     userHeight: this.userHeight,
     userWeight: this.userWeight,
     userGender: this.userGender,
+    userAvatar: this.userAvatar,
     userLat: '',
     userLng: '',
     response: ''
@@ -78,6 +80,7 @@ export class CreateAccountFinishPage {
     this.storage.set('userHeight', this.data.userHeight);
     this.storage.set('userWeight', this.data.userWeight);
     this.storage.set('userGender', this.data.userGender);
+    this.storage.set('userAvatar', this.data.userAvatar);
     this.storage.set('userLoggedIn', true);
   }
 
@@ -96,6 +99,7 @@ export class CreateAccountFinishPage {
       userHeight: this.data.userHeight,
       userWeight: this.data.userWeight,
       userGender: this.data.userGender,
+      userAvatar: this.data.userAvatar,
       userLat: this.data.userLat,
       userLng: this.data.userLng,
       userId: ''

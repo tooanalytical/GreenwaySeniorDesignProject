@@ -47,7 +47,6 @@ export class LoginPage {
     this.http.post(link, myData).subscribe(
       data => {
         var response = data['_body'];
-        console.log(response);
 
         if (response === '4') {
           console.log('4 Attempt Left Password Mismatch');

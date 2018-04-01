@@ -104,7 +104,8 @@ export class CreateAccountProfilePicturePage {
       targetWidth: 375,
       targetHeight: 500,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+      cameraDirection: 1
     };
 
     // Get the data of an image

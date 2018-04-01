@@ -156,63 +156,72 @@ export class RecordActivityPage {
     }
   }
 
-  selectTypeWalk(){
+  selectTypeWalk() {
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go walking?',
-      buttons: [{
-        text: 'Yes',
-        handler: ()=>{
-          this.activityData.activityType = '2';
-          this.typeFlag = true;
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.activityData.activityType = '2';
+            this.typeFlag = true;
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            this.typeFlag = false;
+            this.navCtrl.setRoot(RecordActivityPage);
+          }
         }
-      },{
-        text:'No',
-        handler: ()=>{
-          this.typeFlag = false;
-          this.navCtrl.setRoot(RecordActivityPage);
-        }
-      }]
+      ]
     });
     alert.present();
   }
-  selectTypeRun(){
+  selectTypeRun() {
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go running?',
-      buttons: [{
-        text: 'Yes',
-        handler: ()=>{
-          this.activityData.activityType='1';
-          this.typeFlag = true;
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.activityData.activityType = '1';
+            this.typeFlag = true;
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            this.typeFlag = false;
+            this.navCtrl.setRoot(RecordActivityPage);
+          }
         }
-      },{
-        text:'No',
-        handler: ()=>{
-          this.typeFlag = false;
-          this.navCtrl.setRoot(RecordActivityPage);
-        }
-      }]
+      ]
     });
     alert.present();
   }
-  selectTypeBike(){
+  selectTypeBike() {
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go cycling?',
-      buttons: [{
-        text: 'Yes',
-        handler: ()=>{
-          this.activityData.activityType='3';
-          this.typeFlag = true;
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.activityData.activityType = '3';
+            this.typeFlag = true;
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            this.typeFlag = false;
+            this.navCtrl.setRoot(RecordActivityPage);
+          }
         }
-      },{
-        text:'No',
-        handler: ()=>{
-          this.typeFlag = false;
-          this.navCtrl.setRoot(RecordActivityPage);
-        }
-      }]
+      ]
     });
     alert.present();
   }
@@ -656,8 +665,10 @@ export class RecordActivityPage {
 
   // Sends the UserId, ActivityId, Curent Time, lat and lng to server.
   reportUserLocation(lat, lng) {
-    var currentTime = new Date();
-    console.log(currentTime);
+    var currentTime = new Date().toLocaleString('en-US', {
+      timeZone: 'America/New_York'
+    });
+    console.log('Current Time EST: ' + currentTime);
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_activity.php';
     var myData = JSON.stringify({

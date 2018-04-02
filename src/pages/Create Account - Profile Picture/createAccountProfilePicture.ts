@@ -99,7 +99,7 @@ export class CreateAccountProfilePicturePage {
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
-      quality: 10,
+      quality: 100,
       sourceType: sourceType,
       targetWidth: 375,
       targetHeight: 500,

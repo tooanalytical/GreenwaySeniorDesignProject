@@ -72,6 +72,8 @@ export class LoginPage {
         } else {
           console.log('Sucessful Login');
 
+          console.log('Server Response: ' + response);
+
           var rawReturn = JSON.parse(response);
 
           this.userInfo.userId = rawReturn.userId;

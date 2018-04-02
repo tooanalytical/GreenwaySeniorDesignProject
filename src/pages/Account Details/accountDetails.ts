@@ -42,7 +42,8 @@ export class AccountDetailsPage {
     lastName: this.lastName,
     userHeight: this.userHeight,
     userWeight: this.userWeight,
-    userGender: this.userGender
+    userGender: this.userGender,
+    userAvatar: this.userAvatar
   };
 
   physicalData = {
@@ -531,6 +532,7 @@ export class AccountDetailsPage {
     });
     this.storage.get('userAvatar').then(val => {
       this.userAvatar = val;
+      console.log('User Avatar value: ' + this.userAvatar);
     });
   }
 }

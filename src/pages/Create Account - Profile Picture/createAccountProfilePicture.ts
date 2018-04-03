@@ -70,6 +70,7 @@ export class CreateAccountProfilePicturePage {
     userAvatar: ''
   };
 
+  // Presents action sheet to user to select take a photo or pick from library
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
@@ -206,19 +207,11 @@ export class CreateAccountProfilePicturePage {
     });
   }
 
+  // Converts the image and passes the JSON object to the next page.
   createAccountNext() {
-    if (this.lastImage !== null) {
-      console.log('User took photo. Moving on...');
-      this.convertToBase64().then(data => {
-        this.data.userAvatar = data;
-        this.navCtrl.push(CreateAccountFinishPage, this.data);
-      });
-    } else {
-      console.log('User no photo. Setting default profile photo');
-
-      let filePath: string = this.pathForImage(this.lastImage);
-
-      // this.navCtrl.push(CreateAccountFinishPage, this.data);
-    }
+    this.convertToBase64().then(data => {
+      this.data.userAvatar = data;
+      this.navCtrl.push(CreateAccountFinishPage, this.data);
+    });
   }
 }

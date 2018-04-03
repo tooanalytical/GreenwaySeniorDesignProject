@@ -38,7 +38,7 @@ export class CreateAccountPhysicalPage {
   physicalData = {
     heights: [
       { description: '' },
-      { description: '> 4 Feet 0 Inches' },
+      { description: '< 4 Feet 0 Inches' },
       { description: '4 Feet 0 Inches' },
       { description: '4 Feet 1 Inches' },
       { description: '4 Feet 2 Inches' },
@@ -88,11 +88,11 @@ export class CreateAccountPhysicalPage {
       { description: '7 Feet 10 Inches' },
       { description: '7 Feet 11 Inches' },
       { description: '8 Feet 0 Inches' },
-      { description: '< 8 Feet 0 Inches' }
+      { description: '> 8 Feet 0 Inches' }
     ],
     weights: [
       { description: '' },
-      { description: '> 80 lbs' },
+      { description: '< 80 lbs' },
       { description: '80 lbs' },
       { description: '81 lbs' },
       { description: '82 lbs' },
@@ -314,7 +314,7 @@ export class CreateAccountPhysicalPage {
       { description: '298 lbs' },
       { description: '299 lbs' },
       { description: '300 lbs' },
-      { description: '< 300 lbs' }
+      { description: '> 300 lbs' }
     ],
     gender: [
       { description: '' },
@@ -372,6 +372,7 @@ export class CreateAccountPhysicalPage {
       );
   }
 
+  // If the user doesn't select weight it defaults to 150lbs and pushes all user data to the next page
   createAccountNext() {
     if (this.data.userWeight == '') {
       this.data.userWeight = '150 lbs';

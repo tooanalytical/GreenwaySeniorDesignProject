@@ -51,6 +51,7 @@ export class ActivityHistoryPage {
         }
       }
     });
+    console.log('finished getting activity history');
   }
 
   // Captures user's activity selection and presents new activity details page with that data

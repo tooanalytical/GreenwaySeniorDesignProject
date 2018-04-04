@@ -12,6 +12,11 @@ export class ActivityHistoryPage {
   data: Array<any>;
   activityData = {};
 
+  public userId = this.storage.get('userId').then(val => {
+    this.userId = val;
+    this.getActivityHistoryList();
+  });
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -19,17 +24,10 @@ export class ActivityHistoryPage {
     public storage: Storage
   ) {}
 
-  public userId = this.storage.get('userId').then(val => {
-    this.userId = val;
-  });
-
-  ionViewWillEnter() {
-    this.getActivityHistoryList();
-  }
-
   // Gets a list of activities performed by the user by sending the userId and receiving Date and activity type.
   getActivityHistoryList() {
     console.log('getActivityHistory() called');
+    console.log('Sending userId: ' + this.userId);
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_activity_history.php';
     var myData = JSON.stringify({
@@ -38,6 +36,8 @@ export class ActivityHistoryPage {
     console.log('Calling post...');
     this.http.post(link, myData).subscribe(data => {
       var response = data['_body'];
+
+      console.log('Response from server: ' + response);
 
       this.data = JSON.parse(response);
 

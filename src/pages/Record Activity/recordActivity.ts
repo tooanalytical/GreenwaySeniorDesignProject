@@ -147,8 +147,10 @@ export class RecordActivityPage {
     // here we can either return true or false
     // depending on if we want to leave this view
     if (this.activeTime === 0 && this.totalTime === 0) {
-      this.endWatchMap();
-      return true;
+      this.endWatchMap().then(() => {
+        console.log('Killed map!');
+        return true;
+      });
     } else {
       this.presentLeaveActionSheet();
       this.menuCtrl.toggle();
@@ -531,8 +533,11 @@ export class RecordActivityPage {
     this.subscriptionSpeed.unsubscribe();
   }
 
-  endWatchMap() {
-    this.subscriptionMap.unsubscribe();
+  endWatchMap(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.subscriptionMap.unsubscribe();
+      return resolve(resolve);
+    });
   }
 
   //Calculates distance between two points using the haversine formula

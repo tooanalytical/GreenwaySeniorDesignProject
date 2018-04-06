@@ -673,7 +673,6 @@ export class RecordActivityPage {
     var currentTime = new Date().toLocaleString('en-US', {
       timeZone: 'America/New_York'
     });
-    console.log('Current Time EST: ' + currentTime);
     var link =
       'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_activity.php';
     var myData = JSON.stringify({
@@ -683,6 +682,7 @@ export class RecordActivityPage {
       lat: lat,
       lng: lng
     });
+    console.log('Reported user location:');
 
     this.http.post(link, myData).subscribe(
       data => {

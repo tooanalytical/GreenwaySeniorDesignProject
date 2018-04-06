@@ -209,9 +209,13 @@ export class CreateAccountProfilePicturePage {
 
   // Converts the image and passes the JSON object to the next page.
   createAccountNext() {
-    this.convertToBase64().then(data => {
-      this.data.userAvatar = data;
+    if (this.lastImage === null) {
       this.navCtrl.push(CreateAccountFinishPage, this.data);
-    });
+    } else {
+      this.convertToBase64().then(data => {
+        this.data.userAvatar = data;
+        this.navCtrl.push(CreateAccountFinishPage, this.data);
+      });
+    }
   }
 }

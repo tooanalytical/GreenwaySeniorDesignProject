@@ -10,7 +10,11 @@ import { CreateAccountBirthdatePage } from '../Create Account - Birthdate/create
   templateUrl: 'createAccountPassword.html'
 })
 export class CreateAccountPasswordPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController
+  ) {}
 
   firstName = this.navParams.get('firstName');
   lastName = this.navParams.get('lastName');
@@ -31,21 +35,26 @@ export class CreateAccountPasswordPage {
 
   //Validates the user's password fits acceptable parameters
   passwordValidation() {
-
     this.lengthFlag = false;
     this.matchFlag = false;
     this.symbolFlag = false;
     this.flag = false;
     //Triggers flag if either password is less than 8 characters.
-    if(this.data.userPassword.length < 8 || this.data.userPasswordConfirm.length < 8 ){
+    if (
+      this.data.userPassword.length < 8 ||
+      this.data.userPasswordConfirm.length < 8
+    ) {
       this.lengthFlag = true;
       return;
-    //Triggers flag if the passwords don't match.
-    } else if (this.data.userPassword !== this.data.userPasswordConfirm){
+      //Triggers flag if the passwords don't match.
+    } else if (this.data.userPassword !== this.data.userPasswordConfirm) {
       this.matchFlag = true;
       return;
-    //Triggers flag if the password doesn't include a symbol.
-    } else if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(this.data.userPassword) == false){
+      //Triggers flag if the password doesn't include a symbol.
+    } else if (
+      /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(this.data.userPassword) ==
+      false
+    ) {
       this.symbolFlag = true;
       return;
     }
@@ -55,7 +64,7 @@ export class CreateAccountPasswordPage {
   //Presents a modal alert to the user if their password is not greater than 8 characters.
   presentAlertLength() {
     let alert = this.alertCtrl.create({
-      title: 'Uh oh!',
+      title: 'Oh no!',
       subTitle: 'Please make sure your password is 8 or more characters.',
       buttons: ['Ok']
     });
@@ -65,8 +74,8 @@ export class CreateAccountPasswordPage {
   //Presents a modal alert to the user if their passwords don't match.
   presentAlertMatch() {
     let alert = this.alertCtrl.create({
-      title: 'Uh oh!',
-      subTitle: 'Please make sure your passwords match.',
+      title: 'Oh no!',
+      subTitle: "Your passwords don't match! Please try again.",
       buttons: ['Ok']
     });
     alert.present();
@@ -75,7 +84,7 @@ export class CreateAccountPasswordPage {
   //Presents a modal alert to the user if their password doesn't include a symbol.
   presentAlertSymbol() {
     let alert = this.alertCtrl.create({
-      title: 'Uh oh!',
+      title: 'Oh no!',
       subTitle: 'Please make sure your password includes a symbol.',
       buttons: ['Ok']
     });
@@ -85,11 +94,11 @@ export class CreateAccountPasswordPage {
   //Segues user to next step in process if they pass validation requirements.
   createAccountNext() {
     this.passwordValidation();
-    if(this.lengthFlag) {
+    if (this.lengthFlag) {
       this.presentAlertLength();
-    } else if (this.matchFlag){
+    } else if (this.matchFlag) {
       this.presentAlertMatch();
-    } else if (this.symbolFlag){
+    } else if (this.symbolFlag) {
       this.presentAlertSymbol();
     } else {
       this.navCtrl.push(CreateAccountBirthdatePage, this.data);

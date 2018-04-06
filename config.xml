@@ -113,6 +113,7 @@
         <variable name="APP_NAME" value="Viridian" />
     </plugin>
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />

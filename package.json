@@ -31,6 +31,7 @@
     "@ionic-native/file-path": "^4.3.1",
     "@ionic-native/file-transfer": "4.5.3",
     "@ionic-native/geolocation": "^4.5.3",
+    "@ionic-native/in-app-browser": "^4.6.0",
     "@ionic-native/native-storage": "^4.3.2",
     "@ionic-native/onesignal": "^4.5.3",
     "@ionic-native/pedometer": "^4.5.3",
@@ -58,6 +59,7 @@
     "cordova-plugin-filepath": "^1.2.0",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
+    "cordova-plugin-inappbrowser": "^2.0.2",
     "cordova-plugin-nativestorage": "^2.3.1",
     "cordova-plugin-pedometer": "^0.4.1",
     "cordova-plugin-splashscreen": "^4.1.0",
@@ -119,7 +121,8 @@
       "cordova-plugin-file": {},
       "com-badrit-base64": {},
       "onesignal-cordova-plugin": {},
-      "cordova-plugin-background-mode": {}
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "browser",

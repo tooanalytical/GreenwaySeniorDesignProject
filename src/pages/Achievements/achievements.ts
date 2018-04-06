@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-achievements',
@@ -10,23 +12,62 @@ export class AchievementsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private alertCtrl: AlertController
-  ) {}
+    private alertCtrl: AlertController,
+    public http: Http,
+    public storage: Storage
+  ) { }
 
-  ach1Flag = true;
-  ach2Flag = false;
-  ach3Flag = true;
-  ach4Flag = true;
-  ach5Flag = true;
-  ach6Flag = false;
-  ach7Flag = false;
-  ach8Flag = true;
-  ach9Flag = true;
-  ach10Flag = true;
-  ach11Flag = true;
+  startingStrong;
+  pushIt;
+  stopSmellRoses;
+  nomad;
+  trailFanatic;
+  wheelsOfSteel;
+  burningRubber;
+  longHaul;
+  neighborhoodWatch;
+  wayfinder;
+  feelBurn;
+
+  public userId = this.storage.get('userId').then(val => {
+    this.userId = val;
+  });
+
+  data: Array<any>;
+
+  setBools() {
+
+    var link =
+      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_achievements.php';
+    var myData = JSON.stringify({
+      userId: this.userId
+    });
+
+    this.http.post(link, myData).subscribe(data => {
+      var response = data['_body'];
+      this.data = JSON.parse(response);
+   
+      this.startingStrong = this.data["startingStrong"];
+      this.pushIt = this.data["pushIt"];
+      this.stopSmellRoses = this.data["stopSmellRoses"];
+      this.nomad = this.data["nomad"];
+      this.trailFanatic = this.data["trailFanatic"];
+      this.wheelsOfSteel = this.data["wheelsOfSteel"];
+      this.burningRubber = this.data["burningRubber"];
+      this.longHaul = this.data["longHaul"];
+      this.neighborhoodWatch = this.data["neighborhoodWatch"];
+      this.wayfinder = this.data["wayfinder"];
+      this.feelBurn = this.data["feelBurn"];
+      
+    });
+  }
+
+  ionViewWillEnter(){
+    this.setBools();
+  }
 
   showAch1() {
-    if (this.ach1Flag == true) {
+    if (this.startingStrong == true) {
       let alert = this.alertCtrl.create({
         title: 'Starting Strong',
         subTitle: 'You went for your first run!',
@@ -43,7 +84,7 @@ export class AchievementsPage {
     }
   }
   showAch2() {
-    if (this.ach2Flag == true) {
+    if (this.pushIt == true) {
       let alert = this.alertCtrl.create({
         title: 'Push It to the Limit',
         subTitle: 'You ran faster than 7 Miles Per Hour!',
@@ -60,7 +101,7 @@ export class AchievementsPage {
     }
   }
   showAch3() {
-    if (this.ach3Flag == true) {
+    if (this.stopSmellRoses == true) {
       let alert = this.alertCtrl.create({
         title: 'Stop and Smell the Roses',
         subTitle: 'You walked for over two hours!',
@@ -77,7 +118,7 @@ export class AchievementsPage {
     }
   }
   showAch4() {
-    if (this.ach4Flag == true) {
+    if (this.nomad == true) {
       let alert = this.alertCtrl.create({
         title: 'Nomad',
         subTitle: 'You walked for over 2 miles!',
@@ -94,7 +135,7 @@ export class AchievementsPage {
     }
   }
   showAch5() {
-    if (this.ach5Flag == true) {
+    if (this.trailFanatic == true) {
       let alert = this.alertCtrl.create({
         title: 'Trail Fanatic',
         subTitle: 'You visited the trails every day for a week!',
@@ -112,7 +153,7 @@ export class AchievementsPage {
     }
   }
   showAch6() {
-    if (this.ach6Flag == true) {
+    if (this.wheelsOfSteel == true) {
       let alert = this.alertCtrl.create({
         title: 'Wheels of Steel',
         subTitle: 'You cycled for over 3 hours!',
@@ -129,7 +170,7 @@ export class AchievementsPage {
     }
   }
   showAch7() {
-    if (this.ach7Flag == true) {
+    if (this.burningRubber == true) {
       let alert = this.alertCtrl.create({
         title: 'Burning Rubber',
         subTitle: 'You cycled over 20 miles per hour!',
@@ -146,7 +187,7 @@ export class AchievementsPage {
     }
   }
   showAch8() {
-    if (this.ach8Flag == true) {
+    if (this.longHaul == true) {
       let alert = this.alertCtrl.create({
         title: 'The Long Haul',
         subTitle: 'You cycled for more than 25 miles!',
@@ -164,7 +205,7 @@ export class AchievementsPage {
     }
   }
   showAch9() {
-    if (this.ach9Flag == true) {
+    if (this.neighborhoodWatch == true) {
       let alert = this.alertCtrl.create({
         title: 'Neighborhood Watch',
         subTitle: 'You submitted 3 problem tickets!',
@@ -181,7 +222,7 @@ export class AchievementsPage {
     }
   }
   showAch10() {
-    if (this.ach10Flag == true) {
+    if (this.wayfinder == true) {
       let alert = this.alertCtrl.create({
         title: 'Wayfinder',
         subTitle: 'You"ve navigated the entire trail system!',
@@ -198,7 +239,7 @@ export class AchievementsPage {
     }
   }
   showAch11() {
-    if (this.ach11Flag == true) {
+    if (this.feelBurn == true) {
       let alert = this.alertCtrl.create({
         title: 'Feel the Burn',
         subTitle: 'You burned over 500 calories in one activity!',

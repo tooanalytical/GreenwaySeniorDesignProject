@@ -148,8 +148,9 @@ export class RecordActivityPage {
     // depending on if we want to leave this view
     if (this.activeTime === 0 && this.totalTime === 0) {
       this.endWatchMap().then(() => {
-        console.log('Killed map!');
-        return true;
+        this.endWatchCurrentSpeed().then(() => {
+          return true;
+        });
       });
     } else {
       this.presentLeaveActionSheet();
@@ -529,8 +530,11 @@ export class RecordActivityPage {
     });
   }
 
-  endWatchCurrentSpeed() {
-    this.subscriptionSpeed.unsubscribe();
+  endWatchCurrentSpeed(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.subscriptionSpeed.unsubscribe();
+      return resolve(resolve);
+    });
   }
 
   endWatchMap(): Promise<any> {
@@ -539,20 +543,35 @@ export class RecordActivityPage {
       return resolve(resolve);
     });
   }
-
-  //Calculates distance between two points using the haversine formula
+  //Calculates distance between two points using the haversine formula ALTERNATE FORMULA
   calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
-    let p = 0.017453292519943295; // Math.PI / 180
-    let a =
-      0.5 -
-      Math.cos((lat1 - lat2) * p) / 2 +
-      Math.cos(lat2 * p) *
-        Math.cos(lat1 * p) *
-        (1 - Math.cos((long1 - long2) * p)) /
-        2;
-    let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    let p = Math.PI / 180; // Convert to radians
+    lat1 *= p;
+    lat2 *= p;
+    long1 *= p;
+    long2 *= p;
+    let deltaX = lat2 - lat1;
+    let deltaY = long2 - long1;
+    let chord =
+      Math.pow(Math.sin(deltaX / 2), 2) +
+      Math.pow(Math.sin(deltaY / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+    let distance = 12745.6 * Math.asin(Math.sqrt(chord)); // 2 * R; R = 6372.8
     return distance;
   }
+
+  // //Calculates distance between two points using the haversine formula BASE FORMULA
+  // calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
+  //   let p = 0.017453292519943295; // Math.PI / 180
+  //   let a =
+  //     0.5 -
+  //     Math.cos((lat1 - lat2) * p) / 2 +
+  //     Math.cos(lat2 * p) *
+  //       Math.cos(lat1 * p) *
+  //       (1 - Math.cos((long1 - long2) * p)) /
+  //       2;
+  //   let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+  //   return distance;
+  // }
 
   //TODO: Calculate user's calories burned.
   updateCaloriesBurned() {
@@ -682,7 +701,7 @@ export class RecordActivityPage {
       lat: lat,
       lng: lng
     });
-    console.log('Reported user location:');
+    console.log('Reported user location');
 
     this.http.post(link, myData).subscribe(
       data => {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { GooglePlus } from 'ionic-native';
-import { Facebook,FacebookLoginResponse } from '@ionic-native/facebook';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
+import { Http } from '@angular/http';
 
 import { HomePage } from '../home/home';
 import { CreateAccountNamePage } from '../Create Account - Name/createAccountName';
@@ -22,11 +23,34 @@ export class SplashPage {
     this.userLoggedIn = val;
   });
 
+  data = {
+    action: '',
+    userId: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    userAvatar: '',
+    userBirthdate: '',
+    userHeight: '',
+    userWeight: '',
+    userGender: ''
+  };
+
+  response = {
+    action: '',
+    userId: '',
+    userBirthdate: '',
+    userHeight: '',
+    userWeight: '',
+    userGender: ''
+  };
+
   constructor(
     public navCtrl: NavController,
     public fb: Facebook,
     public nativeStorage: NativeStorage,
-    public storage: Storage
+    public storage: Storage,
+    public http: Http
   ) {
     this.fb.browserInit(this.FB_APP_ID, 'v2.8');
   }
@@ -56,20 +80,59 @@ export class SplashPage {
           '407412318918-e4mig3cqfrsb1j80goqnltu7jigitako.apps.googleusercontent.com'
       }).then(
         res => {
+          // Response from Google
           console.log(res);
-          this.storage.set('fullName', res.displayName);
-          this.storage.set('firstName', res.givenName);
-          this.storage.set('lastName', res.familyName);
-          this.storage.set('email', res.email);
-          this.storage.set('userAvatar', res.imageUrl);
-          this.navCtrl.setRoot(CreateAccountSocialBirthdatePage);
 
-          // TODO: Check to see if user has signed in previously with Google Auth
-          if (true) {
-            // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
-          } else {
-            // If the user hasn't signed in using Google Authenticion before send them through the account creation process.
-          }
+          this.data.firstName = res.givenName;
+          this.data.lastName = res.familyName;
+          this.data.emailAddress = res.email;
+          this.data.userAvatar = res.imageUrl;
+
+          var link =
+            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
+          var myData = JSON.stringify({
+            emailAddress: this.data.emailAddress,
+            action: 'check',
+            from: 'google'
+          });
+
+          console.log('JSON sent to server: ' + myData);
+
+          this.http.post(link, myData).subscribe(
+            data => {
+              var response = data['_body'];
+              // Response from Server
+              console.log('Received social auth response from server');
+
+              var rawReturn = JSON.parse(response);
+
+              this.data.action = rawReturn.action;
+              this.data.userId = rawReturn.userId;
+              this.data.userBirthdate = rawReturn.userBirthdate;
+              this.data.userHeight = rawReturn.userHeight;
+              this.data.userWeight = rawReturn.userWeight;
+              this.data.userGender = rawReturn.userGender;
+
+              // TODO: Check to see if user has signed in previously with Google Auth
+              console.log('User Action: ' + this.data.action);
+              if (this.data.action === 'login') {
+                // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
+                this.setUserInfo();
+                this.navCtrl.setRoot(HomePage);
+              } else {
+                // If the user hasn't signed in using Google Authenticion before send them through the account creation process.
+                console.log('Data being sent to next page...');
+                console.log(this.data);
+                this.navCtrl.setRoot(
+                  CreateAccountSocialBirthdatePage,
+                  this.data
+                );
+              }
+            },
+            error => {
+              console.log('Error retrieving Google auth info from server');
+            }
+          );
         },
         err => {
           console.log(err);
@@ -78,13 +141,25 @@ export class SplashPage {
     }
   }
   loginWithFB() {
-    this.fb.login(['email', 'public_profile']).then((response: FacebookLoginResponse) => {
-      this.fb.api('me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)', []).then(profile => {
-        this.userData = {email: profile['email'], first_name: profile['first_name'], picture: profile['picture_large']['data']['url'], username: profile['name']}
+    this.fb
+      .login(['email', 'public_profile'])
+      .then((response: FacebookLoginResponse) => {
+        this.fb
+          .api(
+            'me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)',
+            []
+          )
+          .then(profile => {
+            this.userData = {
+              email: profile['email'],
+              first_name: profile['first_name'],
+              picture: profile['picture_large']['data']['url'],
+              username: profile['name']
+            };
+          });
       });
-    });
   }
-  
+
   facebookLogin() {
     let permissions = new Array<string>();
     let nav = this.navCtrl;
@@ -122,5 +197,22 @@ export class SplashPage {
         console.log(error);
       }
     );
+  }
+
+  setUserInfo() {
+    this.storage.set('userId', this.data.userId);
+    this.storage.set('firstName', this.data.firstName);
+    this.storage.set('lastName', this.data.lastName);
+    this.storage.set(
+      'fullName',
+      this.data.firstName + ' ' + this.data.lastName
+    );
+    this.storage.set('email', this.data.emailAddress);
+    this.storage.set('userBirthdate', this.data.userBirthdate);
+    this.storage.set('userHeight', this.data.userHeight);
+    this.storage.set('userWeight', this.data.userWeight);
+    this.storage.set('userGender', this.data.userGender);
+    this.storage.set('userAvatar', this.data.userAvatar);
+    this.storage.set('userLoggedIn', true);
   }
 }

@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <div [hidden]="activityDataToShow === true">
+    <h4 align="center">No Activities to Show</h4>
+  </div>
   <div>
     <ion-list>
       <button ion-item *ngFor="let activity of data" (tap)="activitySelected($event, activity)">

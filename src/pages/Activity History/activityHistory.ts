@@ -11,6 +11,7 @@ import { ActivityDetailsPage } from '../Activity Details/activityDetails';
 export class ActivityHistoryPage {
   data: Array<any>;
   activityData = {};
+  activityDataToShow = false;
 
   public userId = this.storage.get('userId').then(val => {
     this.userId = val;
@@ -39,6 +40,8 @@ export class ActivityHistoryPage {
       this.data = JSON.parse(response);
 
       for (let activity in this.data) {
+        this.activityDataToShow = true;
+        console.log('Current Truth Value:' + this.activityDataToShow);
         if (this.data[activity].activityType == '1') {
           this.data[activity].activityType = 'Running';
         } else if (this.data[activity].activityType == '2') {

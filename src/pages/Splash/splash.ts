@@ -89,37 +89,48 @@ export class SplashPage {
           this.data.userAvatar = res.imageUrl;
 
           var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
+            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_user.php';
           var myData = JSON.stringify({
-            emailAddress: this.data.emailAddress,
-            action: 'check',
-            from: 'google'
+            emailAddress: this.data.emailAddress
           });
-
-          console.log('JSON sent to server: ' + myData);
 
           this.http.post(link, myData).subscribe(
             data => {
               var response = data['_body'];
               // Response from Server
-              console.log('Received social auth response from server');
-              console.log('Raw return action: ' + rawReturn.action);
+              console.log(
+                'Received social auth response from server check_user.php'
+              );
+              console.log('Raw return: ' + response);
 
-              var rawReturn = JSON.parse(response);
+              // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
+              if (response === '1') {
+                var link =
+                  'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
+                var myData = JSON.stringify({
+                  from: 'google',
+                  idToken: res.idToken
+                });
 
-              this.data.action = rawReturn.action;
-              this.data.userId = rawReturn.userId;
-              this.data.userBirthdate = rawReturn.userBirthdate;
-              this.data.userHeight = rawReturn.userHeight;
-              this.data.userWeight = rawReturn.userWeight;
-              this.data.userGender = rawReturn.userGender;
+                this.http.post(link, myData).subscribe(data => {
+                  var response = data['_body'];
+                  // Response from Server login_social.php
+                  console.log(
+                    'Received social auth response from server login_social.php'
+                  );
+                  console.log('Raw return: ' + response);
 
-              // TODO: Check to see if user has signed in previously with Google Auth
-              console.log('User Action: ' + this.data.action);
-              if (this.data.action === 'login') {
-                // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
-                this.setUserInfo();
-                this.navCtrl.setRoot(HomePage);
+                  var rawReturn = JSON.parse(response);
+
+                  this.data.userId = rawReturn.userId;
+                  this.data.userBirthdate = rawReturn.userBirthdate;
+                  this.data.userHeight = rawReturn.userHeight;
+                  this.data.userWeight = rawReturn.userWeight;
+                  this.data.userGender = rawReturn.userGender;
+
+                  this.setUserInfo();
+                  this.navCtrl.setRoot(HomePage);
+                });
               } else {
                 // If the user hasn't signed in using Google Authentication before send them through the account creation process.
                 console.log('Data being sent to next page...');
@@ -141,6 +152,8 @@ export class SplashPage {
       );
     }
   }
+
+  // Login credentials for Facebook authentication and redirect to dashboard.
   loginWithFB() {
     this.fb
       .login(['email', 'public_profile'])

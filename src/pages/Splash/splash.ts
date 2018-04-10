@@ -25,20 +25,12 @@ export class SplashPage {
 
   data = {
     action: '',
+    idToken: '',
     userId: '',
     firstName: '',
     lastName: '',
     emailAddress: '',
     userAvatar: '',
-    userBirthdate: '',
-    userHeight: '',
-    userWeight: '',
-    userGender: ''
-  };
-
-  response = {
-    action: '',
-    userId: '',
     userBirthdate: '',
     userHeight: '',
     userWeight: '',
@@ -87,6 +79,7 @@ export class SplashPage {
           this.data.lastName = res.familyName;
           this.data.emailAddress = res.email;
           this.data.userAvatar = res.imageUrl;
+          this.data.idToken = res.idToken;
 
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_user.php';

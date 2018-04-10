@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { CreateAccountEmailPage } from '../Create Account - Email/createAccountEmail';
 
@@ -10,7 +11,12 @@ import { CreateAccountEmailPage } from '../Create Account - Email/createAccountE
   templateUrl: 'createAccountName.html'
 })
 export class CreateAccountNamePage {
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController,
+    private keyboard: Keyboard
+  ) {}
 
   data = {
     firstName: '',
@@ -22,9 +28,14 @@ export class CreateAccountNamePage {
     var flag;
 
     //Validates first and last name name is not empty and contains only letters
-    if(this.data.firstName !== '' && this.data.lastName !== '' && /^[a-zA-Z]+$/.test(this.data.firstName) && /^[a-zA-Z]+$/.test(this.data.lastName)){
+    if (
+      this.data.firstName !== '' &&
+      this.data.lastName !== '' &&
+      /^[a-zA-Z]+$/.test(this.data.firstName) &&
+      /^[a-zA-Z]+$/.test(this.data.lastName)
+    ) {
       flag = true;
-    //Sets flag to false if it fails the validation test.
+      //Sets flag to false if it fails the validation test.
     } else {
       flag = false;
     }
@@ -35,21 +46,24 @@ export class CreateAccountNamePage {
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Uh oh!',
-      subTitle: 'Please make sure your name is not blank and only contains letters.',
+      subTitle:
+        'Please make sure your name is not blank and only contains letters.',
       buttons: ['Ok']
     });
     alert.present();
   }
 
+  //Closes keyboard upon pressing Return key
+  closeKeyboard() {
+    this.keyboard.close();
+  }
+
   //Segues user to next step in process if they pass validation requirements.
   createAccountNext(data) {
-    if(this.nameValidation()) {
+    if (this.nameValidation()) {
       this.navCtrl.push(CreateAccountEmailPage, data);
     } else {
       this.presentAlert();
     }
-    
   }
-
-  
 }

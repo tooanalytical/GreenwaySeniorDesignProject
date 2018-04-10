@@ -17,6 +17,7 @@ import { Base64 } from '@ionic-native/base64';
 import { OneSignal } from '@ionic-native/onesignal';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Keyboard } from '@ionic-native/keyboard';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/Login/login';
 import { SplashPage } from '../pages/Splash/splash';
@@ -128,6 +129,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     Base64,
     BackgroundMode,
     InAppBrowser,
+    Keyboard,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     WeatherProvider,
     OneSignal

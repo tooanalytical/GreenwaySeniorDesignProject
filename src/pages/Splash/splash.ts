@@ -103,6 +103,7 @@ export class SplashPage {
               var response = data['_body'];
               // Response from Server
               console.log('Received social auth response from server');
+              console.log('Raw return action: ' + rawReturn.action);
 
               var rawReturn = JSON.parse(response);
 
@@ -120,7 +121,7 @@ export class SplashPage {
                 this.setUserInfo();
                 this.navCtrl.setRoot(HomePage);
               } else {
-                // If the user hasn't signed in using Google Authenticion before send them through the account creation process.
+                // If the user hasn't signed in using Google Authentication before send them through the account creation process.
                 console.log('Data being sent to next page...');
                 console.log(this.data);
                 this.navCtrl.setRoot(

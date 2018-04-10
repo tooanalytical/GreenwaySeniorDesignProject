@@ -13,6 +13,7 @@
   <div padding>
     <p class="title">Physical Data (Optional)</p>
     <p>This data will help Viridian more accurately track your activities on the trail.</p>
+    <p>Note: If no weight is entered it will default to 150 lbs in order to approximate calories burned.</p>
   </div>
 
   <div padding>
@@ -42,27 +43,17 @@
       Your Gender: {{data.userGender}}
     </p>
 
-    <!-- <ion-item class="transparent">
-      <ion-label floating class="item-input">FEET</ion-label>
-      <ion-input type="text" [(ngModel)]="data.userHeightFeet"></ion-input>
-    </ion-item>
-    <ion-item class="transparent">
-      <ion-label floating class="item-input">INCHES</ion-label>
-      <ion-input type="text" [(ngModel)]="data.userHeightInches"></ion-input>
-    </ion-item>
-    <ion-item class="transparent">
-      <ion-label floating class="item-input">WEIGHT (lbs.)</ion-label>
-      <ion-input type="text" [(ngModel)]="data.userWeight"></ion-input>
-    </ion-item> -->
   </div>
 
   <div>
     <p style="text-align:center;">
       <img src="assets/ProgFive.png" width=200px>
     </p>
-    <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
-      <ion-icon name="arrow-dropright-circle"></ion-icon>
-    </button>
+    <div style="text-align:right;">
+      <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
+        <ion-icon name="arrow-dropright-circle"></ion-icon>
+      </button>
+    </div>
   </div>
 
 

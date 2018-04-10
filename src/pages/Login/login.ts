@@ -5,6 +5,7 @@ import { PasswordResetPage } from '../Password Reset/passwordReset';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
   selector: 'page-login',
@@ -15,7 +16,8 @@ export class LoginPage {
     public navCtrl: NavController,
     private alertCtrl: AlertController,
     public storage: Storage,
-    public http: Http
+    public http: Http,
+    private keyboard: Keyboard
   ) {}
 
   userInfo = {
@@ -186,5 +188,10 @@ export class LoginPage {
       buttons: ['Ok']
     });
     alert.present();
+  }
+
+  //Closes keyboard upon pressing Return key
+  closeKeyboard() {
+    this.keyboard.close();
   }
 }

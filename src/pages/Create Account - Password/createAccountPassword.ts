@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { CreateAccountBirthdatePage } from '../Create Account - Birthdate/createAccountBirthdate';
 
@@ -13,7 +14,8 @@ export class CreateAccountPasswordPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private keyboard: Keyboard
   ) {}
 
   firstName = this.navParams.get('firstName');
@@ -89,6 +91,11 @@ export class CreateAccountPasswordPage {
       buttons: ['Ok']
     });
     alert.present();
+  }
+
+  //Closes keyboard upon pressing Return key
+  closeKeyboard() {
+    this.keyboard.close();
   }
 
   //Segues user to next step in process if they pass validation requirements.

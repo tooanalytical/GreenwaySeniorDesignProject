@@ -36,6 +36,8 @@ export class RecordActivityPage {
   public pauseFlag = false;
   public resumeFlag = false;
   public typeFlag = false;
+  public burningFlag = false;
+  public pushItFlag = false;
 
   // Button Color Variables
   public startButtonColor: string = '#37721b'; //Light Green
@@ -497,6 +499,14 @@ export class RecordActivityPage {
           }
           this.tempSpeed = this.tempSpeed * 2.23694;
           this.tempSpeed = Math.round(this.tempSpeed);
+          if((this.tempSpeed > 20)&&(this.activityData.activityType == '3')){
+            
+            this.burningFlag = true;
+          }
+          if((this.tempSpeed > 7)&&(this.activityData.activityType == '1')){
+
+            this.pushItFlag = true;
+          }
           this.mphString = this.tempSpeed.toString();
           console.log('mphString: ' + this.mphString);
           // Doesn't run the calculation and outputs to display on first data gathered.
@@ -597,6 +607,19 @@ export class RecordActivityPage {
     clearInterval(this.timer_id_active);
     this.endWatchCurrentSpeed();
 
+    if(this.burningFlag && this.pushItFlag){
+
+      var link =
+        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_acheivments.php';
+        this.http.post(link, this.activityData).subscribe(
+          data => {
+            this.data.response = data['_body'];
+          },
+          error => {
+          
+          }
+        );
+      }
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
     this.activeTime = 0;

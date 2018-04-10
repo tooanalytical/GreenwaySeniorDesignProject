@@ -5,6 +5,7 @@ import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { CreateAccountSocialPhysicalPage } from '../Create Account - Social - Physical Data/createAccountSocialPhysical';
+import { SplashPage } from '../Splash/splash';
 
 @Component({
   selector: 'page-createAccountSocialBirthdate',
@@ -22,20 +23,16 @@ export class CreateAccountSocialBirthdatePage {
 
   minimumAge = 4745;
 
-  firstName = this.storage.get('firstName').then(val => {
-    this.data.firstName = val;
-  });
-  lastName = this.storage.get('lastName').then(val => {
-    this.data.lastName = val;
-  });
-  emailAddress = this.storage.get('email').then(val => {
-    this.data.emailAddress = val;
-  });
+  firstName = this.navParams.get('firstName');
+  lastName = this.navParams.get('lastName');
+  emailAddress = this.navParams.get('emailAddress');
+  userAvatar = this.navParams.get('userAvatar');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
     emailAddress: this.emailAddress,
+    userAvatar: this.userAvatar,
     userBirthdate: ''
   };
 
@@ -90,6 +87,10 @@ export class CreateAccountSocialBirthdatePage {
       buttons: ['Ok']
     });
     alert.present();
+  }
+
+  startOver() {
+    this.navCtrl.setRoot(SplashPage);
   }
 
   //Segues user to next step in process if they pass validation requirements.

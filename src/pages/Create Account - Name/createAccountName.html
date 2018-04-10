@@ -19,12 +19,12 @@
 
       <ion-item class="transparent">
         <ion-label floating class="item-input">FIRST NAME</ion-label>
-        <ion-input type="text" [(ngModel)]="data.firstName"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.firstName" (keyup.enter)="closeKeyboard()"></ion-input>
       </ion-item>
 
       <ion-item class="transparent">
         <ion-label floating>LAST NAME</ion-label>
-        <ion-input type="text" [(ngModel)]="data.lastName"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.lastName" (keyup.enter)="closeKeyboard()"></ion-input>
       </ion-item>
 
     </ion-list>

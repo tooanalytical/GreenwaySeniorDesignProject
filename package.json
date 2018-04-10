@@ -32,6 +32,7 @@
     "@ionic-native/file-transfer": "4.5.3",
     "@ionic-native/geolocation": "^4.5.3",
     "@ionic-native/in-app-browser": "^4.6.0",
+    "@ionic-native/keyboard": "^4.7.0",
     "@ionic-native/native-storage": "^4.3.2",
     "@ionic-native/onesignal": "^4.5.3",
     "@ionic-native/pedometer": "^4.5.3",

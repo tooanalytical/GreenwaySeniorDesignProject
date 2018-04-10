@@ -19,12 +19,14 @@ export class CreateAccountSocialPhysicalPage {
   lastName = this.navParams.get('lastName');
   emailAddress = this.navParams.get('emailAddress');
   userBirthdate = this.navParams.get('userBirthdate');
+  userAvatar = this.navParams.get('userAvatar');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
     emailAddress: this.emailAddress,
     userBirthdate: this.userBirthdate,
+    userAvatar: this.userAvatar,
     userHeight: '',
     userWeight: '',
     userGender: ''

@@ -27,12 +27,12 @@
 
       <ion-item class="transparent">
         <ion-label floating>EMAIL ADDRESS</ion-label>
-        <ion-input type="text" [(ngModel)]="data.emailAddress"></ion-input>
+        <ion-input type="text" [(ngModel)]="data.emailAddress" (keyup.enter)="closeKeyboard()"></ion-input>
       </ion-item>
 
       <ion-item class="transparent">
         <ion-label floating>PASSWORD</ion-label>
-        <ion-input type="password" [(ngModel)]="data.userPassword"></ion-input>
+        <ion-input type="password" [(ngModel)]="data.userPassword" (keyup.enter)="closeKeyboard()"></ion-input>
       </ion-item>
 
     </ion-list>

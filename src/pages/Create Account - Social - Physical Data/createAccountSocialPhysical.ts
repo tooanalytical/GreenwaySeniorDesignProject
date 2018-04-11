@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
-import { CreateAccountFinishPage } from '../Create Account - Finish/createAccountFinish';
+import { CreateAccountSocialFinishPage } from '../Create Account - Social - Finish/createAccountSocialFinish';
 import { WheelSelector } from '@ionic-native/wheel-selector';
 
 @Component({
@@ -373,8 +373,8 @@ export class CreateAccountSocialPhysicalPage {
       );
   }
 
-  // TODO: SEND USER TO CREATE ACCOUNT SOCIAL FINISH PAGE
+  // Takes saved data and transfers it to the social finish page
   createAccountNext() {
-    this.navCtrl.push(CreateAccountFinishPage, this.data);
+    this.navCtrl.push(CreateAccountSocialFinishPage, this.data);
   }
 }

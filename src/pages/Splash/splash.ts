@@ -26,6 +26,7 @@ export class SplashPage {
   data = {
     action: '',
     idToken: '',
+    from: '',
     userId: '',
     firstName: '',
     lastName: '',
@@ -80,6 +81,7 @@ export class SplashPage {
           this.data.emailAddress = res.email;
           this.data.userAvatar = res.imageUrl;
           this.data.idToken = res.idToken;
+          this.data.from = 'google';
 
           var link =
             'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_user.php';
@@ -101,7 +103,7 @@ export class SplashPage {
                 var link =
                   'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
                 var myData = JSON.stringify({
-                  from: 'google',
+                  from: this.data.from,
                   idToken: this.data.idToken
                 });
 

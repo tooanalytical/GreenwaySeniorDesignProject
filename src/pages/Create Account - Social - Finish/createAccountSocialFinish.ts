@@ -39,12 +39,14 @@ export class CreateAccountSocialFinishPage {
   userGender = this.navParams.get('userGender');
   userAvatar = this.navParams.get('userAvatar');
   idToken = this.navParams.get('idToken');
+  from = this.navParams.get('from');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
     emailAddress: this.emailAddress,
     idToken: this.idToken,
+    from: this.data.from,
     userPassword: this.userPassword,
     userBirthdate: this.userBirthdate,
     userHeight: this.userHeight,
@@ -97,6 +99,7 @@ export class CreateAccountSocialFinishPage {
       lastName: this.data.lastName,
       emailAddress: this.data.emailAddress,
       idToken: this.data.idToken,
+      from: this.data.from,
       userPassword: this.data.userPassword,
       userBirthdate: this.data.userBirthdate,
       userHeight: this.data.userHeight,

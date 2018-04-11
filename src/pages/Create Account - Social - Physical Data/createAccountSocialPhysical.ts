@@ -20,11 +20,13 @@ export class CreateAccountSocialPhysicalPage {
   emailAddress = this.navParams.get('emailAddress');
   userBirthdate = this.navParams.get('userBirthdate');
   userAvatar = this.navParams.get('userAvatar');
+  idToken = this.navParams.get('idToken');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
     emailAddress: this.emailAddress,
+    idToken: this.idToken,
     userBirthdate: this.userBirthdate,
     userAvatar: this.userAvatar,
     userHeight: '',
@@ -369,6 +371,7 @@ export class CreateAccountSocialPhysicalPage {
       );
   }
 
+  // TODO: SEND USER TO CREATE ACCOUNT SOCIAL FINISH PAGE
   createAccountNext() {
     this.navCtrl.push(CreateAccountFinishPage, this.data);
   }

@@ -1,0 +1,63 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content no-bounce>
+
+  <div>
+    <button ion-button color="white" clear class="ion-icon" navPop>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </div>
+
+  <div padding>
+    <p class="title">Please review your responses.</p>
+  </div>
+
+  <div padding>
+    <p>
+      Name: {{data.firstName}} {{data.lastName}}
+      <br> Email: {{data.emailAddress}}
+      <br> Password: {{data.userPassword}}
+      <br> Birthday: {{data.userBirthdate}}
+      <br> Height: {{data.userHeight}}
+      <br> Weight: {{data.userWeight}}
+      <br> Gender: {{data.userGender}}
+    </p>
+  </div>
+
+
+  <ion-row class="restart-submit-buttons">
+    <ion-col col-2></ion-col>
+    <ion-col col-8>
+      <button ion-button color="white" (tap)=submit(data); block round icon-left>
+        <ion-icon name="checkmark"></ion-icon>
+        CREATE ACCOUNT
+      </button>
+    </ion-col>
+    <ion-col col-2></ion-col>
+  </ion-row>
+  <ion-row class="restart-submit-buttons">
+    <ion-col col-4></ion-col>
+    <ion-col col-4>
+      <button ion-button color="white" clear="true" (tap)=startOver(); icon-left>
+        <ion-icon name="refresh"></ion-icon>
+        START OVER
+      </button>
+    </ion-col>
+    <ion-col col-4></ion-col>
+  </ion-row>
+
+
+  <!-- USE ME FOR SERVER RESPONSES! -->
+  <!--
+  <ion-card>
+    <ion-card-header>
+    Response
+    </ion-card-header>
+    <ion-card-content>
+    <b>{{data.response}}</b>
+    </ion-card-content>
+    </ion-card>
+    -->
+</ion-content>

@@ -27,11 +27,13 @@ export class CreateAccountSocialBirthdatePage {
   lastName = this.navParams.get('lastName');
   emailAddress = this.navParams.get('emailAddress');
   userAvatar = this.navParams.get('userAvatar');
+  idToken = this.navParams.get('idToken');
 
   data = {
     firstName: this.firstName,
     lastName: this.lastName,
     emailAddress: this.emailAddress,
+    idToken: this.idToken,
     userAvatar: this.userAvatar,
     userBirthdate: ''
   };

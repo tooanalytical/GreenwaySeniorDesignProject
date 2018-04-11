@@ -102,7 +102,7 @@ export class SplashPage {
                   'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
                 var myData = JSON.stringify({
                   from: 'google',
-                  idToken: res.idToken
+                  idToken: this.data.idToken
                 });
 
                 this.http.post(link, myData).subscribe(data => {

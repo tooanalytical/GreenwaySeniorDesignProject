@@ -45,7 +45,7 @@ export class CreateAccountSocialFinishPage {
     lastName: this.lastName,
     emailAddress: this.emailAddress,
     idToken: this.idToken,
-    from: this.data.from,
+    from: this.from,
     userBirthdate: this.userBirthdate,
     userHeight: this.userHeight,
     userWeight: this.userWeight,
@@ -77,7 +77,6 @@ export class CreateAccountSocialFinishPage {
       this.data.firstName + ' ' + this.data.lastName
     );
     this.storage.set('email', this.data.emailAddress);
-    this.storage.set('userPassword', this.data.userPassword);
     this.storage.set('userBirthdate', this.data.userBirthdate);
     this.storage.set('userHeight', this.data.userHeight);
     this.storage.set('userWeight', this.data.userWeight);

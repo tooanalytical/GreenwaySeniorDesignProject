@@ -149,7 +149,7 @@ export class CreateAccountProfilePicturePage {
   private createFileName() {
     var d = new Date(),
       n = d.getTime(),
-      newFileName = n + '.jpg';
+      newFileName = n + '.png';
     return newFileName;
   }
 

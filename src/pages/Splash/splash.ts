@@ -128,8 +128,6 @@ export class SplashPage {
                 });
               } else {
                 // If the user hasn't signed in using Google Authentication before send them through the account creation process.
-                console.log('Data being sent to next page...');
-                console.log(this.data);
                 this.navCtrl.setRoot(
                   CreateAccountSocialBirthdatePage,
                   this.data

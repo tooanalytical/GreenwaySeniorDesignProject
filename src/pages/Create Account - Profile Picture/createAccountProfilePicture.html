@@ -15,7 +15,6 @@
   </div>
 
   <br>
-  <br>
 
   <img src="{{pathForImage(lastImage)}}" style="width: 40%" [hidden]="lastImage === null" class="center-photo">
   <h4 [hidden]="lastImage !== null" align="center">Let's get a profile picture. Smile!</h4>
@@ -34,9 +33,9 @@
 
 
   <div>
-      <p style="text-align:center;">
-          <img src="assets/ProgSix.png" width=200px>
-        </p>
+    <p style="text-align:center;">
+      <img src="assets/ProgSix.png" width=200px>
+    </p>
     <button ion-button large color="white" class="forward-button" clear (tap)=createAccountNext(data);>
       <ion-icon name="arrow-dropright-circle"></ion-icon>
     </button>

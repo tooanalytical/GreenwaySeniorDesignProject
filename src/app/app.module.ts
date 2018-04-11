@@ -29,6 +29,7 @@ import { CreateAccountSocialBirthdatePage } from '../pages/Create Account - Soci
 import { CreateAccountPhysicalPage } from '../pages/Create Account - Physical Data/createAccountPhysical';
 import { CreateAccountProfilePicturePage } from '../pages/Create Account - Profile Picture/createAccountProfilePicture';
 import { CreateAccountSocialPhysicalPage } from '../pages/Create Account - Social - Physical Data/createAccountSocialPhysical';
+import { CreateAccountSocialFinishPage } from '../pages/Create Account - Social - Finish/createAccountSocialFinish';
 import { CreateAccountFinishPage } from '../pages/Create Account - Finish/createAccountFinish';
 import { PasswordResetPage } from '../pages/Password Reset/passwordReset';
 import { HomePage } from '../pages/home/home';
@@ -62,6 +63,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     CreateAccountPhysicalPage,
     CreateAccountProfilePicturePage,
     CreateAccountSocialPhysicalPage,
+    CreateAccountSocialFinishPage,
     CreateAccountFinishPage,
     PasswordResetPage,
     HomePage,
@@ -97,6 +99,7 @@ import { WeatherProvider } from '../providers/weather/weather';
     CreateAccountPhysicalPage,
     CreateAccountProfilePicturePage,
     CreateAccountSocialPhysicalPage,
+    CreateAccountSocialFinishPage,
     CreateAccountFinishPage,
     PasswordResetPage,
     HomePage,

@@ -110,7 +110,7 @@ export class CreateAccountSocialFinishPage {
     this.http.post(link, myData).subscribe(
       data => {
         this.data.response = data['_body'];
-
+        console.log('User Id: ' + this.data.response);
         this.storage.set('userId', this.data.response);
       },
       error => {

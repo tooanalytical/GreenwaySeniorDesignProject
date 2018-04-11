@@ -32,7 +32,6 @@ export class CreateAccountSocialFinishPage {
   firstName = this.navParams.get('firstName');
   lastName = this.navParams.get('lastName');
   emailAddress = this.navParams.get('emailAddress');
-  userPassword = this.navParams.get('userPassword');
   userBirthdate = this.navParams.get('userBirthdate');
   userHeight = this.navParams.get('userHeight');
   userWeight = this.navParams.get('userWeight');
@@ -47,7 +46,6 @@ export class CreateAccountSocialFinishPage {
     emailAddress: this.emailAddress,
     idToken: this.idToken,
     from: this.data.from,
-    userPassword: this.userPassword,
     userBirthdate: this.userBirthdate,
     userHeight: this.userHeight,
     userWeight: this.userWeight,
@@ -100,7 +98,6 @@ export class CreateAccountSocialFinishPage {
       emailAddress: this.data.emailAddress,
       idToken: this.data.idToken,
       from: this.data.from,
-      userPassword: this.data.userPassword,
       userBirthdate: this.data.userBirthdate,
       userHeight: this.data.userHeight,
       userWeight: this.data.userWeight,

@@ -609,14 +609,19 @@ export class RecordActivityPage {
 
     if(this.burningFlag && this.pushItFlag){
 
+      var myData = JSON.stringify({
+        burningFlag: true,
+        pushItFlag: true
+      })
+      
       var link =
         'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_acheivments.php';
-        this.http.post(link, this.activityData).subscribe(
+        this.http.post(link, myData).subscribe(
           data => {
             this.data.response = data['_body'];
           },
           error => {
-          
+            console.log('Well Crud');
           }
         );
       }

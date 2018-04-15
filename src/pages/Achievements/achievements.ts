@@ -43,9 +43,10 @@ export class AchievementsPage {
       userId: this.userId
     });
 
-    this.http.post(link, myData).subscribe(data => {
+    this.http.get(link, myData).subscribe(data => {
       var response = data['_body'];
       this.data = JSON.parse(response);
+      console.log(this.data);
    
       this.startingStrong = this.data["startingStrong"];
       this.pushIt = this.data["pushIt"];

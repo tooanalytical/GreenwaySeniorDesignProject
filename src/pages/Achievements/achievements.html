@@ -56,7 +56,7 @@
 
        <img *ngIf = "wayfinder" (tap) = "showAch10()" style ="padding: 5px; width: 150px; height: 150px;  background: transparent !important;"
        src="assets/badgeWayfinderColor.png">
-       <img *ngIf = "wayfinder" (tap) = "showAch10()" style ="padding: 5px; width: 150px; height: 150px;  background: transparent !important;"
+       <img *ngIf = "!wayfinder" (tap) = "showAch10()" style ="padding: 5px; width: 150px; height: 150px;  background: transparent !important;"
        src="assets/badgeWayfinder.png">
 
        <img *ngIf = "feelBurn" (tap) = "showAch11()" style ="padding: 5px; width: 150px; height: 150px;  background: transparent !important;"

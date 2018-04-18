@@ -54,7 +54,7 @@ export class CreateAccountPasswordPage {
       return;
       //Triggers flag if the password doesn't include a symbol.
     } else if (
-      /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(this.data.userPassword) ==
+      /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?@]/.test(this.data.userPassword) ==
       false
     ) {
       this.symbolFlag = true;

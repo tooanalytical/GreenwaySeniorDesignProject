@@ -19,9 +19,6 @@ import { LoginPage } from '../Login/login';
 export class SplashPage {
   userData: any;
   FB_APP_ID: number = 1103480846449706;
-  public userLoggedIn = this.storage.get('userLoggedIn').then(val => {
-    this.userLoggedIn = val;
-  });
 
   data = {
     action: '',
@@ -38,6 +35,8 @@ export class SplashPage {
     userGender: ''
   };
 
+  public userLoggedIn;
+
   constructor(
     public navCtrl: NavController,
     public fb: Facebook,
@@ -45,7 +44,27 @@ export class SplashPage {
     public storage: Storage,
     public http: Http
   ) {
+    this.userLoggedIn = this.storage.get('userLoggedIn').then(val => {
+      this.userLoggedIn = val;
+    });
     this.fb.browserInit(this.FB_APP_ID, 'v2.8');
+
+    if ((this.userLoggedIn = true)) {
+    } else {
+      fb
+        .getLoginStatus()
+        .then(res => {
+          console.log(res.status);
+          if (res.status === 'connect') {
+            this.userLoggedIn = true;
+            console.log('FB login status true');
+          } else {
+            this.userLoggedIn = false;
+            console.log('FB login status false');
+          }
+        })
+        .catch(e => console.log(e));
+    }
   }
 
   // Navigates user to Login Page
@@ -148,63 +167,69 @@ export class SplashPage {
 
   // Login credentials for Facebook authentication and redirect to dashboard.
   loginWithFB() {
-    this.fb
-      .login(['email', 'public_profile'])
-      .then((response: FacebookLoginResponse) => {
-        this.fb
-          .api(
-            'me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)',
-            []
-          )
-          .then(profile => {
-            this.userData = {
-              email: profile['email'],
-              first_name: profile['first_name'],
-              picture: profile['picture_large']['data']['url'],
-              username: profile['name']
-            };
-          });
-      });
-  }
-
-  facebookLogin() {
-    let permissions = new Array<string>();
-    let nav = this.navCtrl;
-    let env = this;
-    //the permissions your facebook app needs from the user
-    permissions = ['public_profile'];
-
-    this.fb.login(permissions).then(
-      function(response) {
-        let userId = response.authResponse.userID;
-        let params = new Array<string>();
-
-        //Getting name and gender properties
-        env.fb.api('/me?fields=name,gender', params).then(function(user) {
-          user.picture =
-            'https://graph.facebook.com/' + userId + '/picture?type=large';
-          //now we have the users info, let's save it in the Storage
-          env.nativeStorage
-            .setItem('user', {
-              name: user.name,
-              gender: user.gender,
-              picture: user.picture
-            })
-            .then(
-              function() {
-                nav.setRoot(CreateAccountSocialBirthdatePage);
-              },
-              function(error) {
-                console.log(error);
-              }
-            );
+    if (this.userLoggedIn) {
+      this.navCtrl.setRoot(HomePage);
+    } else {
+      this.fb
+        .login(['email', 'public_profile'])
+        .then((response: FacebookLoginResponse) => {
+          console.log('Response 1:' + response);
+          this.fb
+            .api(
+              'me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)',
+              []
+            )
+            .then(profile => {
+              console.log('Response 2:' + profile);
+              this.userData = {
+                email: profile['email'],
+                first_name: profile['first_name'],
+                picture: profile['picture_large']['data']['url'],
+                username: profile['name']
+              };
+            });
         });
-      },
-      function(error) {
-        console.log(error);
-      }
-    );
+    }
   }
+
+  // facebookLogin() {
+  //   let permissions = new Array<string>();
+  //   let nav = this.navCtrl;
+  //   let env = this;
+  //   //the permissions your facebook app needs from the user
+  //   permissions = ['public_profile'];
+
+  //   this.fb.login(permissions).then(
+  //     function(response) {
+  //       let userId = response.authResponse.userID;
+  //       let params = new Array<string>();
+
+  //       //Getting name and gender properties
+  //       env.fb.api('/me?fields=name,gender', params).then(function(user) {
+  //         user.picture =
+  //           'https://graph.facebook.com/' + userId + '/picture?type=large';
+  //         //now we have the users info, let's save it in the Storage
+  //         env.nativeStorage
+  //           .setItem('user', {
+  //             name: user.name,
+  //             gender: user.gender,
+  //             picture: user.picture
+  //           })
+  //           .then(
+  //             function() {
+  //               nav.setRoot(CreateAccountSocialBirthdatePage);
+  //             },
+  //             function(error) {
+  //               console.log(error);
+  //             }
+  //           );
+  //       });
+  //     },
+  //     function(error) {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
   setUserInfo() {
     this.storage.set('userId', this.data.userId);

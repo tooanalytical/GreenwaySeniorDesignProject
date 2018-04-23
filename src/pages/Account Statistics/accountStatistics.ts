@@ -43,7 +43,7 @@ export class AccountStatisticsPage {
   getUserStatistics() {
     console.log('getUserStatistics Called');
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_statistics.php';
+      'http://52.227.182.243/Mobile_Connections/get_statistics.php';
     var myData = JSON.stringify({
       userId: this.userStatisticData.userId
     });

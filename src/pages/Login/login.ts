@@ -39,7 +39,7 @@ export class LoginPage {
 
   login() {
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_user.php';
+      'http://52.227.182.243/Mobile_Connections/login_user.php';
 
     var myData = JSON.stringify({
       emailAddress: this.data.emailAddress,
@@ -65,6 +65,7 @@ export class LoginPage {
         } else if (response === '-1') {
           console.log('User Account is Locked');
           this.loginErrorAlert0AttemptsLeft();
+          this.navCtrl.setRoot(LoginPage);
         } else if (response === '-2') {
           console.log('User Account Not Found');
           this.loginErrorUserNotFound();

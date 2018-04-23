@@ -16,6 +16,7 @@ declare var google;
 export class RecordActivityPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  ticketData: Array<any>;
 
   public activityTimer = '00:00:00';
   public stateButton = 'Start';
@@ -36,8 +37,6 @@ export class RecordActivityPage {
   public pauseFlag = false;
   public resumeFlag = false;
   public typeFlag = false;
-  public burningFlag = false;
-  public pushItFlag = false;
 
   // Button Color Variables
   public startButtonColor: string = '#37721b'; //Light Green
@@ -106,10 +105,16 @@ export class RecordActivityPage {
   // Icon on map displaying user's current location
   public icon = {
     url:
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/userpositionIcon.png',
+      'http://52.227.182.243/Mobile_Connections/userpositionIcon.png',
     size: new google.maps.Size(22, 22),
     point: new google.maps.Point(0, 18),
     points: new google.maps.Point(11, 11)
+  };
+
+  public ticketIcon = {
+    url:
+      'http://52.227.182.243/images/markerLogo.png',
+
   };
 
   // Marker object containing icon of user's location
@@ -136,6 +141,7 @@ export class RecordActivityPage {
   ionViewWillEnter() {
     this.loadMap();
     this.watchLocation();
+    this.getTicketData();
 
     //Converting the user height and weight to integers for calculating calories burned.
     this.userHeight = this.convertHeightStringToInteger(this.userHeightString);
@@ -149,11 +155,8 @@ export class RecordActivityPage {
     // here we can either return true or false
     // depending on if we want to leave this view
     if (this.activeTime === 0 && this.totalTime === 0) {
-      this.endWatchMap().then(() => {
-        this.endWatchCurrentSpeed().then(() => {
-          return true;
-        });
-      });
+      this.endWatchMap();
+      return true;
     } else {
       this.presentLeaveActionSheet();
       this.menuCtrl.toggle();
@@ -161,72 +164,63 @@ export class RecordActivityPage {
     }
   }
 
-  selectTypeWalk() {
+  selectTypeWalk(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go walking?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '2';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType = '1';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
-  selectTypeRun() {
+  selectTypeRun(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go running?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '1';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='2';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
-  selectTypeBike() {
+  selectTypeBike(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go cycling?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '3';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='3';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
@@ -499,14 +493,6 @@ export class RecordActivityPage {
           }
           this.tempSpeed = this.tempSpeed * 2.23694;
           this.tempSpeed = Math.round(this.tempSpeed);
-          if((this.tempSpeed > 20)&&(this.activityData.activityType == '3')){
-            
-            this.burningFlag = true;
-          }
-          if((this.tempSpeed > 7)&&(this.activityData.activityType == '1')){
-
-            this.pushItFlag = true;
-          }
           this.mphString = this.tempSpeed.toString();
           console.log('mphString: ' + this.mphString);
           // Doesn't run the calculation and outputs to display on first data gathered.
@@ -540,48 +526,27 @@ export class RecordActivityPage {
     });
   }
 
-  endWatchCurrentSpeed(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.subscriptionSpeed.unsubscribe();
-      return resolve(resolve);
-    });
+  endWatchCurrentSpeed() {
+    this.subscriptionSpeed.unsubscribe();
   }
 
-  endWatchMap(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.subscriptionMap.unsubscribe();
-      return resolve(resolve);
-    });
+  endWatchMap() {
+    this.subscriptionMap.unsubscribe();
   }
-  //Calculates distance between two points using the haversine formula ALTERNATE FORMULA
+
+  //Calculates distance between two points using the haversine formula
   calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
-    let p = Math.PI / 180; // Convert to radians
-    lat1 *= p;
-    lat2 *= p;
-    long1 *= p;
-    long2 *= p;
-    let deltaX = lat2 - lat1;
-    let deltaY = long2 - long1;
-    let chord =
-      Math.pow(Math.sin(deltaX / 2), 2) +
-      Math.pow(Math.sin(deltaY / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
-    let distance = 12745.6 * Math.asin(Math.sqrt(chord)); // 2 * R; R = 6372.8
+    let p = 0.017453292519943295; // Math.PI / 180
+    let a =
+      0.5 -
+      Math.cos((lat1 - lat2) * p) / 2 +
+      Math.cos(lat2 * p) *
+        Math.cos(lat1 * p) *
+        (1 - Math.cos((long1 - long2) * p)) /
+        2;
+    let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
     return distance;
   }
-
-  // //Calculates distance between two points using the haversine formula BASE FORMULA
-  // calculateDistance(lat1: number, lat2: number, long1: number, long2: number) {
-  //   let p = 0.017453292519943295; // Math.PI / 180
-  //   let a =
-  //     0.5 -
-  //     Math.cos((lat1 - lat2) * p) / 2 +
-  //     Math.cos(lat2 * p) *
-  //       Math.cos(lat1 * p) *
-  //       (1 - Math.cos((long1 - long2) * p)) /
-  //       2;
-  //   let distance = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-  //   return distance;
-  // }
 
   //TODO: Calculate user's calories burned.
   updateCaloriesBurned() {
@@ -607,23 +572,6 @@ export class RecordActivityPage {
     clearInterval(this.timer_id_active);
     this.endWatchCurrentSpeed();
 
-    if(this.burningFlag && this.pushItFlag){
-
-      var link =
-        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_acheivments.php';
-        var myData = JSON.stringify({
-          burningFlag: this.burningFlag,
-          activityId: this.pushItFlag
-        });
-      this.http.post(link, this.activityData).subscribe(
-          data => {
-            this.data.response = data['_body'];
-          },
-          error => {
-          
-          }
-        );
-      }
     this.activityTimer = '00:00:00';
     this.totalTime = 0;
     this.activeTime = 0;
@@ -648,7 +596,7 @@ export class RecordActivityPage {
       // TODO: Save activity to database.
       console.log('Saving Activity Data to Database');
       var link =
-        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/end_activity.php';
+        'http://52.227.182.243/Mobile_Connections/end_activity.php';
       console.log('Calling post: ');
       console.log('Being sent to database: ' + this.activityData);
       this.http.post(link, this.activityData).subscribe(
@@ -669,7 +617,7 @@ export class RecordActivityPage {
   deleteActivity() {
     console.log('Deleting activity from database');
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/delete_activity.php';
+      'http://52.227.182.243/Mobile_Connections/delete_activity.php';
 
     console.log('Calling post: ');
     var myData = JSON.stringify({
@@ -716,11 +664,10 @@ export class RecordActivityPage {
 
   // Sends the UserId, ActivityId, Curent Time, lat and lng to server.
   reportUserLocation(lat, lng) {
-    var currentTime = new Date().toLocaleString('en-US', {
-      timeZone: 'America/New_York'
-    });
+    var currentTime = new Date();
+    console.log(currentTime);
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/track_activity.php';
+      'http://52.227.182.243/Mobile_Connections/track_activity.php';
     var myData = JSON.stringify({
       userId: this.activityData.userId,
       activityId: this.currentActivityId,
@@ -728,7 +675,6 @@ export class RecordActivityPage {
       lat: lat,
       lng: lng
     });
-    console.log('Reported user location');
 
     this.http.post(link, myData).subscribe(
       data => {
@@ -746,7 +692,7 @@ export class RecordActivityPage {
     return new Promise((resolve, reject) => {
       console.log('getActivityId Called');
       var link =
-        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/start_activity.php';
+        'http://52.227.182.243/Mobile_Connections/start_activity.php';
       var myData = JSON.stringify({
         userId: this.activityData.userId
       });
@@ -846,5 +792,49 @@ export class RecordActivityPage {
     } else if (this.tempSpeed > 20) {
       this.metScore = 16.0;
     }
+  }
+  getTicketData() {
+    console.log('getTicketData() called');
+  
+    var link =
+      'http://52.227.182.243/Mobile_Connections/add_Trail_Problems.php';
+    var myData = JSON.stringify({
+  
+    });
+    console.log('Calling post...');
+    this.http.post(link, myData).subscribe(data => {
+      var response = data['_body'];
+      console.log('Response: ' + response);
+      console.log("updated build");
+      this.ticketData = JSON.parse(response);
+      var ticketLat, ticketLng, ticketId, ticketType;
+      console.log('Now in ticketData Array: ' + this.ticketData);
+      for (let activity in this.ticketData) {
+      
+        ticketLat = this.ticketData[activity].gpsLat;
+        ticketLng = this.ticketData[activity].gpsLong;
+        ticketId = this.ticketData[activity].ticketId;
+        ticketType = this.ticketData[activity].ticketType;
+        this.addMarker(ticketId, ticketType, ticketLat, ticketLng);
+      }
+    });
+  }
+
+  addMarker(ticketId, ticketType, ticketLat, ticketLng){
+    console.log("In addMarker");
+    let latLng = new google.maps.LatLng(
+      ticketLat,
+      ticketLng
+    );
+    console.log("latlng: " + latLng);
+    var marker;
+    marker = new google.maps.Marker({
+      map: this.map,
+      icon: this.ticketIcon,
+      title: ticketType,
+      position: latLng
+    });
+
+    marker.setMap(this.map);
   }
 }

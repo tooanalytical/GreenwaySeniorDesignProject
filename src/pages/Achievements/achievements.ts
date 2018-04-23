@@ -38,7 +38,7 @@ export class AchievementsPage {
   setBools() {
 
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_achievements.php';
+      'http://52.227.182.243/Mobile_Connections/check_achievements.php';
     var myData = JSON.stringify({
       userId: this.userId
     });

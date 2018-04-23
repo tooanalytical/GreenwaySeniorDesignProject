@@ -39,7 +39,7 @@ export class FeedbackPage {
             var time = date.getTime();
             console.log(time);
             var link =
-              'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/send_feedback.php';
+              'http://52.227.182.243/Mobile_Connections/send_feedback.php';
             var myData = JSON.stringify({
               currentTime: date,
               feedback: data.feedback

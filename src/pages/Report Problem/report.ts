@@ -224,7 +224,7 @@ export class ReportPage {
     this.convertToBase64()
       .then(data => {
         var link =
-          'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/report_problem.php';
+          'http://52.227.182.243/Mobile_Connections/report_problem.php';
         var myData = JSON.stringify({
           userId: this.data.userId,
           selectedProblemType: this.data.selectedProblemType,

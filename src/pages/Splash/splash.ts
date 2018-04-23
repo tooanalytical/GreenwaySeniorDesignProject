@@ -84,7 +84,7 @@ export class SplashPage {
           this.data.from = 'google';
 
           var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_user.php';
+            'http://52.227.182.243/Mobile_Connections/check_user.php';
           var myData = JSON.stringify({
             emailAddress: this.data.emailAddress
           });
@@ -101,7 +101,7 @@ export class SplashPage {
               // If the user has signed in using Google Authentication before pull their account details and send to Dashboard Page
               if (response === '1') {
                 var link =
-                  'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/login_social.php';
+                  'http://52.227.182.243/Mobile_Connections/login_social.php';
                 var myData = JSON.stringify({
                   from: this.data.from,
                   idToken: this.data.idToken

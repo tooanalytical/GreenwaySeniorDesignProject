@@ -44,6 +44,7 @@ import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
 import { CreditsPage } from '../pages/Credits/credits';
 import { FeedbackPage } from '../pages/Feedback/feedback';
+import { TicketsPage } from '../pages/Tickets/tickets';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -77,7 +78,8 @@ import { WeatherProvider } from '../providers/weather/weather';
     AccountDetailsPage,
     AboutPage,
     CreditsPage,
-    FeedbackPage
+    FeedbackPage,
+    TicketsPage
   ],
   imports: [
     BrowserModule,
@@ -113,7 +115,8 @@ import { WeatherProvider } from '../providers/weather/weather';
     AccountDetailsPage,
     AboutPage,
     CreditsPage,
-    FeedbackPage
+    FeedbackPage,
+    TicketsPage
   ],
   providers: [
     StatusBar,

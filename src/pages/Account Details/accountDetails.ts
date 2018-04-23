@@ -363,7 +363,7 @@ export class AccountDetailsPage {
               this.storage.set('fullName', data.first + ' ' + data.last);
               var fullName = data.first + ' ' + data.last;
               var link =
-                'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+                'http://52.227.182.243/Mobile_Connections/edit_user.php';
               var myData = JSON.stringify({
                 userId: this.data.userId,
                 changeField: 'fullName',
@@ -400,7 +400,7 @@ export class AccountDetailsPage {
 
           this.storage.set('userHeight', result[0].description);
           var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            'http://52.227.182.243/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
             userId: this.data.userId,
             changeField: 'intHeight',
@@ -432,7 +432,7 @@ export class AccountDetailsPage {
           this.storage.set('userWeight', result[0].description);
 
           var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            'http://52.227.182.243/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
             userId: this.data.userId,
             changeField: 'intWeight',
@@ -465,7 +465,7 @@ export class AccountDetailsPage {
           this.storage.set('userGender', result[0].description);
 
           var link =
-            'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/edit_user.php';
+            'http://52.227.182.243/Mobile_Connections/edit_user.php';
           var myData = JSON.stringify({
             userId: this.data.userId,
             changeField: 'strGender',

@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+          Open Tickets
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-slides pager="true">
+          <ion-slide *ngFor="let activity of data">
+              <h1 class="ticketId" >Ticket Id #{{activity.ticketId}}</h1>
+          <div class="column text">
+            <h5 class="ticketInfo">Title: {{activity.title}}</h5>
+            <h5 class="ticketInfo">Type: {{activity.type}}</h5>
+            <h5 class="ticketInfo">Description: {{activity.desc}}</h5>
+            <h5 class="ticketInfo">Sumitted: {{activity.dateSub}}</h5>
+            <h5 class="ticketInfo">Urgent: {{activity.urgent}}</h5>
+          </div>
+          <div class="column buttons">
+            <button class="ticketButton">View Image</button>
+            <button class="ticketButton"  id="buttonSpacing" (tap)="addNote(activity.ticketId)">Add Note</button>
+            <button class="ticketButton" id="buttonSpacing" (tap)="closeTicket(activity.ticketId)">Close Ticket</button>
+          </div>
+          </ion-slide>
+        </ion-slides>
+        <div #map id="map"></div>
+  </ion-content>

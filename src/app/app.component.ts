@@ -22,7 +22,7 @@ import { AccountStatisticsPage } from '../pages/Account Statistics/accountStatis
 import { AccountDetailsPage } from '../pages/Account Details/accountDetails';
 import { AboutPage } from '../pages/About/about';
 import { FeedbackPage } from '../pages/Feedback/feedback';
-
+import { TicketsPage } from '../pages/Tickets/tickets';
 @Component({
   templateUrl: 'app.html'
 })
@@ -83,6 +83,11 @@ export class MyApp {
         title: 'ACCOUNT DETAILS',
         component: AccountDetailsPage,
         icon: 'ios-contact'
+      },
+      {
+        title: 'ACTIVE TICKETS',
+        component: TicketsPage,
+        icon: 'bookmarks'
       },
       {
         title: 'ABOUT',

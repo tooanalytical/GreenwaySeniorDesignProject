@@ -75,7 +75,7 @@ export class CreateAccountEmailPage {
   verifyUniqueEmail(): Promise<any> {
     return new Promise((resolve, reject) => {
       var link =
-        'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/check_user.php';
+        'http://52.227.182.243/Mobile_Connections/check_user.php';
 
       var myData = JSON.stringify({
         emailAddress: this.data.emailAddress

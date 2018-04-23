@@ -90,7 +90,7 @@ export class CreateAccountSocialFinishPage {
     this.setUserInfo();
 
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/signup_social.php';
+      'http://52.227.182.243/Mobile_Connections/signup_social.php';
     var myData = JSON.stringify({
       firstName: this.data.firstName,
       lastName: this.data.lastName,

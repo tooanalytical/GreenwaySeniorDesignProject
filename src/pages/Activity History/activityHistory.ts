@@ -29,7 +29,7 @@ export class ActivityHistoryPage {
   getActivityHistoryList() {
     console.log('getActivityHistory() called');
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_activity_history.php';
+      'http://52.227.182.243/Mobile_Connections/get_activity_history.php';
     var myData = JSON.stringify({
       userId: this.userId
     });
@@ -58,7 +58,7 @@ export class ActivityHistoryPage {
   activitySelected(event, activity) {
     console.log('Activity Selected called');
     var link =
-      'https://virdian-admin-portal-whitbm06.c9users.io/Mobile_Connections/get_activity_info.php';
+      'http://52.227.182.243/Mobile_Connections/get_activity_info.php';
     var myData = JSON.stringify({
       activityId: activity.activityId
     });

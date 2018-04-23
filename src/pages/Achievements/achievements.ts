@@ -42,11 +42,11 @@ export class AchievementsPage {
     var myData = JSON.stringify({
       userId: this.userId
     });
-    console.log(myData);
+  
     this.http.post(link, myData).subscribe(data => {
       var response = data['_body'];
       this.data = JSON.parse(response);
-       
+       console.log(JSON.parse(response));
       this.startingStrong = this.data["startingStrong"];
       this.pushIt = this.data["pushIt"];
       this.stopSmellRoses = this.data["stopSmellRoses"];

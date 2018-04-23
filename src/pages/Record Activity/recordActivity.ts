@@ -141,7 +141,7 @@ export class RecordActivityPage {
   ionViewWillEnter() {
     this.loadMap();
     this.watchLocation();
-    this.getTicketData();
+   // this.getTicketData();
 
     //Converting the user height and weight to integers for calculating calories burned.
     this.userHeight = this.convertHeightStringToInteger(this.userHeightString);
@@ -793,6 +793,7 @@ export class RecordActivityPage {
       this.metScore = 16.0;
     }
   }
+  /*
   getTicketData() {
     console.log('getTicketData() called');
   
@@ -837,4 +838,5 @@ export class RecordActivityPage {
 
     marker.setMap(this.map);
   }
+  */
 }

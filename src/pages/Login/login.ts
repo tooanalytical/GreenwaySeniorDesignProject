@@ -65,14 +65,14 @@ export class LoginPage {
         } else if (response === '-1') {
           console.log('User Account is Locked');
           this.loginErrorAlert0AttemptsLeft();
-          this.navCtrl.setRoot(LoginPage);
+          this.navCtrl.pop();
         } else if (response === '-2') {
           console.log('User Account Not Found');
           this.loginErrorUserNotFound();
         } else if (response === '-3') {
           console.log('JSON not valid');
           this.loginErrorJSON();
-        } else {
+        } else if(response === '-4'){
           console.log('Sucessful Login');
 
           var rawReturn = JSON.parse(response);

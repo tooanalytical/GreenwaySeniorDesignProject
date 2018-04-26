@@ -1,9 +1,13 @@
 page-home {
 
     .bg{
-        background: #1a4d02;
+        background: #272727;
     }
     h1,h2,h3,h4,h5{
         color: white;
     }
+    #map {
+        width: 100%;
+        height: 55%;
+      }
 }

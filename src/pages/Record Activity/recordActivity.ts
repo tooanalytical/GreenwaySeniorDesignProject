@@ -39,8 +39,8 @@ export class RecordActivityPage {
   public typeFlag = false;
 
   // Button Color Variables
-  public startButtonColor: string = '#37721b'; //Light Green
-  public resumeButtonColor: string = '#37721b'; //Light Green
+  public startButtonColor: string = '#0841a9'; //Light Green
+  public resumeButtonColor: string = '#0841a9'; //Light Green
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 

@@ -84,11 +84,12 @@ export class MyApp {
         component: AccountDetailsPage,
         icon: 'ios-contact'
       },
-      {
+      /*{
         title: 'ACTIVE TICKETS',
         component: TicketsPage,
         icon: 'bookmarks'
       },
+      */
       {
         title: 'ABOUT',
         component: AboutPage,

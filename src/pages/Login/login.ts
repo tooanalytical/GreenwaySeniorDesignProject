@@ -51,6 +51,7 @@ export class LoginPage {
         var response = data['_body'];
 
         if (response === '4') {
+          console.log(response);
           console.log('4 Attempt Left Password Mismatch');
           this.loginErrorAlert4AttemptsLeft();
         } else if (response === '3') {
@@ -72,7 +73,8 @@ export class LoginPage {
         } else if (response === '-3') {
           console.log('JSON not valid');
           this.loginErrorJSON();
-        } else if(response === '-4'){
+        } else{
+        
           console.log('Sucessful Login');
 
           var rawReturn = JSON.parse(response);
@@ -89,6 +91,7 @@ export class LoginPage {
 
           this.setUserInfo();
           this.navCtrl.setRoot(HomePage);
+          
         }
       },
       error => {

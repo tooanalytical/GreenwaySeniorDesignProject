@@ -16,7 +16,7 @@ export class TrailMapPage {
   // Icon on map displaying user's current location
   public icon = {
     url:
-      'http://52.227.182.243/Mobile_Connections/userpositionIcon.png',
+      '../assets/userposition.png',
     size: new google.maps.Size(22, 22),
     point: new google.maps.Point(0, 18),
     points: new google.maps.Point(11, 11)

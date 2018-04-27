@@ -64,8 +64,7 @@ export class HomePage {
 
   // Marker object containing icon of user's location
   public marker = new google.maps.Marker({
-    map: this.map,
-    icon: this.icon
+    map: this.map
   });
   getUserInfo() {
     this.storage.get('firstName').then(val => {

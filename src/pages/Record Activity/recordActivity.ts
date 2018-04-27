@@ -119,8 +119,7 @@ export class RecordActivityPage {
 
   // Marker object containing icon of user's location
   public marker = new google.maps.Marker({
-    map: this.map,
-    icon: this.icon
+    map: this.map
   });
 
   constructor(

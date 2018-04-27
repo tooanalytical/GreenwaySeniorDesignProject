@@ -14,14 +14,7 @@ export class TrailMapPage {
   map: any;
   ticketData: Array<any>;
   // Icon on map displaying user's current location
-  public icon = {
-    url:
-      '../assets/userposition.png',
-    size: new google.maps.Size(22, 22),
-    point: new google.maps.Point(0, 18),
-    points: new google.maps.Point(11, 11)
-  };
-
+ 
   public ticketIcon = {
     url:
       '../assets/ViridianLogoTicket.png',
@@ -66,7 +59,6 @@ export class TrailMapPage {
         
         let marker = new google.maps.Marker({
           map: this.map,
-          icon: this.icon,
           position: latLng
         });
       },

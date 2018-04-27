@@ -39,8 +39,8 @@ export class RecordActivityPage {
   public typeFlag = false;
 
   // Button Color Variables
-  public startButtonColor: string = '#0841a9'; //Light Green
-  public resumeButtonColor: string = '#0841a9'; //Light Green
+  public startButtonColor: string = '#0841a9'; //Light Blue
+  public resumeButtonColor: string = '#0841a9'; //Light Blue
   public pauseButtonColor: string = '#ff0000'; //Red
   public endButtonColor: string = '#ff0000'; //Red
 
@@ -104,15 +104,24 @@ export class RecordActivityPage {
 
   // Icon on map displaying user's current location
   public icon = {
-    url: '../assets/userposition.png',
+    url:
+      '../assets/userposition.png',
     size: new google.maps.Size(22, 22),
     point: new google.maps.Point(0, 18),
     points: new google.maps.Point(11, 11)
   };
 
   public ticketIcon = {
-    url: 'http://52.227.182.243/images/markerLogo.png'
+    url:
+      'http://52.227.182.243/images/markerLogo.png',
+
   };
+
+  // Marker object containing icon of user's location
+  public marker = new google.maps.Marker({
+    map: this.map,
+    icon: this.icon
+  });
 
   constructor(
     public navCtrl: NavController,
@@ -132,7 +141,7 @@ export class RecordActivityPage {
   ionViewWillEnter() {
     this.loadMap();
     this.watchLocation();
-    // this.getTicketData();
+   // this.getTicketData();
 
     //Converting the user height and weight to integers for calculating calories burned.
     this.userHeight = this.convertHeightStringToInteger(this.userHeightString);
@@ -155,78 +164,63 @@ export class RecordActivityPage {
     }
   }
 
-  // Marker object containing icon of user's location
-  public marker = new google.maps.Marker({
-    map: this.map,
-    icon: this.icon
-  });
-
-  selectTypeWalk() {
+  selectTypeWalk(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go walking?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '1';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType = '1';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
-  selectTypeRun() {
+  selectTypeRun(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go running?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '2';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='2';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
-  selectTypeBike() {
+  selectTypeBike(){
     let alert = this.alertCtrl.create({
       title: 'Confirm Selection',
       subTitle: 'Would you like to go cycling?',
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.activityData.activityType = '3';
-            this.typeFlag = true;
-          }
-        },
-        {
-          text: 'No',
-          handler: () => {
-            this.typeFlag = false;
-            this.navCtrl.setRoot(RecordActivityPage);
-          }
+      buttons: [{
+        text: 'Yes',
+        handler: ()=>{
+          this.activityData.activityType='3';
+          this.typeFlag = true;
         }
-      ]
+      },{
+        text:'No',
+        handler: ()=>{
+          this.typeFlag = false;
+          this.navCtrl.setRoot(RecordActivityPage);
+        }
+      }]
     });
     alert.present();
   }
@@ -601,7 +595,8 @@ export class RecordActivityPage {
     return new Promise((resolve, reject) => {
       // TODO: Save activity to database.
       console.log('Saving Activity Data to Database');
-      var link = 'http://52.227.182.243/Mobile_Connections/end_activity.php';
+      var link =
+        'http://52.227.182.243/Mobile_Connections/end_activity.php';
       console.log('Calling post: ');
       console.log('Being sent to database: ' + this.activityData);
       this.http.post(link, this.activityData).subscribe(
@@ -621,7 +616,8 @@ export class RecordActivityPage {
   // Deletes an active activity's data from the database if the user discards the activity
   deleteActivity() {
     console.log('Deleting activity from database');
-    var link = 'http://52.227.182.243/Mobile_Connections/delete_activity.php';
+    var link =
+      'http://52.227.182.243/Mobile_Connections/delete_activity.php';
 
     console.log('Calling post: ');
     var myData = JSON.stringify({
@@ -670,7 +666,8 @@ export class RecordActivityPage {
   reportUserLocation(lat, lng) {
     var currentTime = new Date();
     console.log(currentTime);
-    var link = 'http://52.227.182.243/Mobile_Connections/track_activity.php';
+    var link =
+      'http://52.227.182.243/Mobile_Connections/track_activity.php';
     var myData = JSON.stringify({
       userId: this.activityData.userId,
       activityId: this.currentActivityId,
@@ -694,7 +691,8 @@ export class RecordActivityPage {
   getActivityId(): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log('getActivityId Called');
-      var link = 'http://52.227.182.243/Mobile_Connections/start_activity.php';
+      var link =
+        'http://52.227.182.243/Mobile_Connections/start_activity.php';
       var myData = JSON.stringify({
         userId: this.activityData.userId
       });

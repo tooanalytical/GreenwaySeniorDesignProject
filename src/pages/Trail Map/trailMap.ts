@@ -24,7 +24,7 @@ export class TrailMapPage {
 
   public ticketIcon = {
     url:
-      'http://52.227.182.243/images/markerLogo.png',
+      '../assets/ViridianLogoTicket.png',
 
   };
   
